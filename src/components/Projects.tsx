@@ -30,7 +30,7 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="py-24 bg-muted/30">
+    <section id="projets" className="py-24 bg-muted/30">
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
           <div className="font-mono text-primary text-sm mb-4">
@@ -38,7 +38,7 @@ const Projects = () => {
           </div>
           
           <h2 className="text-4xl md:text-5xl font-bold mb-16">
-            MISSION <span className="text-primary">ARCHIVES</span>
+            ARCHIVES <span className="text-primary">PROJETS</span>
           </h2>
           
           <div className="grid md:grid-cols-2 gap-6">

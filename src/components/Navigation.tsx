@@ -9,11 +9,11 @@ const Navigation = () => {
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 text-primary">
-            <span className="font-mono text-lg font-bold terminal-cursor">r00t@fl4fl4:~/web/portfolio$</span>
+            <span className="font-mono text-lg font-bold terminal-cursor">4rsi@fl4fl4:~/web/portfolio$</span>
           </div>
           
           <div className="hidden md:flex items-center gap-8">
-            {["about", "skills", "projects", "contact"].map((section) => (
+            {["a propos", "competences", "projets", "me contacter"].map((section) => (
               <button
                 key={section}
                 onClick={() => scrollToSection(section)}

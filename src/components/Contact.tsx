@@ -14,24 +14,52 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import React from 'react';
+
+const CONTACT_CONFIG = {
+  socialLinks: [
+    {
+      name: "LinkedIn",
+      icon: Linkedin,
+      url: "https://www.linkedin.com/in/jean-baptiste-froehly/",
+      handle: "/in/jean-baptiste-froehly",
+    },
+    {
+      name: "GitHub",
+      icon: Github,
+      url: "https://github.com/sirthirrygolooo",
+      handle: "github.com/jb_frhl",
+    },
+    {
+      name: "Adresse Email",
+      icon: Mail,
+      url: "mailto:jean-baptiste.froehly@protonmail.com",
+      handle: "jean-baptiste.froehly@protonmail.com",
+    },
+  ],
+  statusInfo: [
+    { label: "STATUS", value: "OUVERT AUX STAGES" },
+    { label: "RESPONSE", value: "24-48H" },
+  ]
+};
 
 const contactSchema = z.object({
   name: z.string()
-    .trim()
-    .min(1, { message: "Name is required" })
-    .max(100, { message: "Name must be less than 100 characters" }),
+      .trim()
+      .min(1, { message: "Nom requis" })
+      .max(100, { message: "Le nom doit faire moins de 100 caractères" }),
   email: z.string()
-    .trim()
-    .email({ message: "Invalid email address" })
-    .max(255, { message: "Email must be less than 255 characters" }),
+      .trim()
+      .email({ message: "Adresse mail invalide" })
+      .max(255, { message: "L'adresse mail doit faire moins de 255 caractères" }),
   subject: z.string()
-    .trim()
-    .min(1, { message: "Subject is required" })
-    .max(150, { message: "Subject must be less than 150 characters" }),
+      .trim()
+      .min(1, { message: "Sujet requis" })
+      .max(150, { message: "Le sujet doit faire moins de 150 caractères" }),
   message: z.string()
-    .trim()
-    .min(10, { message: "Message must be at least 10 characters" })
-    .max(1000, { message: "Message must be less than 1000 characters" }),
+      .trim()
+      .min(10, { message: "Le message doit faire au moins 10 caractères 😉" })
+      .max(1000, { message: "Le message ne doit pas dépasser 1000 caractères 🥵" }),
 });
 
 type ContactFormValues = z.infer<typeof contactSchema>;
@@ -48,212 +76,190 @@ const Contact = () => {
   });
 
   const onSubmit = async (data: ContactFormValues) => {
+    // fetch('/api/send-email', { method: 'POST', body: JSON.stringify(data) })
+
     console.log("Form data:", data);
-    toast.success("Message received! I'll get back to you soon.");
+
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    toast.success("Message envoyé ! Je reviens vite vers vous.");
     form.reset();
   };
 
-  const socialLinks = [
-    {
-      name: "LinkedIn",
-      icon: Linkedin,
-      url: "#",
-      handle: "@yourprofile",
-    },
-    {
-      name: "GitHub",
-      icon: Github,
-      url: "#",
-      handle: "@yourhandle",
-    },
-    {
-      name: "Email",
-      icon: Mail,
-      url: "mailto:your.email@example.com",
-      handle: "your.email@example.com",
-    },
-  ];
+  const getCurrentTime = () => {
+    const now = new Date();
+    return `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+  };
 
   return (
-    <section id="contact" className="py-24 bg-background">
-      <div className="container mx-auto px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <div className="font-mono text-primary text-sm mb-4">
-              <span className="terminal-cursor">$ initiate contact_protocol</span>
-            </div>
-            
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              ESTABLISH <span className="text-primary">CONNECTION</span>
-            </h2>
-            
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Available for collaboration on cybersecurity projects, AI research, 
-              and technical consultations. Let's build secure, intelligent systems together.
-            </p>
-          </div>
+      <section id="me contacter" className="py-24 bg-background">
+        <div className="container mx-auto px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <div className="font-mono text-primary text-sm mb-4">
+                <span className="terminal-cursor">$ initiate contact_protocol</span>
+              </div>
 
-          <div className="grid md:grid-cols-5 gap-8 items-start">
-            {/* Get In Touch Section */}
-            <div className="md:col-span-2 space-y-8">
-              <div>
-                <h3 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                  <span className="text-primary">▸</span>
-                  GET IN TOUCH
-                </h3>
-                
-                <div className="space-y-4">
-                  {socialLinks.map((link, index) => (
-                    <a
-                      key={index}
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-start gap-4 p-4 bg-card border border-border hover:border-primary/50 transition-all duration-300 group"
-                    >
-                      <div className="p-2 bg-muted group-hover:bg-primary/10 transition-colors">
-                        <link.icon className="w-5 h-5 text-primary" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="font-mono text-sm text-muted-foreground">
-                          {link.name}
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                [<span className="text-primary">{getCurrentTime()}</span>]~$ CONNEXION <span className="text-primary">ÉTABLIE...</span>
+              </h2>
+
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Toujours volontaire pour de nouveaux projets, n'hésitez pas à me contacter via le formulaire ou par l'un des moyens listés ci-dessous.
+                Vous trouverez également de quoi en découvrir un peu plus sur mon travail et mes intérêts.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-5 gap-8 items-start">
+
+              <div className="md:col-span-2 space-y-8">
+
+                <div>
+                  <h3 className="text-2xl font-bold mb-6 flex items-center gap-2 font-mono">
+                    <span className="text-primary">//</span>
+                    <span className="text-lg uppercase">Mes Plateformes</span>
+                  </h3>
+
+                  <div className="space-y-3">
+                    {CONTACT_CONFIG.socialLinks.map((link, index) => (
+                        <a
+                            key={index}
+                            href={link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-3 p-3 font-mono text-sm border-b border-border hover:text-primary transition-colors"
+                        >
+                          <link.icon className="w-4 h-4 text-primary shrink-0" />
+                          <span className="text-muted-foreground">{link.name}:</span>
+                          <span className="truncate flex-1">{link.handle}</span>
+                        </a>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="p-6 bg-muted/30 border border-border mt-8">
+                  <div className="font-mono text-xs space-y-2">
+                    <h4 className="text-sm font-bold mb-3 text-primary uppercase">
+                      Connection Manifest
+                    </h4>
+                    {CONTACT_CONFIG.statusInfo.map((item, index) => (
+                        <div key={index} className="flex justify-between">
+                          <span className="text-primary">[{item.label}]</span>
+                          <span className="text-muted-foreground">{item.value}</span>
                         </div>
-                        <div className="text-sm font-medium group-hover:text-primary transition-colors">
-                          {link.handle}
-                        </div>
-                      </div>
-                    </a>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
 
-              <div className="p-6 bg-muted/30 border border-border">
-                <div className="font-mono text-xs space-y-2">
-                  <div>
-                    <span className="text-primary">[STATUS]</span>
-                    <span className="text-muted-foreground"> OPERATIONAL</span>
-                  </div>
-                  <div>
-                    <span className="text-primary">[RESPONSE]</span>
-                    <span className="text-muted-foreground"> 24-48H</span>
-                  </div>
-                  <div>
-                    <span className="text-primary">[ENCRYPTION]</span>
-                    <span className="text-muted-foreground"> ENABLED</span>
-                  </div>
+              <div className="md:col-span-3">
+                <div className="bg-card border border-border p-8 shadow-xl">
+                  <h3 className="text-2xl font-bold mb-8 flex items-center gap-2 font-mono">
+                    <span className="text-primary">//</span>
+                    <span className="text-lg uppercase">Envoyer un message</span>
+                  </h3>
+
+                  <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <FormField
+                            control={form.control}
+                            name="name"
+                            render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel className="font-mono text-xs text-primary uppercase">
+                                    NOM *
+                                  </FormLabel>
+                                  <FormControl>
+                                    <Input
+                                        placeholder="Gerard Menvussa"
+                                        className="bg-background border-border focus:ring-primary focus:border-primary"
+                                        {...field}
+                                    />
+                                  </FormControl>
+                                  <FormMessage className="text-xs" />
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel className="font-mono text-xs text-primary uppercase">
+                                    EMAIL *
+                                  </FormLabel>
+                                  <FormControl>
+                                    <Input
+                                        type="email"
+                                        placeholder="gerard.menvussa@unmail.com"
+                                        className="bg-background border-border focus:ring-primary focus:border-primary"
+                                        {...field}
+                                    />
+                                  </FormControl>
+                                  <FormMessage className="text-xs" />
+                                </FormItem>
+                            )}
+                        />
+                      </div>
+
+                      <FormField
+                          control={form.control}
+                          name="subject"
+                          render={({ field }) => (
+                              <FormItem>
+                                <FormLabel className="font-mono text-xs text-primary uppercase">
+                                  OBJET *
+                                </FormLabel>
+                                <FormControl>
+                                  <Input
+                                      placeholder="Proposition de projet cyber"
+                                      className="bg-background border-border focus:ring-primary focus:border-primary"
+                                      {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage className="text-xs" />
+                              </FormItem>
+                          )}
+                      />
+
+                      <FormField
+                          control={form.control}
+                          name="message"
+                          render={({ field }) => (
+                              <FormItem>
+                                <FormLabel className="font-mono text-xs text-primary uppercase">
+                                  MESSAGE *
+                                </FormLabel>
+                                <FormControl>
+                                  <Textarea
+                                      placeholder="Décrivez votre projet ici..."
+                                      className="bg-background border-border focus:ring-primary focus:border-primary min-h-[150px] resize-none"
+                                      {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage className="text-xs" />
+                              </FormItem>
+                          )}
+                      />
+
+                      <Button
+                          type="submit"
+                          className="w-full h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-mono text-base tracking-widest transition-all duration-300"
+                          disabled={form.formState.isSubmitting}
+                      >
+                        <Send className="w-5 h-5 mr-3" />
+                        {form.formState.isSubmitting ? "ENVOI EN COURS..." : "ENVOYER LE MESSAGE"}
+                      </Button>
+                    </form>
+                  </Form>
                 </div>
-              </div>
-            </div>
-
-            {/* Contact Form Section */}
-            <div className="md:col-span-3">
-              <div className="bg-card border border-border p-8">
-                <h3 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                  <span className="text-primary">▸</span>
-                  SEND MESSAGE
-                </h3>
-
-                <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <FormField
-                        control={form.control}
-                        name="name"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="font-mono text-xs text-muted-foreground">
-                              NAME
-                            </FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="John Doe"
-                                className="bg-background border-border focus:border-primary"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage className="text-xs" />
-                          </FormItem>
-                        )}
-                      />
-
-                      <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="font-mono text-xs text-muted-foreground">
-                              EMAIL
-                            </FormLabel>
-                            <FormControl>
-                              <Input
-                                type="email"
-                                placeholder="john@example.com"
-                                className="bg-background border-border focus:border-primary"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage className="text-xs" />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-
-                    <FormField
-                      control={form.control}
-                      name="subject"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="font-mono text-xs text-muted-foreground">
-                            SUBJECT
-                          </FormLabel>
-                          <FormControl>
-                            <Input
-                              placeholder="Project collaboration"
-                              className="bg-background border-border focus:border-primary"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage className="text-xs" />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name="message"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="font-mono text-xs text-muted-foreground">
-                            MESSAGE
-                          </FormLabel>
-                          <FormControl>
-                            <Textarea
-                              placeholder="Describe your project or inquiry..."
-                              className="bg-background border-border focus:border-primary min-h-[150px] resize-none"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage className="text-xs" />
-                        </FormItem>
-                      )}
-                    />
-
-                    <Button
-                      type="submit"
-                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-mono"
-                      disabled={form.formState.isSubmitting}
-                    >
-                      <Send className="w-4 h-4 mr-2" />
-                      {form.formState.isSubmitting ? "TRANSMITTING..." : "TRANSMIT MESSAGE"}
-                    </Button>
-                  </form>
-                </Form>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
   );
 };
 

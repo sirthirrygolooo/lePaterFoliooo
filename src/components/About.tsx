@@ -20,11 +20,11 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-24 bg-muted/30">
+    <section id="a propos" className="py-24 bg-muted/30">
       <div className="container mx-auto px-6">
         <div className="max-w-4xl mx-auto">
           <div className="font-mono text-primary text-sm mb-4">
-            <span className="terminal-cursor">$ cat about.txt</span>
+            <span className="terminal-cursor">$ cat about.txt | grep 4rsi</span>
           </div>
           
           <h2 className="text-4xl md:text-5xl font-bold mb-8">

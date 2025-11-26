@@ -3,7 +3,7 @@ import hehe from "@/assets/hehe.gif"
 
 const Hero = () => {
   const scrollToAbout = () => {
-    const element = document.getElementById("about");
+    const element = document.getElementById("a propos");
     element?.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -34,9 +34,9 @@ const Hero = () => {
           </div>
           
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
-            <span className="text-glow">Jean-Baptiste</span>
+            <span className="text-glow">Salut !</span>
             <br />
-            <span className="text-foreground">FROEHLY</span>
+            <span className="text-foreground">Moi, c'est JB</span>
           </h1>
           
           <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
