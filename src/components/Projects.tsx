@@ -2,65 +2,61 @@ import React, { useState, useMemo } from 'react';
 import { ExternalLink, Github, Filter, Code, Zap, Shield, Loader } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-// Nombre initial de projets à afficher
 const INITIAL_PROJECT_COUNT = 4;
-// Nombre de projets ajoutés à chaque clic sur "Charger plus"
 const PROJECTS_INCREMENT = 4;
 
-// --- CONFIGURATION DES PROJETS (Exemples plus concrets) ---
 const ALL_PROJECTS = [
   {
     title: "Version 1 portfolio (HTML/CSS)",
     description: "Première version de portfolio, mais non adoptée in fine car pas forcément assez 'personnalisée' ",
-    tags: ["AstroJS", "TailWind", "Frontend", "Portfolio"],
+    tags: ["Astro", "TailWind", "Frontend", "Portfolio"],
     category: "WebDev",
     githubUrl: "https://github.com/sirthirrygolooo/PortfolioS5V2",
     liveUrl: "https://jean-baptiste-portfolio-bice.vercel.app/",
     icon: Zap,
   },
   {
-    title: "Security Audit Tool (CLI)",
-    description: "A command-line tool developed in Python to automate vulnerability scanning and penetration testing on local network segments, following OWASP guidelines.",
-    tags: ["Penetration Testing", "Python", "Cybersecurity", "Networking", "CLI"],
-    category: "Security",
-    githubUrl: "#",
-    liveUrl: null,
+    title: "Portfolio de stage de S4",
+    description: "Portfolio de compte rendu de stage de S4, réalisé avec AstroJS.",
+    tags: ["Astro", "Tailwind", "Pnpm", "Frontend", "Portfolio"],
+    category: "WebDev",
+    githubUrl: "https://github.com/sirthirrygolooo/portfolio-s4",
+    liveUrl: "https://portfolio-s4-gamma.vercel.app/",
     icon: Shield,
   },
   {
-    title: "Portfolio V2 (React/TS)",
-    description: "This portfolio website built with React, TypeScript, and Tailwind CSS, focusing on performance, mobile responsiveness, and a unique 'terminal' aesthetic.",
-    tags: ["React", "TypeScript", "Tailwind CSS", "Next.js", "Frontend"],
+    title: "Sécurité en Apprentissage automatique",
+    description: "Sujet de stage de semestre 4 portant sur les attaques adversariales en Deep Learning, avec implémentation de plusieurs méthodes d'attaque et de défense.",
+    tags: ["PyTorch", "Deep Learning", "Adversarial Attacks", "AI Security", "Machine Learning", "IBM ART"],
+    category: "Security",
+    githubUrl: "https://github.com/sirthirrygolooo/MLsecurity",
+    liveUrl: null,
+    icon: Code,
+  },
+  {
+    title: "ProCreate: Projet de cours IA",
+    description: "A developper",
+    tags: ["PyTorch", "CNN", "RGB Images", "Image Classification", "Deep Learning"],
     category: "AI",
     githubUrl: "#",
     liveUrl: "#",
     icon: Code,
   },
   {
-    title: "Real-Time Data Visualizer",
-    description: "A web application connecting to a Kafka stream to display real-time sensor data from IoT devices, featuring customizable dashboards and alerts.",
-    tags: ["Java", "Spring Boot", "Kafka", "PostgreSQL", "React", "IoT"],
-    category: "WebDev",
-    githubUrl: "#",
-    liveUrl: "#",
-    icon: Code,
-  },
-  // Ajout de projets fictifs pour tester le bouton "Charger plus"
-  {
-    title: "Project Alpha",
-    description: "Additional project for testing the 'Load More' functionality.",
-    tags: ["Test", "More"],
+    title: "Alpha",
+    description: "A completer",
+    tags: ["1", "2"],
     category: "WebDev",
     githubUrl: "#",
     liveUrl: "#",
     icon: Code,
   },
   {
-    title: "Project Beta",
-    description: "Another additional project for testing the 'Load More' functionality.",
-    tags: ["Test", "More"],
+    title: "Bravo",
+    description: "A completer",
+    tags: ["1", "2"],
     category: "Security",
-    githubUrl: "#",
+    githubUrl: null,
     liveUrl: "#",
     icon: Shield,
   },

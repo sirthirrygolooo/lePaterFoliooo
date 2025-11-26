@@ -107,7 +107,7 @@ const Skills = () => {
             </div>
 
             <h2 className="text-4xl md:text-5xl font-bold mb-16">
-              CONNAISSANCES <span className="text-primary">TECHNIQUES</span>
+              RÉSUMÉ <span className="text-primary">TECHNIQUE</span>
             </h2>
 
             <div className="grid lg:grid-cols-4 gap-12">
