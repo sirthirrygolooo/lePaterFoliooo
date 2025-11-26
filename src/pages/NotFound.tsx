@@ -46,7 +46,7 @@ const NotFound = () => {
               <span className="text-primary">[B4CK_HOME]</span> Returning to safe zone...
             </div>
           </div>
-          
+
           <div className="mt-8 text-center">
             <Link
                 to="/"
