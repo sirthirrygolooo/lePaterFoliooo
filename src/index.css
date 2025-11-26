@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Military-Tech Dark Theme */
+    --background: 220 15% 8%;
+    --foreground: 150 5% 92%;
+
+    --card: 220 15% 10%;
+    --card-foreground: 150 5% 92%;
+
+    --popover: 220 15% 10%;
+    --popover-foreground: 150 5% 92%;
+
+    /* Tactical Green Primary */
+    --primary: 142 76% 45%;
+    --primary-foreground: 220 15% 8%;
+
+    /* Steel Blue Secondary */
+    --secondary: 215 20% 25%;
+    --secondary-foreground: 150 5% 92%;
+
+    --muted: 220 15% 15%;
+    --muted-foreground: 150 5% 60%;
+
+    --accent: 142 76% 45%;
+    --accent-foreground: 220 15% 8%;
+
+    --destructive: 0 75% 50%;
+    --destructive-foreground: 150 5% 92%;
+
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: 142 76% 45%;
+
+    --radius: 0.25rem;
+
+    /* Custom tactical colors */
+    --tactical-grid: 142 76% 45%;
+    --scan-line: 142 50% 60%;
+    --terminal-glow: 142 100% 70%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  }
+}
+
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 20px hsl(var(--terminal-glow) / 0.5);
+  }
+
+  .border-glow {
+    box-shadow: 0 0 10px hsl(var(--terminal-glow) / 0.3);
+  }
+
+  .grid-background {
+    background-image: 
+      linear-gradient(hsl(var(--tactical-grid) / 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--tactical-grid) / 0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
+
+  .scan-line {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scan-line::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, 
+      transparent, 
+      hsl(var(--scan-line) / 0.5), 
+      transparent
+    );
+    animation: scan 3s linear infinite;
+  }
+
+  @keyframes scan {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(100vh); }
+  }
+
+  .terminal-cursor::after {
+    content: '▋';
+    animation: blink 1s step-end infinite;
+    color: hsl(var(--primary));
+  }
+
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+}
