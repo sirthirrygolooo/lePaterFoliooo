@@ -4,7 +4,6 @@ import hehe from "@/assets/hehe.gif"
 import { Button } from "@/components/ui/button";
 
 const Hero = () => {
-    // État pour gérer le survol du bouton CV
     const [isHovering, setIsHovering] = useState(false);
 
     const scrollToAbout = () => {
@@ -14,7 +13,6 @@ const Hero = () => {
 
     const CV_PATH = "/CV.pdf";
 
-    // Texte conditionnel pour le bouton
     const buttonText = isHovering
         ? "wget public/CV.pdf"
         : "Télécharger mon CV";
@@ -33,9 +31,6 @@ const Hero = () => {
             />
 
             <div className="absolute inset-0 z-0 grid-background opacity-50" />
-
-            {/* Scan Line Effect (retiré car non présent dans l'input, mais ré-ajouté si vous le souhaitez) */}
-            {/* <div className="absolute inset-0 z-0 scan-line pointer-events-none" /> */}
 
             <div className="relative z-10 container mx-auto px-6 text-center py-24">
                 <div className="space-y-6 animate-fade-in">
@@ -61,16 +56,16 @@ const Hero = () => {
                             download="FROEHLY_Jean-Baptiste_CV.pdf"
                             target="_blank"
                             rel="noopener noreferrer"
-                            onMouseEnter={() => setIsHovering(true)} // Gère l'événement de survol
-                            onMouseLeave={() => setIsHovering(false)} // Gère l'événement de sortie
-                            className="transition-transform duration-300 hover:scale-[1.03]" // Ajout d'une légère transition à l'ancre
+                            onMouseEnter={() => setIsHovering(true)}
+                            onMouseLeave={() => setIsHovering(false)}
+                            className="transition-transform duration-300 hover:scale-[1.03]"
                         >
                             <Button
                                 variant="default"
                                 className="h-12 px-6 font-mono bg-primary hover:bg-primary/90 text-primary-foreground text-base tracking-widest shadow-lg shadow-primary/20"
                             >
                                 <Download className="w-5 h-5 mr-3" />
-                                {buttonText} {/* Affichage du texte conditionnel */}
+                                {buttonText}
                             </Button>
                         </a>
 
@@ -81,7 +76,7 @@ const Hero = () => {
                                 </a>
                             </Button>
                             <Button variant="outline" size="icon" className="w-12 h-12 hover:bg-muted/30 border-border text-primary" asChild>
-                                <a href="https://github.com/sirthirrygolooo" target="_blank" aria-label="Lien GitHub">
+                                <a href="/NOPE" target="_blank" aria-label="Lien GitHub">
                                     <Github className="w-5 h-5" />
                                 </a>
                             </Button>

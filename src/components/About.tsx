@@ -25,8 +25,8 @@ const About = () => {
     },
     {
       icon: Rocket,
-      title: "Module: Defense-Tech",
-      description: "Intérêt particulier pour les systèmes embarqués, la robotique et la sécurisation des infrastructures critiques et des communications militaires/stratégiques.",
+      title: "Module: Mes couilles en ski",
+      description: "Je sais plus quoi dire la ça me tabasse les burnes",
       color: "text-yellow-500",
     },
   ];
