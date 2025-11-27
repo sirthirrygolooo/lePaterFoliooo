@@ -2,13 +2,12 @@ import React from 'react';
 import { Gamepad, Music, BookOpen, User, Settings, Zap, Repeat, Star, Code, Shield, Brain, Mountain, Dumbbell, Home, GitBranch, Heart, Link, CheckCircle, Clock } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 
-import profilePic from "@/assets/carlos.jpg";
+import profilePic from "@/assets/moi.jpg";
 import placeHolder from "@/assets/cyber.jpg"
 
 
 const personalInfo = {
     name: "Jean-Baptiste",
-    // Texte de remplacement stylisé
     description: "Jeune développeur passionné par le 'reversing engineering' et l'IA, je construis mon expertise autour des systèmes sécurisés et de l'innovation technologique. Mon temps libre est dédié à la compétition stratégique et à la découverte de nouvelles cultures musicales."
 };
 
@@ -20,35 +19,40 @@ const socialLinks = [
 
 const gamingContent = [
     {
-        title: "Valorant",
+        title: "Rainbow Six Siege",
         image: placeHolder,
         genre: "FPS Tactique",
-        // Texte de remplacement
-        review: "Requires high-level system optimization and ultra-low latency connection. Strategic dominance relies on precise micro-management and robust team protocol.",
-        rating: 4.5,
-        tags: ["Tactical", "Competitive", "PC"],
+        review: "Ben c'est le feu quoi. J'ai pas tant aimé la tournue plus accessible qui est arrivée mais toujours sympa d'y retourner",
+        rating: "multi",
+        tags: ["Tactique", "Compétitif", "PC", "Ela Diff"],
     },
     {
         title: "League of Legends",
         image: placeHolder,
-        genre: "MOBA Stratégique",
-        // Texte de remplacement
-        review: "Complex macro-strategy environment. Highly volatile community structure, demanding constant performance optimization and strong communication protocols.",
-        rating: 4.0,
-        tags: ["MOBA", "Strategy", "Teamwork"],
+        genre: "Ex toxique",
+        review: "Obligé de le mettre car j'y ai passé beaucoup trop de temps au lycée mais pitié quel jeu de con (bon je compte pas l'arena)",
+        rating: 'lol',
+        tags: ["MOBA", "Stratégie", "Travail d'équipe (non)"],
     },
     {
-        title: "Elden Ring",
+        title: "Valorant",
         image: placeHolder,
-        genre: "Action-RPG / Monde Ouvert",
-        // Texte de remplacement
-        review: "Masterful world-building and challenging difficulty curve. A test of persistence, resource management, and pattern recognition. Flawless execution required.",
-        rating: 5.0,
-        tags: ["Solo", "Exploration", "Challenge"],
+        genre: "LOL en moins puant",
+        review: "Ben c'est sympa mais pas plus que nécéssaire faut doser pour pas devenir aigri de la vie",
+        rating: "multi",
+        tags: ["FPS", "PAN PAN", "Travail d'équipe (non plus)"],
+    },
+    {
+        title: "Cyberpunk 2077",
+        image: placeHolder,
+        genre: "Action RPG / Monde ouvert",
+        review: "Juste un jeu chevresque en fait ???? Ambiance, immersion, missions mémorables... Et gameplay agréable",
+        rating: 5,
+        tags: ["Solo", "Monde Ouvert", "Futuriste"],
     },
 ];
 
-const watchContent = [ // Renommé pour la clarté
+const watchContent = [
     {
         title: "Vulnérabilités 0-day",
         icon: Shield,
@@ -113,16 +117,39 @@ const personalSettings = [
 ];
 
 const Interests = () => {
-
-    // Composant pour l'affichage des étoiles de notation
-    const RatingStars = ({ rating }) => (
-        <div className="flex items-center text-yellow-400 mt-2">
-            {[...Array(5)].map((_, i) => (
-                <Star key={i} className={`w-4 h-4 ${i < Math.floor(rating) ? 'fill-yellow-400' : 'fill-none'}`} />
-            ))}
-            <span className="ml-2 text-white text-xs">{rating}/5</span>
-        </div>
-    );
+    const RatingStars = ({ rating }) => {
+        if (rating === 'lol') {
+            return (
+                <div className="flex items-center text-red-500 font-mono mt-2">
+                    <span className="font-bold text-lg mr-2">CANCER</span>
+                    <span className="text-sm text-red-400">/5</span>
+                </div>
+            );
+        }
+        if (rating === 'multi') {
+            return (
+                <div className="flex items-center text-blue-500 font-mono mt-2">
+                    <span className="font-bold text-lg mr-2">Jeu Multi</span>
+                </div>
+            );
+        }
+        if (rating === null || rating === undefined) {
+            return (
+                <div className="flex items-center text-muted-foreground font-mono mt-2">
+                    <span className="text-sm italic"></span>
+                </div>
+            );
+        }
+        const normalizedRating = Math.max(0, Math.min(5, parseFloat(rating))); // Assure que la note est entre 0 et 5
+        return (
+            <div className="flex items-center text-yellow-400 mt-2">
+                {[...Array(5)].map((_, i) => (
+                    <Star key={i} className={`w-4 h-4 ${i < Math.floor(normalizedRating) ? 'fill-yellow-400' : 'fill-none'}`} />
+                ))}
+                <span className="ml-2 text-white text-xs">{normalizedRating}/5</span>
+            </div>
+        );
+    };
 
     // Composant d'une carte de la galerie Gaming
     const GamingCard = ({ title, content, image, rating }) => {
@@ -133,7 +160,6 @@ const Interests = () => {
                     transition-transform duration-300 relative h-96 md:h-80
                 `}
             >
-                {/* Image + Overlay (Gaming) */}
                 <img
                     src={image}
                     alt={title}
@@ -154,7 +180,6 @@ const Interests = () => {
         );
     };
 
-    // Composant d'une carte de la galerie Veille (texte)
     const WatchCard = ({ title, content, icon: Icon, color }) => {
         return (
             <div
@@ -257,30 +282,11 @@ const Interests = () => {
                                 </div>
                             </div>
 
-                            {/* Section Gaming (Galerie) */}
-                            <div className="space-y-6 pt-6">
-                                <h3 className="text-2xl font-bold flex items-center gap-3 border-b border-border pb-2">
-                                    <Gamepad className="w-6 h-6 text-primary" />
-                                    // MODULE JEUX & CULTURE <span className="font-mono text-base text-muted-foreground">[ACTIVATED]</span>
-                                </h3>
-                                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                    {gamingContent.map((game, index) => (
-                                        <GamingCard
-                                            key={index}
-                                            title={game.title}
-                                            image={game.image}
-                                            content={game}
-                                            rating={game.rating}
-                                        />
-                                    ))}
-                                </div>
-                            </div>
 
-                            {/* Section VEILLE (Galerie de cartes textuelles) */}
                             <div className="space-y-6 pt-6">
                                 <h3 className="text-2xl font-bold flex items-center gap-3 border-b border-border pb-2">
                                     <BookOpen className="w-6 h-6 text-primary" />
-                                    // MODULE VEILLE <span className="font-mono text-base text-muted-foreground">[SCANNING]</span>
+                                    // MODULE VEILLE INFORMATIQUE <span className="font-mono text-base text-muted-foreground">[SCANNING]</span>
                                 </h3>
                                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                                     {watchContent.map((topic, index) => (
@@ -295,7 +301,24 @@ const Interests = () => {
                                 </div>
                             </div>
 
-                            {/* NOUVELLE Section HOBBIES & SPORTS (Galerie d'images avec overlay) */}
+                            <div className="space-y-6 pt-6">
+                                <h3 className="text-2xl font-bold flex items-center gap-3 border-b border-border pb-2">
+                                    <Gamepad className="w-6 h-6 text-primary" />
+                                    // MODULE JEUX VIDEALS <span className="font-mono text-base text-muted-foreground">[ACTIVATED]</span>
+                                </h3>
+                                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    {gamingContent.map((game, index) => (
+                                        <GamingCard
+                                            key={index}
+                                            title={game.title}
+                                            image={game.image}
+                                            content={game}
+                                            rating={game.rating}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+
                             <div className="space-y-6 pt-6">
                                 <h3 className="text-2xl font-bold flex items-center gap-3 border-b border-border pb-2">
                                     <Zap className="w-6 h-6 text-primary" />

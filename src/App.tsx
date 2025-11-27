@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import Interests from "@/pages/interests.tsx";
+import Interests from "@/pages/Interests.tsx";
 import JournalPage from "@/pages/JournalPage.tsx";
 import AdminPanel from "@/pages/AdminPanel.tsx";
 // IMPORT DU NOUVEAU COMPOSANT

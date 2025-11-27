@@ -10,10 +10,8 @@ const CompatibilityWarning = () => {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
-        // Vérifie si l'utilisateur a déjà fermé l'alerte durant cette session
         const dismissed = sessionStorage.getItem(SESSION_KEY);
 
-        // Nous affichons l'alerte seulement si elle n'a jamais été fermée dans la session
         if (dismissed !== 'true') {
             setIsVisible(true);
         }
@@ -50,7 +48,7 @@ const CompatibilityWarning = () => {
                             variant="ghost"
                             className="h-8 px-3 text-xs font-mono text-yellow-400 hover:bg-yellow-900/40"
                         >
-                            ACKNOWLEDGE & CLOSE
+                            RECU EN AVANT !
                         </Button>
                     </div>
                 </div>

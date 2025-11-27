@@ -8,13 +8,14 @@ interface Command {
     secretRoute?: string;
 }
 
+// CONST UTILISATEURS
+
 const ADMIN_USER = "4rsi_root";
 const GUEST_USER = "guest";
 
-// --- DÉFINITION DES ASCII ART ALÉATOIRES (5 OPTIONS) ---
+// --- ASCII ART ---
 
 const ASCII_ART_SET = [
-    // 1. Pixel Art Complexe (Fourni par l'utilisateur)
     `⣿⣿⡿⣫⣾⠏⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⢀⣀⣀⣀⣀⠄⠄⠄⠄⠄⠄
 ⣿⡇⠱⠉⠁⠄⠄⠄⠄⠄⠄⢀⣀⣤⣶⣶⣿⣿⣿⣿⣿⣿⣿⣦⠄⠄⠄⠄⠄
 ⣿⡇⠄⠄⠄⠄⠄⢀⣠⣛⡩⣩⣭⡹⣿⣿⣿⣿⠞⣛⣛⣛⡲⣿⡇⠄⠄⠄⠄
@@ -30,7 +31,6 @@ const ASCII_ART_SET = [
 ⣿⣿⣦⢒⠤⣅⡶⣶⣶⣾⣿⣿⣿⣷⣶⣮⣍⠢⠄⠄⠄⠄⠄⠐⢠⣾⣿⣿⣿⣿
 ⣿⣿⣿⣧⡐⠫⣉⡿⣬⡞⢿⣿⢯⠽⣶⡽⢟⣛⢖⣨⣛⠛⢃⣴⣿⣿⣿⣿⣿⣿`,
 
-    // 2. Art Complexe 2 (Fourni par l'utilisateur)
     `⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠿⠿⠿⠿⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⣉⡥⠶⢶⣿⣿⣿⣿⣷⣆⠉⠛⠿⣿⣿⣿⣿⣿⣿⣿
 ⣿⣿⣿⣿⣿⣿⣿⡿⢡⡞⠁⠀⠀⠤⠈⠿⠿⠿⠿⣿⠀⢻⣦⡈⠻⣿⣿⣿⣿⣿
@@ -45,7 +45,6 @@ const ASCII_ART_SET = [
 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣇⢸⣿⣿⣿⣿⣿⣿⣿⠁⣿⣿⣿⣿⣿⣿⣿⣿⣿
     `,
 
-    // 3. Simple Pattern (Fourni par l'utilisateur)
     `░░░░░░░░░░░░░░░░░█████░░░░░░░░░░░░░░░░░░
 ░░░░░░░░░░░░░████░░░░░███░░░░░░░░░░░░░░░
 ░░░░██████████░░░░░░████████████░░░░░░░░
@@ -64,7 +63,6 @@ const ASCII_ART_SET = [
 ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
     `,
 
-    // 4. Cat (Fourni par l'utilisateur)
     `⢀⡴⠑⡄⠀⠀⠀⠀⠀⠀⠀⣀⣀⣤⣤⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ 
 ⠸⡇⠀⠿⡀⠀⠀⠀⣀⡴⢿⣿⣿⣿⣿⣿⣿⣿⣷⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀ 
 ⠀⠀⠀⠀⠑⢄⣠⠾⠁⣀⣄⡈⠙⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀ 
@@ -82,7 +80,6 @@ const ASCII_ART_SET = [
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠻⠿⠿⠿⠿⠛⠉
     `,
 
-    // 5. I AM BACK (Fourni par l'utilisateur)
     `────────────────────────
 ─────────▄▀▀▀▀▀▀▀▄──────
 ────────█▒▒▒▒▒▒▒▒▒█─────
@@ -102,8 +99,6 @@ const ASCII_ART_SET = [
     `,
 ];
 
-// --- FIN DE LA DÉFINITION DES ARTS ---
-
 const COMMANDS: Command[] = [
     { command: "help", output: "COMMANDS:\n  help - Display this help message.\n  ls - List files in current directory.\n  ls -la - List files with details (HINT).\n  su [user] - Switch user (HINT).\n  cd [directory] - Change directory.\n  whoami - Display current user.\n  cat [file] - Display file content.\n  ping [host] - Test network connectivity (fake).\n  clear - Clear the terminal.\n  exit - Close the terminal session.\n  neofetch - Display system information" },
     { command: "ls", output: "  ./about.txt    ./projects.log    ./skills.list    ./contact.data    ./secrets/" },
@@ -111,6 +106,7 @@ const COMMANDS: Command[] = [
         command: "ls -la",
         output: `  total 24\n  drwxr-xr-x 7 ${ADMIN_USER} staff 224 Nov 27 00:00 .\n  drwxr-xr-x 8 ${ADMIN_USER} staff 256 Nov 27 00:00 ..\n  -rw-r--r-- 1 ${ADMIN_USER} staff 575 Nov 27 00:00 about.txt\n  drwx------ 3 ${ADMIN_USER} staff 96 Nov 27 00:00 secrets/`
     },
+    { command: "cat secrets/DONT_README.txt", output: "  Hehe" },
     { command: "whoami", output: (args, privilegeLevel) => `  Current User: ${privilegeLevel === 'admin' ? ADMIN_USER : GUEST_USER} (Privilege Level: ${privilegeLevel})` },
 
     { command: "cat about.txt", output: "  [INFO] Personal portfolio information.\n  [HINT] Try 'cat'ing other files or 'cd'ing into directories." },
@@ -120,11 +116,10 @@ const COMMANDS: Command[] = [
 
     { command: "ping", output: (args) => args[1] ? `  Pinging ${args[1]} [127.0.0.1] with 32 bytes of data:\n  Reply from 127.0.0.1: bytes=32 time<1ms TTL=128\n  Reply from 127.0.0.1: bytes=32 time<1ms TTL=128\n  Reply from 0.0.0.0: Destination Host Unreachable\n  Ping statistics for 127.0.0.1:\n      Packets: Sent = 3, Received = 2, Lost = 1 (33% loss),\n  Approximate round trip times in milli-seconds:\n      Minimum = 0ms, Maximum = 0ms, Average = 0ms` : "  Usage: ping [host]" },
 
-    // --- COMMANDE NEOFETCH ---
+    // --- NEOFETCH ---
     {
         command: "neofetch",
         output: () => {
-            // Choix aléatoire de l'ASCII Art
             const randomArtIndex = Math.floor(Math.random() * ASCII_ART_SET.length);
             const asciiArt = ASCII_ART_SET[randomArtIndex];
 
@@ -144,7 +139,6 @@ const COMMANDS: Command[] = [
 
             let result = [''];
 
-            // Fusionner l'ASCII Art et les données
             for (let i = 0; i < Math.max(lines.length, data.length); i++) {
                 const ascii = lines[i] || ' ';
                 const info = data[i] || '';
@@ -155,15 +149,14 @@ const COMMANDS: Command[] = [
         }
     },
 
-    // --- COMMANDES SECRÈTES ET PIÈGES ---
+    // --- COMMANDES SECRÈTES / BAIT ---
     {
-        command: "cat secrets/journal.txt",
-        output: "  [ACCESS GRANTED] Redirecting to personal journal...\n  Reading 'journal.txt' reveals deep insights.\n  Navigating to /journal...",
+        command: "cat secrets/beaver.txt",
+        output: "  [ACCESS GRANTED] Redirecting to hidden space...\n  Reading 'beaver.txt' reveals deep insights.\n  Navigating to /hidden...",
         secretRoute: "/journal"
     },
-    // SORTIE STYLÉE POUR exec backdoor.sh
     {
-        command: "exec backdoor.sh",
+        command: "exec .backdoor.sh",
         output: `  [INITIALIZING] ./backdoor.sh -f --force_injection
   [SEARCHING] Target: Session ID... FOUND (0x45B9C)
   [INJECTING] Payload size: 1.2KB | Encryption bypass: AES-128
@@ -189,6 +182,10 @@ const COMMANDS: Command[] = [
   Redirection to 仪表盘秘密...`,
         secretRoute: "/chin4_l34k"
     },
+    {
+        command: "sudo su",
+        output: "  [ERROR] Not allowed to run sudo.\n  Hint: Maybe try a less privileged command to reveal some secrets."
+    },
 ];
 
 interface TerminalProps {
@@ -205,14 +202,13 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
     const inputRef = useRef<HTMLInputElement>(null);
     const navigate = useNavigate();
 
-    // Focus l'input à l'ouverture
+    // Focus l'input à l'ouverture - parce que les gens se plaignent ces gros bébés
     useEffect(() => {
         if (isOpen && inputRef.current) {
             inputRef.current.focus();
         }
     }, [isOpen]);
 
-    // Scroll automatique vers le bas
     useEffect(() => {
         if (terminalRef.current) {
             terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
@@ -250,6 +246,10 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
                 setPrivilegeLevel("admin");
                 newOutput.push(`  Authentication successful for user '${ADMIN_USER}'.`);
                 newOutput.push("  Privilege level elevated to 'admin'.");
+            } else if (targetUser === GUEST_USER) {
+                setPrivilegeLevel("guest");
+                newOutput.push(`  Switched to user '${GUEST_USER}'.`);
+                newOutput.push("  Privilege level set to 'guest'.");
             } else if (!targetUser) {
                 newOutput.push("  Usage: su [username]");
             } else {
@@ -285,18 +285,25 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
             return;
         }
 
-        // --- LOGIQUE LS ---
+        // --- LS ---
         if (cmd === "ls") {
-            if (currentDir === "~" && args[1] === "-la") {
+            if (currentDir === "~" && (args[1] === "-la" || args[1] === "-al")) {
                 newOutput.push(...COMMANDS.find(c => c.command === 'ls -la')?.output.split('\n') || []);
-            }
-            else if (currentDir === "~" || args[1] === undefined || args[1] === "." ) {
-                newOutput.push("  ./about.txt    ./projects.log    ./skills.list    ./contact.data    ./secrets/");
+            } else if ( currentDir === "secrets" && (args[1] == "-la" || args[1] === "-al")) {
+                newOutput.push("  total 16");
+                newOutput.push(`  drwx------ 3 ${ADMIN_USER} staff 96 Nov 27 00:00 .`);
+                newOutput.push(`  drwxr-xr-x 7 ${ADMIN_USER} staff 224 Nov 27 00:00 ..`);
+                newOutput.push(`  -rw-r--r-- 1 ${ADMIN_USER} staff 2048 Nov 27 00:00 DONT_README.txt - (READ ONLY)`);
+                newOutput.push(`  --x--x--x 1 ${ADMIN_USER} staff 1024 Nov 27 00:00 script.sh - (EXECUTE ONLY)`);
+                newOutput.push(`  -rw-r--r-- 1 ${ADMIN_USER} staff 2048 Nov 27 00:00 .beaver.txt - (READ ONLY)`);
+                newOutput.push(`  --x--x--x 1 ${ADMIN_USER} staff 1024 Nov 27 00:00 .backdoor.sh - (EXECUTE ONLY)`);
             } else if (currentDir === "secrets" || args[1] === "secrets") {
                 newOutput.push("  ../");
-                newOutput.push("  journal.txt - (READ ONLY)");
-                newOutput.push("  backdoor.sh - (EXECUTE ONLY)");
+                newOutput.push("  DONT_README.txt (READ ONLY)");
+                newOutput.push("  script.sh - (EXECUTE ONLY)");
                 newOutput.push("  [HINT] Use appropriate action (cat/exec) for these files.");
+            } else if (currentDir === "~" || args[1] === undefined || args[1] === "." ) {
+                newOutput.push("  ./about.txt    ./projects.log    ./skills.list    ./contact.data    ./secrets/");
             } else {
                 newOutput.push(`  ls: cannot access '${args[1]}': No such file or directory`);
             }
@@ -304,16 +311,14 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
             return;
         }
 
-        // --- LOGIQUE NEOFETCH ---
+        // --- NEOFETCH ---
         if (cmd === "neofetch") {
             const neofetchCommand = COMMANDS.find(c => c.command === 'neofetch');
             if (neofetchCommand) {
                 const outputFunction = neofetchCommand.output as (args: string[]) => string;
                 const fetchOutput = outputFunction(args);
 
-                // Clear avant d'afficher
                 setOutput([]);
-                // Afficher le contenu de neofetch
                 newOutput = [fetchOutput];
                 setOutput(newOutput);
                 return;
@@ -321,7 +326,7 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
         }
 
 
-        // --- LOGIQUE DE JEU (RECHERCHE DE COMMANDE) ---
+        // --- LOGIQUE DE JEU ---
 
         let foundCommand = COMMANDS.find(c => {
             if (c.command === fullCommand) return true;
@@ -330,19 +335,25 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
             return false;
         });
 
-        // Correction pour les commandes cat/exec dans le répertoire secrets
         let secretAccessCommand: string | undefined;
 
-        if (cmd === 'cat' && currentDir === 'secrets' && args[1] === 'journal.txt') {
-            secretAccessCommand = 'cat secrets/journal.txt';
+        if (cmd === 'cat' && currentDir === 'secrets' && args[1] === 'beaver.txt') {
+            secretAccessCommand = 'cat secrets/beaver.txt';
 
-            // GESTION DES PERMISSIONS
+            // PERMISSIONS
             if (privilegeLevel === GUEST_USER) {
-                newOutput.push(`  cat: secrets/journal.txt: Permission denied. Access level: ${privilegeLevel}.`);
+                newOutput.push(`  cat: secrets/beaver.txt: Permission denied. Access level: ${privilegeLevel}.`);
                 newOutput.push("  [HINT] Try to find the root user of the system with 'ls -la' and switch user.");
                 setOutput(newOutput);
                 return;
             }
+        }
+
+        if (cmd === 'cat' && currentDir === 'secrets' && args[1] === 'DONT_README.txt') {
+            newOutput.push(`  Hehe`);
+            newOutput.push("  Haha");
+            setOutput(newOutput);
+            return;
         }
 
         if (cmd === 'exec' && currentDir === 'secrets' && args[1] === 'backdoor.sh') {
@@ -353,18 +364,15 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
             foundCommand = COMMANDS.find(c => c.command === secretAccessCommand);
         }
 
-        // --- EXÉCUTION DE LA COMMANDE ---
+        // --- EXEC COMMANDE ---
 
         if (foundCommand) {
-            // Passe le privilegeLevel à la fonction d'output (nécessaire pour whoami/neofetch)
             let commandOutput = typeof foundCommand.output === 'function' ? foundCommand.output(args, privilegeLevel) : foundCommand.output;
             newOutput.push(...commandOutput.split('\n'));
 
             if (foundCommand.secretRoute) {
                 newOutput.push(`  [SUCCESS] Opening secret route: ${foundCommand.secretRoute} in new window...`);
                 setOutput(newOutput);
-
-                // Redirection dans un nouvel onglet
                 setTimeout(() => {
                     window.open(foundCommand.secretRoute!, '_blank');
                 }, 1500);
@@ -394,15 +402,15 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
 
     if (!isOpen) return null;
 
-    // Détermine le symbole du prompt (# pour admin, > pour guest)
-    const promptSymbol = privilegeLevel === 'admin' ? '#' : '>';
+    //  symbole du prompt (# pour admin, > pour guest)
+    const promptSymbol = privilegeLevel === 'admin' ? '#' : ' >';
     const promptColor = privilegeLevel === 'admin' ? 'text-red-500' : 'text-primary';
 
     return (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
             <div className="w-full max-w-3xl h-[600px] bg-gray-900 border border-primary/50 shadow-2xl flex flex-col font-mono text-white relative">
 
-                {/* Barre de titre du terminal */}
+                {/* Titre du terminal */}
                 <div className="flex items-center justify-between bg-primary/20 text-primary p-2 border-b border-primary/50">
                     <div className="flex items-center gap-2">
                         <TerminalIcon className="w-4 h-4" />
@@ -412,8 +420,6 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
                         <X className="w-4 h-4" />
                     </button>
                 </div>
-
-                {/* Zone de sortie du terminal */}
                 <div ref={terminalRef} className="flex-1 p-4 overflow-y-auto text-sm custom-scrollbar">
                     {output.map((line, index) => (
                         <pre key={index} className="whitespace-pre-wrap leading-relaxed">
@@ -421,9 +427,11 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
                         </pre>
                     ))}
                     <div className="flex items-center mt-2">
-                        {/* Prompt dynamique et coloré */}
                         <span className={`mr-2 flex-shrink-0 ${promptColor}`}>
-                            $ {currentDir}{promptSymbol}
+                            <span className={`mr-2 flex-shrink-0 ${promptColor}`}>
+                                {currentDir === '~' ? `$ ~/${promptSymbol}` : `$ /${currentDir} ${promptSymbol}`}
+                            </span>
+
                         </span>
                         <input
                             ref={inputRef}
@@ -431,7 +439,7 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
                             className="flex-1 bg-transparent border-none outline-none text-white caret-primary"
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
-                            onKeyPress={handleKeyPress}
+                            onKeyUp={handleKeyPress}
                             autoCapitalize="off"
                             spellCheck="false"
                         />
