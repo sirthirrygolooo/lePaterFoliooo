@@ -62,7 +62,7 @@ const Hero = () => {
                         >
                             <Button
                                 variant="default"
-                                className="h-12 px-6 font-mono bg-primary hover:bg-primary/90 text-primary-foreground text-base tracking-widest shadow-lg shadow-primary/20"
+                                className="h-12 px-6 font-mono bg-primary hover:bg-primary text-primary-foreground text-base tracking-widest shadow-lg shadow-primary/20"
                             >
                                 <Download className="w-5 h-5 mr-3" />
                                 {buttonText}

@@ -8,13 +8,13 @@ import placeHolder from "@/assets/cyber.jpg"
 
 const personalInfo = {
     name: "Jean-Baptiste",
-    description: "Jeune développeur passionné par le 'reversing engineering' et l'IA, je construis mon expertise autour des systèmes sécurisés et de l'innovation technologique. Mon temps libre est dédié à la compétition stratégique et à la découverte de nouvelles cultures musicales."
+    description: "Jeune développeur passionné par le 'reversing engineering' et l'IA (non), je construis mon expertise autour des systèmes sécurisés et de l'innovation technologique. (la gueule de l'expertise) Mon temps libre est dédié à la compétition stratégique (ptn l'ia ça formule bien) et à la découverte de nouvelles cultures musicales."
 };
 
 const socialLinks = [
-    { key: "RootMe", url: "#", icon: Shield }, // Utilisé Shield pour le côté CTF/Hack
-    { key: "Discord", url: "#", icon: Heart }, // Heart / Discord = Communauté
-    { key: "Instagram", url: "#", icon: Zap }, // Zap / Instagram = Dynamisme/Activité
+    { key: "RootMe", url: "#", icon: Shield },
+    { key: "Discord", url: "#", icon: Heart },
+    { key: "Instagram", url: "#", icon: Zap },
 ];
 
 const gamingContent = [
@@ -54,9 +54,9 @@ const gamingContent = [
 
 const watchContent = [
     {
-        title: "Vulnérabilités 0-day",
+        title: "Exploit Database (exploit-db.com)",
         icon: Shield,
-        description: "Comprendre les failles de sécurité avant qu'elles ne soient connues, pour anticiper les menaces.",
+        description: "Suivi des dernières CVE, Vulnérabilités et POOC dans le domaine de la cybersécurité.",
         tags: ["Cybersécurité", "Recherche"],
         color: "text-red-400",
     },
@@ -78,33 +78,31 @@ const watchContent = [
 
 const hobbiesSportsContent = [ // Nouvelle structure pour la galerie d'images
     {
-        title: "Musculation",
+        title: "Musculation / Street workout",
         image: "https://placehold.co/600x400/3b82f6/FFFFFF?text=MUSCULATION", // Placeholder image
         description: "Force et endurance, un équilibre entre le physique et le mental. Entraînement régulier et varié.",
         tags: ["Fitness", "Force", "Discipline"],
         icon: Dumbbell, // Icône pour un petit rappel visuel
     },
     {
-        title: "Randonnée / Nature",
+        title: "Course trail",
         image: "https://placehold.co/600x400/10b981/FFFFFF?text=RANDONNEE", // Placeholder image
         description: "Recharge mentale en pleine nature, découverte de nouveaux paysages et challenges physiques.",
         tags: ["Outdoor", "Exploration", "Détente"],
         icon: Mountain,
-    },
-    {
-        title: "Échecs en Ligne",
-        image: "https://placehold.co/600x400/ef4444/FFFFFF?text=ECHECS", // Placeholder image
+    },{
+        title: "Randonnée",
+        image: "https://placehold.co/600x400/ef4444/FFFFFF?text=Hehe", // Placeholder image
+        description: "Stimulation intellectuelle intense, stratégie et anticipation. Parties rapides ou analyses profondes.",
+        tags: ["Stratégie", "Mental", "Réflexion"],
+        icon: GitBranch, // Peut être remplacé par Chess si vous l'ajoutez
+    },{
+        title: "Tir et Milsim",
+        image: "https://placehold.co/600x400/ef4444/FFFFFF?text=Hehe", // Placeholder image
         description: "Stimulation intellectuelle intense, stratégie et anticipation. Parties rapides ou analyses profondes.",
         tags: ["Stratégie", "Mental", "Réflexion"],
         icon: GitBranch, // Peut être remplacé par Chess si vous l'ajoutez
     },
-    {
-        title: "Cyclisme Urbain",
-        image: "https://placehold.co/600x400/8b5cf6/FFFFFF?text=CYCLISME", // Exemple d'ajout
-        description: "Déplacement rapide et écologique en ville, parfait pour rester actif et explorer de nouveaux quartiers.",
-        tags: ["Sport", "Urbain", "Écologie"],
-        icon: Zap,
-    }
 ];
 
 
@@ -303,6 +301,30 @@ const Interests = () => {
 
                             <div className="space-y-6 pt-6">
                                 <h3 className="text-2xl font-bold flex items-center gap-3 border-b border-border pb-2">
+                                    <Music className="w-6 h-6 text-red-500" />
+                                    ./ AUDIO <span className="font-mono text-base text-muted-foreground">[NOW PLAYING]</span>
+                                </h3>
+
+                                <div className="p-4 border border-border bg-gray-800 shadow-xl rounded-xl">
+                                    <h4 className="font-mono text-sm text-green-400 mb-3 flex items-center gap-2">
+                                        <Repeat className="w-3 h-3"/> STYLES FAVORIS : METAL <Heart className="w-3 h-3 text-red-500"/> / ROCK INDUSTRIEL / TECHNO & AMBIENT
+                                    </h4>
+                                    <iframe
+                                        data-testid="embed-iframe"
+                                        style={{ borderRadius: '12px' }}
+                                        src="https://open.spotify.com/embed/playlist/1ZnMOBidXz5feD9X71EwEa?utm_source=generator&theme=0"
+                                        width="100%"
+                                        height="352"
+                                        frameBorder="0"
+                                        allowFullScreen={true}
+                                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                                        loading="lazy">
+                                    </iframe>
+                                </div>
+                            </div>
+
+                            <div className="space-y-6 pt-6">
+                                <h3 className="text-2xl font-bold flex items-center gap-3 border-b border-border pb-2">
                                     <Gamepad className="w-6 h-6 text-primary" />
                                     // MODULE JEUX VIDEALS <span className="font-mono text-base text-muted-foreground">[ACTIVATED]</span>
                                 </h3>
@@ -335,31 +357,6 @@ const Interests = () => {
                                             icon={activity.icon}
                                         />
                                     ))}
-                                </div>
-                            </div>
-
-                            {/* Intégration Spotify (Module Audio) */}
-                            <div className="space-y-6 pt-6">
-                                <h3 className="text-2xl font-bold flex items-center gap-3 border-b border-border pb-2">
-                                    <Music className="w-6 h-6 text-red-500" />
-                                    ./ AUDIO <span className="font-mono text-base text-muted-foreground">[NOW PLAYING]</span>
-                                </h3>
-
-                                <div className="p-4 border border-border bg-gray-800 shadow-xl rounded-xl">
-                                    <h4 className="font-mono text-sm text-green-400 mb-3 flex items-center gap-2">
-                                        <Repeat className="w-3 h-3"/> STYLES FAVORIS : METAL <Heart className="w-3 h-3 text-red-500"/> / ROCK INDUSTRIEL / TECHNO & AMBIENT
-                                    </h4>
-                                    <iframe
-                                        data-testid="embed-iframe"
-                                        style={{ borderRadius: '12px' }}
-                                        src="https://open.spotify.com/embed/playlist/1ZnMOBidXz5feD9X71EwEa?utm_source=generator&theme=0"
-                                        width="100%"
-                                        height="352"
-                                        frameBorder="0"
-                                        allowFullScreen={true}
-                                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                                        loading="lazy">
-                                    </iframe>
                                 </div>
                             </div>
 

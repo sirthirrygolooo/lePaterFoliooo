@@ -22,7 +22,6 @@ All colors MUST be HSL.
     --primary: 142 76% 45%;
     --primary-foreground: 220 15% 8%;
 
-    /* Steel Blue Secondary */
     --secondary: 215 20% 25%;
     --secondary-foreground: 150 5% 92%;
 
@@ -30,7 +29,9 @@ All colors MUST be HSL.
     --muted-foreground: 150 5% 60%;
 
     --accent: 142 76% 45%;
-    --accent-foreground: 220 15% 8%;
+
+    /* White */
+    --accent-foreground: white;
 
     --destructive: 0 75% 50%;
     --destructive-foreground: 150 5% 92%;
@@ -41,7 +42,6 @@ All colors MUST be HSL.
 
     --radius: 0.25rem;
 
-    /* Custom tactical colors */
     --tactical-grid: 142 76% 45%;
     --scan-line: 142 50% 60%;
     --terminal-glow: 142 100% 70%;
@@ -73,9 +73,9 @@ All colors MUST be HSL.
   }
 
   .grid-background {
-    background-image: 
-      linear-gradient(hsl(var(--tactical-grid) / 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(var(--tactical-grid) / 0.05) 1px, transparent 1px);
+    background-image:
+            linear-gradient(hsl(var(--tactical-grid) / 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, hsl(var(--tactical-grid) / 0.05) 1px, transparent 1px);
     background-size: 30px 30px;
   }
 
@@ -99,12 +99,12 @@ All colors MUST be HSL.
   }
 
   .custom-scrollbar::-webkit-scrollbar-track {
-    background: #333;
+    background: hsl(var(--muted));
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background-color: #555;
+    background-color: hsl(var(--secondary));
     border-radius: 4px;
-    border: 2px solid #333;
+    border: 2px solid hsl(var(--muted));
   }
 }
