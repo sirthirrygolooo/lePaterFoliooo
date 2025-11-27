@@ -15,7 +15,7 @@ const ADMIN_USER = "4rsi_root";
 const GUEST_USER = "guest";
 
 const COMMANDS: Command[] = [
-    { command: "help", output: "COMMANDS:\n  help - Display this help message.\n  ls - List files in current directory.\n  ls -la - List files with details (HINT).\n  su [user] - Switch user (HINT).\n  cd [directory] - Change directory.\n  whoami - Display current user.\n  cat [file] - Display file content.\n  ping [host] - Test network connectivity (fake).\n  clear - Clear the terminal." },
+    { command: "help", output: "COMMANDS:\n  help - Display this help message.\n  ls - List files in current directory.\n  ls -la - List files with details (HINT).\n  su [user] - Switch user (HINT).\n  cd [directory] - Change directory.\n  whoami - Display current user.\n  cat [file] - Display file content.\n  ping [host] - Test network connectivity (fake).\n  clear - Clear the terminal.\n  exit - Close the terminal session." },
     { command: "ls", output: "  ./about.txt    ./projects.log    ./skills.list    ./contact.data    ./secrets/" },
     {
         command: "ls -la",
@@ -59,7 +59,7 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
     const [privilegeLevel, setPrivilegeLevel] = useState(GUEST_USER); // 'guest' ou 'admin'
     const terminalRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
-    const navigate = useNavigate(); // Garder navigate au cas où d'autres redirections internes seraient nécessaires
+    const navigate = useNavigate();
 
     // Focus l'input à l'ouverture
     useEffect(() => {
@@ -84,6 +84,16 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
 
         const promptSymbol = privilegeLevel === 'admin' ? '#' : '>';
         newOutput.push(`$ ${currentDir}${promptSymbol} ${commandLine}`);
+
+        // --- NOUVELLE LOGIQUE EXIT (PRIORITAIRE) ---
+        if (cmd === "exit") {
+            newOutput.push("  Closing session. Goodbye!");
+            setOutput(newOutput);
+            setTimeout(() => {
+                onClose();
+            }, 500);
+            return;
+        }
 
         // --- COMMANDES DE BASE UNIQUES ---
         if (cmd === "clear") {
@@ -195,12 +205,9 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
                 newOutput.push(`  [SUCCESS] Opening secret route: ${foundCommand.secretRoute} in new window...`);
                 setOutput(newOutput);
 
-                // NOUVEAU: Redirection dans un nouvel onglet
+                // Redirection dans un nouvel onglet
                 setTimeout(() => {
                     window.open(foundCommand.secretRoute!, '_blank');
-                    // Nous laissons le terminal ouvert ou le fermons selon préférence.
-                    // Pour ne pas briser la session, je le laisse ouvert.
-                    // onClose(); // <-- Commenté pour garder la session active
                 }, 1500);
                 return;
             }
