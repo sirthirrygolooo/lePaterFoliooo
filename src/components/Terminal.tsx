@@ -100,7 +100,7 @@ const ASCII_ART_SET = [
 ];
 
 const COMMANDS: Command[] = [
-    { command: "help", output: "COMMANDS:\n  help - Display this help message.\n  ls - List files in current directory.\n  ls -la - List files with details (HINT).\n  su [user] - Switch user (HINT).\n  cd [directory] - Change directory.\n  whoami - Display current user.\n  cat [file] - Display file content.\n  ping [host] - Test network connectivity (fake).\n  clear - Clear the terminal.\n  exit - Close the terminal session.\n  neofetch - Display system information" },
+    { command: "help", output: "COMMANDS:\n  help - Display this help message.\n  ls - List files in current directory.\n  ls -la - List files with details (HINT).\n  su [user] - Switch user (HINT).\n  cd [directory] - Change directory.\n  whoami - Display current user.\n  cat [file] - Display file content.\n  ping [host] - Test network connectivity\n  clear - Clear the terminal.\n  exit - Close the terminal session.\n  neofetch - Display system information" },
     { command: "ls", output: "  ./about.txt    ./projects.log    ./skills.list    ./contact.data    ./secrets/" },
     {
         command: "ls -la",
@@ -151,12 +151,12 @@ const COMMANDS: Command[] = [
 
     // --- COMMANDES SECRÈTES / BAIT ---
     {
-        command: "cat secrets/beaver.txt",
-        output: "  [ACCESS GRANTED] Redirecting to hidden space...\n  Reading 'beaver.txt' reveals deep insights.\n  Navigating to /hidden...",
+        command: "cat secrets/.beaver.txt",
+        output: "  [ACCESS GRANTED] Redirecting to hidden space...\n  Reading '.beaver.txt' reveals deep insights.\n  Navigating to /hidden...",
         secretRoute: "/journal"
     },
     {
-        command: "exec .backdoor.sh",
+        command: "exec secrets/.backdoor.sh",
         output: `  [INITIALIZING] ./backdoor.sh -f --force_injection
   [SEARCHING] Target: Session ID... FOUND (0x45B9C)
   [INJECTING] Payload size: 1.2KB | Encryption bypass: AES-128
@@ -186,6 +186,11 @@ const COMMANDS: Command[] = [
         command: "sudo su",
         output: "  [ERROR] Not allowed to run sudo.\n  Hint: Maybe try a less privileged command to reveal some secrets."
     },
+    {
+        command: "exec secrets/script.sh",
+        output: `  [INITIALIZING] ./script.sh`,
+        secretRoute: "/scripted"
+    }
 ];
 
 interface TerminalProps {
@@ -337,12 +342,12 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
 
         let secretAccessCommand: string | undefined;
 
-        if (cmd === 'cat' && currentDir === 'secrets' && args[1] === 'beaver.txt') {
-            secretAccessCommand = 'cat secrets/beaver.txt';
+        if (cmd === 'cat' && currentDir === 'secrets' && args[1] === '.beaver.txt') {
+            secretAccessCommand = 'cat secrets/.beaver.txt';
 
             // PERMISSIONS
             if (privilegeLevel === GUEST_USER) {
-                newOutput.push(`  cat: secrets/beaver.txt: Permission denied. Access level: ${privilegeLevel}.`);
+                newOutput.push(`  cat: secrets/.beaver.txt: Permission denied. Access level: ${privilegeLevel}.`);
                 newOutput.push("  [HINT] Try to find the root user of the system with 'ls -la' and switch user.");
                 setOutput(newOutput);
                 return;
@@ -356,8 +361,12 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
             return;
         }
 
-        if (cmd === 'exec' && currentDir === 'secrets' && args[1] === 'backdoor.sh') {
-            secretAccessCommand = 'exec backdoor.sh';
+        if (cmd === 'exec' && currentDir === 'secrets' && args[1] === '.backdoor.sh') {
+            secretAccessCommand = 'exec secrets/.backdoor.sh';
+        }
+
+        if (cmd === 'exec' && currentDir === 'secrets' && args[1] === 'script.sh') {
+            secretAccessCommand = 'exec secrets/script.sh';
         }
 
         if (secretAccessCommand) {
