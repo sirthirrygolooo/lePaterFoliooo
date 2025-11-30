@@ -3,7 +3,6 @@ import { Shield, Brain, Radio, Code, Database, Rocket } from "lucide-react";
 
 const About = () => {
 
-  // Données des modules d'intérêt
   const interests = [
     {
       icon: Shield,
@@ -33,9 +32,9 @@ const About = () => {
 
   const stats = [
     { label: "Année d'étude", value: "3ème année" },
-    { label: "Repos Github", value: "53" },
     { label: "Languages principaux", value: "Java, Python" },
-    { label: "Domaines favoris", value: "Cybersécurité & IA" },
+    { label: "Points Root-Me 💀", value: "845" },
+    { label: "Domaines favoris", value: "Cybersécurité & IA" }
   ];
 
   return (
@@ -134,6 +133,13 @@ const About = () => {
                       &ldquo;Toujours baisé, jamais surpris&rdquo;
                     </p>
                     <p className="text-xs mt-2 text-primary/70">— Devise Personnelle</p>
+                  </div>
+
+                  <div className="border border-primary/50 p-4 bg-primary/10 font-mono text-sm text-primary">
+                    <p className="italic">
+                      Un &ldquo;cat about.txt&rdquo; dans le terminal pourrait t'en apprendre davantage sur moi...
+                    </p>
+                    <p className="text-xs mt-2 text-primary/70">— Petit secret</p>
                   </div>
                 </div>
               </div>

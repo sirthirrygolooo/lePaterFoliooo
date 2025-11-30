@@ -8,9 +8,9 @@ import NotFound from "./pages/NotFound";
 import Interests from "@/pages/Interests.tsx";
 import JournalPage from "@/pages/JournalPage.tsx";
 import AdminPanel from "@/pages/AdminPanel.tsx";
-// IMPORT DU NOUVEAU COMPOSANT
+
 import CompatibilityWarning from "@/components/CompatibilityWarning.tsx";
-import Navigation from "@/components/Navigation"; // Assurez-vous d'importer la navigation si elle est utilisée dans Index
+import Navigation from "@/components/Navigation";
 
 const queryClient = new QueryClient();
 
@@ -20,9 +20,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-
           <CompatibilityWarning />
-
           <Routes>
             <Route path="/" element={<Index />} />
 

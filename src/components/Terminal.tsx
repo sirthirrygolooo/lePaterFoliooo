@@ -109,7 +109,7 @@ const COMMANDS: Command[] = [
     { command: "cat secrets/DONT_README.txt", output: "  Hehe" },
     { command: "whoami", output: (args, privilegeLevel) => `  Current User: ${privilegeLevel === 'admin' ? ADMIN_USER : GUEST_USER} (Privilege Level: ${privilegeLevel})` },
 
-    { command: "cat about.txt", output: "  [INFO] Personal portfolio information.\n  [HINT] Try 'cat'ing other files or 'cd'ing into directories." },
+    { command: "cat about.txt", output: "  [INFO] Personal portfolio information.\n", secretRoute: "/4rsi_about_area" },
     { command: "cat projects.log", output: "  [INFO] List of projects. Use the 'projects' section for details." },
     { command: "cat skills.list", output: "  [INFO] Technical skills details. See the 'competences' section." },
     { command: "cat contact.data", output: "  [INFO] Contact information. Use the 'me contacter' section." },
@@ -130,14 +130,14 @@ const COMMANDS: Command[] = [
                 `Kernel: 5.15.0-js-x64`,
                 `Uptime: ${Math.floor(Math.random() * 50)} days`,
                 `Packages: 2200 (npm, yarn, bun)`,
-                `Shell: bash (simulated)`,
+                `Shell: bâche v5.8`,
                 `CPU: Untel Core i42 (Virtual)`,
                 `GPU: AMD Geforce RTX 6090 Ti`,
                 `Theme: Cyber-Terminal`,
-                `Lang: TypeScript, Python, Java`,
+                `Lang: TypeScript, React, HTML, CSS`,
             ];
 
-            let result = [''];
+            const result = [''];
 
             for (let i = 0; i < Math.max(lines.length, data.length); i++) {
                 const ascii = lines[i] || ' ';
@@ -376,7 +376,7 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
         // --- EXEC COMMANDE ---
 
         if (foundCommand) {
-            let commandOutput = typeof foundCommand.output === 'function' ? foundCommand.output(args, privilegeLevel) : foundCommand.output;
+            const commandOutput = typeof foundCommand.output === 'function' ? foundCommand.output(args, privilegeLevel) : foundCommand.output;
             newOutput.push(...commandOutput.split('\n'));
 
             if (foundCommand.secretRoute) {

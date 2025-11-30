@@ -1,21 +1,25 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
-import Terminal from "./Terminal"; // Assurez-vous du chemin correct
-import { Terminal as TerminalIcon, X } from "lucide-react"; // Importez l'icône Terminal
+import PseudoTerminal from "./Terminal";
+import TerminalHint from "./TerminalHint"; // NOUVEL IMPORT
+import { Terminal as TerminalIcon, X } from "lucide-react";
 
 const Navigation = () => {
-  const [isTerminalOpen, setIsTerminalOpen] = useState(false); // État pour le terminal
+  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
   const location = useLocation();
+  const terminalButtonRef = useRef<HTMLButtonElement>(null); // RÉFÉRENCE POUR LA BULLE
 
   const scrollToSection = (id: string) => {
-    // Vérifie si la section existe sur la page actuelle
     if (location.pathname !== "/") {
-      // Si on n'est pas sur la page d'accueil, on y navigue d'abord
       window.location.href = `/#${id}`;
     } else {
       const element = document.getElementById(id);
       element?.scrollIntoView({ behavior: "smooth" });
     }
+  };
+
+  const handleOpenTerminal = () => {
+    setIsTerminalOpen(true);
   };
 
   return (
@@ -41,9 +45,10 @@ const Navigation = () => {
                     </button>
                 ))}
 
-                {/* Nouveau Bouton Terminal */}
+                {/* Bouton Terminal avec Réf */}
                 <button
-                    onClick={() => setIsTerminalOpen(true)}
+                    ref={terminalButtonRef} // Application de la référence
+                    onClick={handleOpenTerminal}
                     className="ml-4 p-2 rounded-full bg-primary/20 text-primary hover:bg-primary/40 transition-colors duration-200"
                     aria-label="Open Terminal"
                 >
@@ -54,8 +59,12 @@ const Navigation = () => {
           </div>
         </nav>
 
-        {/* Rendre le composant Terminal */}
-        <Terminal isOpen={isTerminalOpen} onClose={() => setIsTerminalOpen(false)} />
+        {/* Rendre le Hint et le Terminal */}
+        <TerminalHint
+            terminalButtonRef={terminalButtonRef}
+            onOpenTerminal={handleOpenTerminal}
+        />
+        <PseudoTerminal isOpen={isTerminalOpen} onClose={() => setIsTerminalOpen(false)} />
       </>
   );
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Gamepad, Music, BookOpen, User, Settings, Zap, Repeat, Star, Code, Shield, Brain, Mountain, Dumbbell, Home, GitBranch, Heart, Link, CheckCircle, Clock } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+import { Navigation } from '@/components/Navigation';
 
 import profilePic from "@/assets/moi.jpg";
 import placeHolder from "@/assets/cyber.jpg"
@@ -8,14 +9,13 @@ import placeHolder from "@/assets/cyber.jpg"
 
 const personalInfo = {
     name: "Jean-Baptiste",
-    description: "Jeune développeur passionné par le 'reversing engineering' et l'IA (non), je construis mon expertise autour des systèmes sécurisés et de l'innovation technologique. (la gueule de l'expertise) Mon temps libre est dédié à la compétition stratégique (ptn l'ia ça formule bien) et à la découverte de nouvelles cultures musicales."
+    description: "Jeune développeur, j'aime "
 };
 
 const socialLinks = [
-    { key: "RootMe", url: "#", icon: Shield },
-    { key: "Discord", url: "#", icon: Heart },
-    { key: "Instagram", url: "#", icon: Zap },
-];
+    { key: "RootMe", url: "https://www.root-me.org/Sir_thirrygolooo?lang=fr#6bd5f588460a47903a3a0835147fe9ed", icon: Shield },
+    { key: "Discord (sir_thirrygolooo)", url: null, icon: Heart },
+    { key: "Instagram", url: "https://www.instagram.com/j_b.frhl/", icon: Zap },];
 
 const gamingContent = [
     {
@@ -246,6 +246,7 @@ const Interests = () => {
             <div className="container mx-auto px-6">
                 <div className="max-w-6xl mx-auto">
 
+
                     {/* Entête Terminal */}
                     <div className="font-mono text-primary text-sm mb-4">
                         <span className="terminal-cursor">$ DECODE P3RSONAL_CIPHER.DATA --output D3CODED.data</span>
@@ -253,7 +254,20 @@ const Interests = () => {
 
                     <h2 className="text-4xl md:text-5xl font-bold mb-16">
                         ~$ CAT <span className="text-red-500">./D3CODED.DATA | grep personal</span>
+
+                        <div className="text-center pt-8">
+                            <a href="/" aria-label="Retour à la page d'accueil">
+                                <Button
+                                    variant="outline"
+                                    className="h-12 px-6 font-mono border-primary text-primary hover:bg-primary/10 transition-colors rounded-lg"
+                                >
+                                    <Home className="w-5 h-5 mr-3" />
+                                    cd /home/
+                                </Button>
+                            </a>
+                        </div>
                     </h2>
+
 
                     <div className="grid lg:grid-cols-4 gap-12">
 
