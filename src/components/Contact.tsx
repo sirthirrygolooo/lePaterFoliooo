@@ -15,8 +15,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import React, { useEffect } from 'react';
+import emailjs from '@emailjs/browser';
 
-const CONTACT_FORM_ENDPOINT = '/api/contact';
+// --- CONFIGURATION EMAILJS (REMPLACEZ CES VALEURS !) ---
+// Ces identifiants sont nécessaires pour que l'envoi fonctionne.
+const SERVICE_ID = 'service_wy9xpkl';
+const TEMPLATE_ID = 'template_tkiudm5';
+const PUBLIC_KEY = 'C31kL0680g3qaho0p';
+// ----------------------------------------------------
+
 
 const CONTACT_CONFIG = {
   socialLinks: [
@@ -68,6 +75,13 @@ type ContactFormValues = z.infer<typeof contactSchema>;
 
 const Contact = () => {
 
+  // Optionnel: S'assurer que le service est initialisé au chargement (si vous utilisez le SDK npm)
+  useEffect(() => {
+    if (PUBLIC_KEY && PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
+      // emailjs.init(PUBLIC_KEY); // Optionnel si l'envoi direct est utilisé
+    }
+  }, []);
+
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
@@ -80,34 +94,35 @@ const Contact = () => {
 
   const onSubmit = async (data: ContactFormValues) => {
 
-    if (CONTACT_FORM_ENDPOINT === '/api/contact') {
-      console.warn("Endpoint non configuré. Simulation d'envoi.");
-      toast.warning("L'envoi : mode simu / config. CONTACT_FORM_ENDPOINT.");
+    // Vérification de la configuration
+    if (SERVICE_ID === 'YOUR_SERVICE_ID' || TEMPLATE_ID === 'YOUR_TEMPLATE_ID' || PUBLIC_KEY === 'YOUR_PUBLIC_KEY') {
+      console.warn("EmailJS non configuré. Simulation d'envoi.");
+      toast.warning("L'envoi est en mode simulation. Configurez vos identifiants EmailJS.");
       form.reset();
       return;
     }
 
-    try {
-      const response = await fetch(CONTACT_FORM_ENDPOINT, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
+    // Construction de l'objet de données pour EmailJS
+    const templateParams = {
+      user_name: data.name,
+      user_email: data.email,
+      subject: data.subject,
+      message: data.message,
+    };
 
+    try {
+      // Envoi via emailjs.send
+      const response = await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY);
+
+      // Simuler le délai de soumission pour l'effet UX
       await new Promise(resolve => setTimeout(resolve, 500));
 
-
-      if (response.ok || response.status === 200 || response.status === 204) {
+      if (response.status === 200) {
         toast.success("Message envoyé ! Je reviens vite vers vous.");
         form.reset();
       } else {
-        const errorData = await response.json();
-        const errorMessage = errorData.message || response.statusText;
-
-        console.error("Erreur de soumission:", response.status, errorMessage);
-        toast.error(`Échec de l'envoi: ${errorMessage}.`);
+        console.error("Erreur EmailJS:", response);
+        toast.error(`Échec de l'envoi (Code ${response.status}). Vérifiez votre configuration EmailJS.`);
       }
 
     } catch (error) {
