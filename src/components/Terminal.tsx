@@ -106,7 +106,7 @@ const COMMANDS: Command[] = [
         command: "ls -la",
         output: `  total 24\n  drwxr-xr-x 7 ${ADMIN_USER} staff 224 Nov 27 00:00 .\n  drwxr-xr-x 8 ${ADMIN_USER} staff 256 Nov 27 00:00 ..\n  -rw-r--r-- 1 ${ADMIN_USER} staff 575 Nov 27 00:00 about.txt\n  drwx------ 3 ${ADMIN_USER} staff 96 Nov 27 00:00 secrets/`
     },
-    { command: "cat secrets/DONT_README.txt", output: "  Hehe" },
+    { command: "cat secrets/DONT_README.txt", output: " Eh non ! Il n'y a rien içi voyons ! Ce serait beaucoup trop simple !" },
     { command: "whoami", output: (args, privilegeLevel) => `  Current User: ${privilegeLevel === 'admin' ? ADMIN_USER : GUEST_USER} (Privilege Level: ${privilegeLevel})` },
 
     { command: "cat about.txt", output: "  [INFO] Personal portfolio information.\n", secretRoute: "/4rsi_about_area" },
@@ -355,8 +355,7 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
         }
 
         if (cmd === 'cat' && currentDir === 'secrets' && args[1] === 'DONT_README.txt') {
-            newOutput.push(`  Hehe`);
-            newOutput.push("  Haha");
+            newOutput.push(`Eh non ! Il n'y a rien içi voyons ! Ce serait beaucoup trop simple !`);
             setOutput(newOutput);
             return;
         }

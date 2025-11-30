@@ -61,7 +61,7 @@ const TerminalHint: React.FC<TerminalHintProps> = ({ terminalButtonRef, onOpenTe
                 </div>
 
                 <p className="text-muted-foreground mb-3">
-                    En haut à droite de cette page se trouve un petit bouton pour ouvrir un terminal... Essayez la commande <span className="text-primary font-semibold">`help`</span> pour commencer !
+                    En haut à droite de cette page se trouve un petit bouton pour ouvrir un terminal... Essayez la commande <span className="text-primary font-semibold">`help`</span> pour commencer ! Qui sait, peut-être accéderiez-vous à certaines choses...
                 </p>
 
                 <Button
