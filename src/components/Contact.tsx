@@ -14,7 +14,9 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import React from 'react';
+import React, { useEffect } from 'react';
+
+const CONTACT_FORM_ENDPOINT = '/api/contact';
 
 const CONTACT_CONFIG = {
   socialLinks: [
@@ -65,6 +67,7 @@ const contactSchema = z.object({
 type ContactFormValues = z.infer<typeof contactSchema>;
 
 const Contact = () => {
+
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
@@ -76,14 +79,41 @@ const Contact = () => {
   });
 
   const onSubmit = async (data: ContactFormValues) => {
-    // fetch('/api/send-email', { method: 'POST', body: JSON.stringify(data) })
 
-    console.log("Form data:", data);
+    if (CONTACT_FORM_ENDPOINT === '/api/contact') {
+      console.warn("Endpoint non configuré. Simulation d'envoi.");
+      toast.warning("L'envoi : mode simu / config. CONTACT_FORM_ENDPOINT.");
+      form.reset();
+      return;
+    }
 
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    try {
+      const response = await fetch(CONTACT_FORM_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
 
-    toast.success("Message envoyé ! Je reviens vite vers vous.");
-    form.reset();
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+
+      if (response.ok || response.status === 200 || response.status === 204) {
+        toast.success("Message envoyé ! Je reviens vite vers vous.");
+        form.reset();
+      } else {
+        const errorData = await response.json();
+        const errorMessage = errorData.message || response.statusText;
+
+        console.error("Erreur de soumission:", response.status, errorMessage);
+        toast.error(`Échec de l'envoi: ${errorMessage}.`);
+      }
+
+    } catch (error) {
+      console.error("Erreur réseau/connexion:", error);
+      toast.error("Erreur de connexion. Veuillez vérifier votre réseau.");
+    }
   };
 
   const getCurrentTime = () => {

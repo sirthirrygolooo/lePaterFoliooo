@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { ExternalLink, Github, Filter, Code, Zap, Shield, Loader } from "lucide-react";
+import { ExternalLink, Github, Filter, Code, Zap, Shield, Loader, FlaskRoundIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const INITIAL_PROJECT_COUNT = 4;
@@ -7,17 +7,8 @@ const PROJECTS_INCREMENT = 4;
 
 const ALL_PROJECTS = [
   {
-    title: "Version 1 portfolio (HTML/CSS)",
-    description: "Première version de portfolio, mais non adoptée in fine car pas forcément assez 'personnalisée' ",
-    tags: ["Astro", "TailWind", "Frontend", "Portfolio"],
-    category: "WebDev",
-    githubUrl: "https://github.com/sirthirrygolooo/PortfolioS5V2",
-    liveUrl: "https://jean-baptiste-portfolio-bice.vercel.app/",
-    icon: Zap,
-  },
-  {
     title: "Portfolio de stage de S4",
-    description: "Portfolio de compte rendu de stage de S4, réalisé avec AstroJS.",
+    description: "Portfolio de compte rendu de stage de S4, réalisé avec AstroJS. Projet front et qui permet d'expliquer d'un point de vue compétences, mon stage de Semestre 4",
     tags: ["Astro", "Tailwind", "Pnpm", "Frontend", "Portfolio"],
     category: "WebDev",
     githubUrl: "https://github.com/sirthirrygolooo/portfolio-s4",
@@ -26,38 +17,83 @@ const ALL_PROJECTS = [
   },
   {
     title: "Sécurité en Apprentissage automatique",
-    description: "Sujet de stage de semestre 4 portant sur les attaques adversariales en Deep Learning, avec implémentation de plusieurs méthodes d'attaque et de défense.",
-    tags: ["PyTorch", "Deep Learning", "Adversarial Attacks", "AI Security", "Machine Learning", "IBM ART"],
+    description: "Sujet de stage de semestre 4 portant sur les attaques \"adversaires\" et \"backdoor\" en Deep Learning sur de la classification d'images, avec implémentation de plusieurs méthodes d'attaque et de défense.",
+    tags: ["PyTorch", "Deep Learning","CNN", "Adversarial Attacks", "AI Security", "Machine Learning", "IBM ART"],
     category: "Security",
     githubUrl: "https://github.com/sirthirrygolooo/MLsecurity",
     liveUrl: null,
     icon: Code,
   },
   {
+    title: "Version Alpha de mon portfolio (HTML/CSS)",
+    description: "Première version de portfolio, non adoptée in fine car certes , mais ne me représentait pas vraiment.",
+    tags: ["Astro", "TailWind", "Frontend", "Portfolio"],
+    category: "WebDev",
+    githubUrl: "https://github.com/sirthirrygolooo/PortfolioS5V2",
+    liveUrl: "https://jean-baptiste-portfolio-bice.vercel.app/",
+    icon: Zap,
+  },
+  {
     title: "ProCreate: Projet de cours IA",
-    description: "A developper",
+    description: "Projet de cours d'IA mélant Chatbot (LLM) et classification d'images sur la base d'un dataset RGB.",
     tags: ["PyTorch", "CNN", "RGB Images", "Image Classification", "Deep Learning"],
     category: "AI",
     githubUrl: "#",
-    liveUrl: "#",
+    liveUrl: "https://github.com/rCaruhel/S5IA_ProCreate",
     icon: Code,
   },
   {
-    title: "Alpha",
-    description: "A completer",
-    tags: ["1", "2"],
+    title: "TouilleurDeVidéo: Projet de cours Programmation Média",
+    description: "Projet visant à faire du chiffrement/déchiffrement vidéo en temps réel via différents algos. (Même principe que chiffrement canal+ à l'ancienne)",
+    tags: ["Java", "OpenCV","JavaFX", "Video Processing", "Media Programming"],
     category: "WebDev",
-    githubUrl: "#",
-    liveUrl: "#",
+    githubUrl: "https://github.com/sirthirrygolooo/TouilleurDeVideo",
+    liveUrl: null,
     icon: Code,
   },
   {
-    title: "Bravo",
-    description: "A completer",
-    tags: ["1", "2"],
+    title: "BIP - Projets et codes Webot",
+    description: "Mes projets sur webot, dans le cadre d'un Blended Intensive Program sur l'IA et la robotique",
+    tags: ["Computer Vision", "SLAM", "LIDAR", "Robotics", "Webot", "Path Following"],
+    category: "Other",
+    githubUrl: "https://github.com/sirthirrygolooo/WEBOT_projects_BIP",
+    liveUrl: null,
+    icon: Shield,
+  },
+  {
+    title: "BIP - Code Projet - #tests",
+    description: "Partie webot de tests pour le rendu final du projet",
+    tags: ["Computer Vision", "SLAM", "LIDAR", "Robotics", "Webot", "Path Following"],
+    category: "AI",
+    githubUrl: "https://github.com/aqfel/AI-in-Robotics/tree/Tests",
+    liveUrl: null,
+    icon: Shield,
+  },
+  {
+    title: "Analyse de Dataset - CICIoV2024 - Voitures connectées",
+    description: "Analyse et classification de données issues de BUS CAN pour analyse des différentes attaques réseau sur véhicules connectés.(Quelle attaque sur quel composant et quel type)",
+    tags: ["ML", "Python", "Tree", "Apprentissage supervisé", "Regression linéaire", "RandomForest", "XGBoost", "LightGBM"],
+    category: "AI",
+    githubUrl: "https://github.com/sirthirrygolooo/CICIoV2024-Dataset-Analysis-Project",
+    liveUrl: null,
+    icon: Shield,
+  },
+  {
+    title: "Discord X operaGX Nitro Exploit",
+    description: "Projet que j'avais fait pour me familiariser avec les requêtes web en python et les proxys. Petit exploit sur un partenariat entre l'application Discord et l'application OperaGX qui permet de générer à volonté des liens nitro (version payante discord). [PLUS A JOUR : PARTENARIAT FINI]",
+    tags: ["Discord", "Python", "Requêtes", "Proxies"],
     category: "Security",
-    githubUrl: null,
-    liveUrl: "#",
+    githubUrl: "https://github.com/sirthirrygolooo/CICIoV2024-Dataset-Analysis-Project",
+    liveUrl: null,
+    icon: Shield,
+  },
+  {
+    title: "DDoSCord : Projet à visée éducative uniquement",
+    description: "Projet que j'avais fait à l'époque pour mieux comprendre python et le fonctionnement de discord. Il récupère globalement beaucoup d'informations et quelques mots de passe si exécuté sur une machine windows [PLUS A JOUR NON PLUS] (discord a évolué en matière de sécurité)",
+    tags: ["Discord", "Cryptography", "TokenGrab", "Proxies"],
+    category: "Security",
+    githubUrl: "https://github.com/sirthirrygolooo/DDosCord",
+    liveUrl: null,
     icon: Shield,
   },
 ];
@@ -67,6 +103,7 @@ const CATEGORY_MAP = {
   WebDev: { label: "WEB/APP", icon: Code, color: "text-blue-500" },
   AI: { label: "IA/MACHINE LEARNING", icon: Zap, color: "text-red-500" },
   Security: { label: "CYBERSÉCURITÉ", icon: Shield, color: "text-green-500" },
+  Other: { label: "AUTRE", icon: FlaskRoundIcon, color: "text-gray-400" },
 };
 
 const Projects = () => {
