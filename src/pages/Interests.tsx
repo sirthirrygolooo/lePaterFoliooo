@@ -132,7 +132,7 @@ const recentReadsContent = [
 const hobbiesSportsContent = [
     {
         title: "Randonnée / Trail",
-        image: "https://placehold.co/600x400/065f46/FFFFFF?text=TRAIL",
+        image: suchez,
         description: "Recharge mentale en pleine nature, découverte de nouveaux paysages et challenges physiques.",
         tags: ["Outdoor", "Exploration", "Détente"],
         icon: Mountain,
