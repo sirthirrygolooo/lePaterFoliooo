@@ -1,7 +1,6 @@
 import React from 'react';
-import { Gamepad, Music, BookOpen, User, Settings, Zap, Repeat, Star, Code, Shield, Brain, Mountain, Dumbbell, Home, GitBranch, Heart, Link, CheckCircle, Clock } from 'lucide-react';
+import { Gamepad, Music, BookOpen, User, Settings, Zap, Repeat, Star, Code, Shield, Brain, Mountain, Dumbbell, Home, GitBranch, Heart, Link, CheckCircle, Clock, List } from 'lucide-react'; // Ajout de List
 import { Button } from "@/components/ui/button";
-import { Navigation } from '@/components/Navigation';
 
 import profilePic from "@/assets/moi.jpg";
 import placeHolder from "@/assets/cyber.jpg"
@@ -9,20 +8,21 @@ import placeHolder from "@/assets/cyber.jpg"
 
 const personalInfo = {
     name: "Jean-Baptiste",
-    description: "Jeune développeur, j'aime "
+    description: "Bon ben du coup moi c'est JB ! J'aime particulièrement le métal et le vieux rock des années 80 (mon spotify wrapper me donne 62 ans 💀)... Ah et aussi le code, la cybersécurité et les jeux vidéo bien sûr !",
 };
 
 const socialLinks = [
     { key: "RootMe", url: "https://www.root-me.org/Sir_thirrygolooo?lang=fr#6bd5f588460a47903a3a0835147fe9ed", icon: Shield },
     { key: "Discord (sir_thirrygolooo)", url: null, icon: Heart },
-    { key: "Instagram", url: "https://www.instagram.com/j_b.frhl/", icon: Zap },];
+    { key: "Instagram", url: "https://www.instagram.com/j_b.frhl/", icon: Zap },
+];
 
 const gamingContent = [
     {
         title: "Rainbow Six Siege",
         image: placeHolder,
         genre: "FPS Tactique",
-        review: "Ben c'est le feu quoi. J'ai pas tant aimé la tournue plus accessible qui est arrivée mais toujours sympa d'y retourner",
+        review: "Jeu de fou jusqu'à ce qu'ubisoft se dise hmmm ça manque de pièges...",
         rating: "multi",
         tags: ["Tactique", "Compétitif", "PC", "Ela Diff"],
     },
@@ -58,31 +58,71 @@ const watchContent = [
         icon: Shield,
         description: "Suivi des dernières CVE, Vulnérabilités et POOC dans le domaine de la cybersécurité.",
         tags: ["Cybersécurité", "Recherche"],
-        color: "text-red-400",
+        colorClass: "text-red-400",
     },
     {
-        title: "Cryptographie & Blockchain",
+        title: "Suivi des actus cyber et tech - The Hacker News quel plaisir !",
         icon: Code,
-        description: "Exploration des mécanismes derrière la sécurité des données et les innovations décentralisées.",
-        tags: ["Sécurité", "Tech"],
-        color: "text-blue-400",
+        description: "J'aime bien me tenir à jour sur les dernières découvertes en terme de technos ou bien savoir si Free s'est encore fait dérober 2to de données utilisateurs 🥴",
+        tags: ["Sécurité", "Tech", "Actualité"],
+        colorClass: "text-blue-400",
     },
     {
-        title: "IA & Apprentissage Automatique",
+        title: "IA et progrès",
         icon: Brain,
-        description: "Suivi des avancées en intelligence artificielle et de leur impact futur sur la technologie.",
-        tags: ["IA", "Futur"],
-        color: "text-cyan-400",
+        description: "Je suis aussi beaucoup les progrès et différentes choses qui se font en matière d'IA. Que ce soit en matière d'IA qui recréent des tickets de caisse ou encore celle qui interprète nos rêves telle Madame Irma.",
+        tags: ["IA", "Futur", "MatrixNestPasSiLoin"],
+        colorClass: "text-cyan-400",
     },
 ];
 
-const hobbiesSportsContent = [ // Nouvelle structure pour la galerie d'images
+const recentReadsContent = [
+    {
+        source: "It-connect.fr",
+        title: "Nouvelle faille Zéro Day chez microsoft affectant les fichiers LNK sur Windows (CVE-2025-9491).",
+        date: "04 Dec. 2025",
+        url: "https://www.it-connect.fr/windows-zero-day-fichiers-lnk-cve-2025-9491-attenuation-microsoft/",
+    },
+    {
+        source: "Franceinfo",
+        title: "Les extorsions en ligne sont en hausse en 2025, selon un rapport",
+        date: "04 Dec. 2025",
+        url: "https://www.franceinfo.fr/economie/fraude/les-extorsions-en-ligne-sont-en-hausse-en-2025-selon-un-rapport_7657810.html",
+    },
+    {
+        source: "The Hacker News",
+        title:"Des paquets npm malveillants utilisent des invites et des scripts cachés pour échapper aux outils de sécurité IA",
+        date: "02 Dec. 2025",
+        url: "https://thehackernews.com/2025/12/malicious-npm-package-uses-hidden.html",
+    },
+    {
+        source: "Cert-FR (organisme gouvernemental français lié à l'ANSSI)",
+        title: "Vulnérabilités sur Cisco Adaptive Security Appliance (ASA) et Firewall Threat Defense (FTD).",
+        date: "07 Nov. 2025",
+        url: "https://www.cert.ssi.gouv.fr/alerte/CERTFR-2025-ALE-013/",
+    },
+    {
+        source: "Cybermalveillance.gouv.fr",
+        title: "2ème édition du baromètre national de la maturité cyber des TPE-PME",
+        date: "06 Oct. 2025",
+        url: "http://cybermalveillance.gouv.fr/tous-nos-contenus/actualites/etude-maturite-cyber-tpe-pme-2025",
+    },
+    {
+        source: "Euronews",
+        title: "Intelligence artificielle : des avancées significatives en 2025 (c'est sympa de voir si on y est ou pas)",
+        date: "05 Jan. 2025",
+        url: "https://fr.euronews.com/next/2025/01/05/intelligence-artificielle-des-avancees-significatives-en-2025",
+    },
+];
+// ----------------------------------------
+
+const hobbiesSportsContent = [
     {
         title: "Musculation / Street workout",
         image: "https://placehold.co/600x400/3b82f6/FFFFFF?text=MUSCULATION", // Placeholder image
         description: "Force et endurance, un équilibre entre le physique et le mental. Entraînement régulier et varié.",
         tags: ["Fitness", "Force", "Discipline"],
-        icon: Dumbbell, // Icône pour un petit rappel visuel
+        icon: Dumbbell,
     },
     {
         title: "Course trail",
@@ -90,19 +130,21 @@ const hobbiesSportsContent = [ // Nouvelle structure pour la galerie d'images
         description: "Recharge mentale en pleine nature, découverte de nouveaux paysages et challenges physiques.",
         tags: ["Outdoor", "Exploration", "Détente"],
         icon: Mountain,
-    },{
+    },
+    {
         title: "Randonnée",
         image: "https://placehold.co/600x400/ef4444/FFFFFF?text=Hehe", // Placeholder image
         description: "Stimulation intellectuelle intense, stratégie et anticipation. Parties rapides ou analyses profondes.",
         tags: ["Stratégie", "Mental", "Réflexion"],
-        icon: GitBranch, // Peut être remplacé par Chess si vous l'ajoutez
-    },{
-        title: "Tir et Milsim",
-        image: "https://placehold.co/600x400/ef4444/FFFFFF?text=Hehe", // Placeholder image
-        description: "Stimulation intellectuelle intense, stratégie et anticipation. Parties rapides ou analyses profondes.",
-        tags: ["Stratégie", "Mental", "Réflexion"],
-        icon: GitBranch, // Peut être remplacé par Chess si vous l'ajoutez
+        icon: GitBranch,
     },
+    {
+        title: "Tir et Milsim",
+        image: "https://placehold.co/600x400/8b5cf6/FFFFFF?text=MILSIM", // Exemple d'ajout
+        description: "Simulation militaire et tactique. Travail d'équipe, communication et réaction rapide.",
+        tags: ["Tactic", "Teamwork", "Milsim"],
+        icon: Zap,
+    }
 ];
 
 
@@ -138,7 +180,7 @@ const Interests = () => {
                 </div>
             );
         }
-        const normalizedRating = Math.max(0, Math.min(5, parseFloat(rating))); // Assure que la note est entre 0 et 5
+        const normalizedRating = Math.max(0, Math.min(5, parseFloat(rating)));
         return (
             <div className="flex items-center text-yellow-400 mt-2">
                 {[...Array(5)].map((_, i) => (
@@ -149,7 +191,6 @@ const Interests = () => {
         );
     };
 
-    // Composant d'une carte de la galerie Gaming
     const GamingCard = ({ title, content, image, rating }) => {
         return (
             <div
@@ -178,20 +219,20 @@ const Interests = () => {
         );
     };
 
-    const WatchCard = ({ title, content, icon: Icon, color }) => {
+    const WatchCard = ({ title, content, icon: Icon, colorClass }) => {
         return (
             <div
                 className={`
                     bg-gray-800 border shadow-xl rounded-xl overflow-hidden 
                     transition-transform duration-300 hover:scale-[1.02] hover:shadow-2xl h-full
                 `}
-                style={{ borderColor: color.replace('text-', 'border-') }}
+                style={{ borderColor: colorClass.replace('text-', 'border-') }}
             >
                 <div className="p-5 flex flex-col justify-between h-full">
                     <div>
                         <div className="flex items-start justify-between mb-3">
-                            <Icon className={`w-8 h-8 ${color}`} />
-                            <span className={`text-xs font-mono uppercase px-2 py-1 rounded-full`} style={{ borderColor: color.replace('text-', 'border-'), color: color, backgroundColor: `${color.replace('text-', 'bg-')}/20` }}>
+                            <Icon className={`w-8 h-8 ${colorClass}`} />
+                            <span className={`text-xs font-mono uppercase px-2 py-1 rounded-full`} style={{ borderColor: colorClass.replace('text-', 'border-'), color: colorClass, backgroundColor: `${colorClass.replace('text-', 'bg-')}/20` }}>
                                 {content.tags[0]}
                             </span>
                         </div>
@@ -246,33 +287,34 @@ const Interests = () => {
             <div className="container mx-auto px-6">
                 <div className="max-w-6xl mx-auto">
 
-
                     {/* Entête Terminal */}
                     <div className="font-mono text-primary text-sm mb-4">
                         <span className="terminal-cursor">$ DECODE P3RSONAL_CIPHER.DATA --output D3CODED.data</span>
                     </div>
 
-                    <h2 className="text-4xl md:text-5xl font-bold mb-16">
+                    <h2 className="text-4xl md:text-5xl font-bold mb-8"> {/* Réajustement de mb-8 pour le bouton */}
                         ~$ CAT <span className="text-red-500">./D3CODED.DATA | grep personal</span>
-
-                        <div className="text-center pt-8">
-                            <a href="/" aria-label="Retour à la page d'accueil">
-                                <Button
-                                    variant="outline"
-                                    className="h-12 px-6 font-mono border-primary text-primary hover:bg-primary/10 transition-colors rounded-lg"
-                                >
-                                    <Home className="w-5 h-5 mr-3" />
-                                    cd /home/
-                                </Button>
-                            </a>
-                        </div>
                     </h2>
+
+                    {/* Bouton de Retour à l'Accueil (Sorti du H2 pour la structure HTML) */}
+                    <div className="text-center mb-16">
+                        <a href="/" aria-label="Retour à la page d'accueil">
+                            <Button
+                                variant="outline"
+                                className="h-12 px-6 font-mono border-primary text-primary hover:bg-primary/10 transition-colors rounded-lg"
+                            >
+                                <Home className="w-5 h-5 mr-3" />
+                                cd /home/
+                            </Button>
+                        </a>
+                    </div>
 
 
                     <div className="grid lg:grid-cols-4 gap-12">
 
                         <div className="lg:col-span-3 space-y-16">
 
+                            {/* Bloc Photo de Profil & Description (Intégré au flux principal) */}
                             <div className="flex flex-col md:flex-row items-center gap-8 p-6 border border-primary/20 bg-card shadow-lg rounded-xl">
                                 <img
                                     src={profilePic}
@@ -294,11 +336,11 @@ const Interests = () => {
                                 </div>
                             </div>
 
-
+                            {/* Section VEILLE (Galerie de cartes textuelles) */}
                             <div className="space-y-6 pt-6">
                                 <h3 className="text-2xl font-bold flex items-center gap-3 border-b border-border pb-2">
                                     <BookOpen className="w-6 h-6 text-primary" />
-                                    // MODULE VEILLE INFORMATIQUE <span className="font-mono text-base text-muted-foreground">[SCANNING]</span>
+                                    // VEILLE INFORMATIQUE <span className="font-mono text-base text-muted-foreground">[SCANNING]</span>
                                 </h3>
                                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                                     {watchContent.map((topic, index) => (
@@ -307,12 +349,38 @@ const Interests = () => {
                                             title={topic.title}
                                             content={topic}
                                             icon={topic.icon}
-                                            color={topic.color}
+                                            colorClass={topic.colorClass}
                                         />
                                     ))}
                                 </div>
                             </div>
 
+                            {/* NOUVELLE SECTION : LECTURES RÉCENTES */}
+                            <div className="space-y-6 pt-6">
+                                <h3 className="text-2xl font-bold flex items-center gap-3 border-b border-border pb-2">
+                                    <List className="w-6 h-6 text-primary" />
+                                    // MODULE LECTURES RÉCENTES <span className="font-mono text-base text-muted-foreground">[DECRYPTING]</span>
+                                </h3>
+                                <div className="border border-border rounded-lg bg-card overflow-hidden">
+                                    {recentReadsContent.map((read, index) => (
+                                        <a
+                                            key={index}
+                                            href={read.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex justify-between items-center p-4 border-b border-border/70 hover:bg-muted/30 transition-colors"
+                                        >
+                                            <div className="flex flex-col">
+                                                <span className="font-mono text-sm text-foreground hover:text-primary transition-colors">{read.title}</span>
+                                                <span className="text-xs text-muted-foreground mt-1">Source: {read.source}</span>
+                                            </div>
+                                            <span className="font-mono text-xs text-primary shrink-0 ml-4">{read.date}</span>
+                                        </a>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Intégration Spotify (Module Audio) */}
                             <div className="space-y-6 pt-6">
                                 <h3 className="text-2xl font-bold flex items-center gap-3 border-b border-border pb-2">
                                     <Music className="w-6 h-6 text-red-500" />
@@ -337,10 +405,11 @@ const Interests = () => {
                                 </div>
                             </div>
 
+                            {/* Section Gaming (Galerie) */}
                             <div className="space-y-6 pt-6">
                                 <h3 className="text-2xl font-bold flex items-center gap-3 border-b border-border pb-2">
                                     <Gamepad className="w-6 h-6 text-primary" />
-                                    // MODULE JEUX VIDEALS <span className="font-mono text-base text-muted-foreground">[ACTIVATED]</span>
+                                    // MODULE JEUX VIDEALS <span className="font-mono text-base text-muted-foreground">[ANALYZING]</span>
                                 </h3>
                                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                                     {gamingContent.map((game, index) => (
@@ -355,10 +424,11 @@ const Interests = () => {
                                 </div>
                             </div>
 
+                            {/* Section HOBBIES & SPORTS (Galerie d'images avec overlay) */}
                             <div className="space-y-6 pt-6">
                                 <h3 className="text-2xl font-bold flex items-center gap-3 border-b border-border pb-2">
                                     <Zap className="w-6 h-6 text-primary" />
-                                    // MODULE HOBBIES & SPORTS <span className="font-mono text-base text-muted-foreground">[ACTIVE]</span>
+                                    // HOBBIES & SPORTS <span className="font-mono text-base text-muted-foreground">[ACTIVE]</span>
                                 </h3>
                                 <div className="grid sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6"> {/* Grille adaptative */}
                                     {hobbiesSportsContent.map((activity, index) => (
@@ -374,18 +444,6 @@ const Interests = () => {
                                 </div>
                             </div>
 
-                            {/* Bouton de Retour à l'Accueil */}
-                            <div className="text-center pt-8">
-                                <a href="/" aria-label="Retour à la page d'accueil">
-                                    <Button
-                                        variant="outline"
-                                        className="h-12 px-6 font-mono border-primary text-primary hover:bg-primary/10 transition-colors rounded-lg"
-                                    >
-                                        <Home className="w-5 h-5 mr-3" />
-                                        cd /home/
-                                    </Button>
-                                </a>
-                            </div>
 
                         </div>
 
