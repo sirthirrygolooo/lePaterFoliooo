@@ -76,7 +76,7 @@ const Hero = () => {
                                 </a>
                             </Button>
                             <Button variant="outline" size="icon" className="w-12 h-12 hover:bg-muted/30 border-border text-primary" asChild>
-                                <a href="/NOPE" target="_blank" aria-label="Lien GitHub">
+                                <a href="https://github.com/sirthirrygolooo" target="_blank" aria-label="Lien GitHub">
                                     <Github className="w-5 h-5" />
                                 </a>
                             </Button>
