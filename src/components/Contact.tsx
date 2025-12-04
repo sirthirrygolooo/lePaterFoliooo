@@ -77,6 +77,7 @@ const Contact = () => {
 
   // Optionnel: S'assurer que le service est initialisé au chargement (si vous utilisez le SDK npm)
   useEffect(() => {
+    // @ts-ignore
     if (PUBLIC_KEY && PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
       // emailjs.init(PUBLIC_KEY); // Optionnel si l'envoi direct est utilisé
     }
@@ -95,6 +96,7 @@ const Contact = () => {
   const onSubmit = async (data: ContactFormValues) => {
 
     // Vérification de la configuration
+    // @ts-ignore
     if (SERVICE_ID === 'YOUR_SERVICE_ID' || TEMPLATE_ID === 'YOUR_TEMPLATE_ID' || PUBLIC_KEY === 'YOUR_PUBLIC_KEY') {
       console.warn("EmailJS non configuré. Simulation d'envoi.");
       toast.warning("L'envoi est en mode simulation. Configurez vos identifiants EmailJS.");

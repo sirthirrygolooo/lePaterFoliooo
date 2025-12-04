@@ -1,10 +1,20 @@
-import React from 'react';
-import { Gamepad, Music, BookOpen, User, Settings, Zap, Repeat, Star, Code, Shield, Brain, Mountain, Dumbbell, Home, GitBranch, Heart, Link, CheckCircle, Clock, List } from 'lucide-react'; // Ajout de List
+import React, { useState } from 'react';
+import { Gamepad, Music, BookOpen, User, Settings, Zap, Repeat, Star, Code, Shield, Brain, Mountain, Dumbbell, Home, GitBranch, Heart, Link, CheckCircle, Monitor, AlertTriangle, List, Clock, Loader } from 'lucide-react';
 import { Button } from "@/components/ui/button";
-
 import profilePic from "@/assets/moi.jpg";
-import placeHolder from "@/assets/cyber.jpg"
-
+import placeHolder from "@/assets/cyber.jpg";
+// IMG GALLERY
+import bloc from "@/assets/gallery/bloc.jpg";
+import camo from "@/assets/gallery/camo.jpg";
+import lamaa from "@/assets/gallery/lamaa.jpg";
+import leLion from "@/assets/gallery/leLion.jpg";
+import lutte from "@/assets/gallery/lutte.jpg";
+import miotte from "@/assets/gallery/miotte.jpg";
+import mk18 from "@/assets/gallery/mk18.jpg";
+import montfac from "@/assets/gallery/montfac.jpg";
+import op from "@/assets/gallery/op.jpg";
+import suchez from "@/assets/gallery/suchez.jpg";
+import suchez2 from "@/assets/gallery/suchez2.jpg";
 
 const personalInfo = {
     name: "Jean-Baptiste",
@@ -21,33 +31,37 @@ const gamingContent = [
     {
         title: "Rainbow Six Siege",
         image: placeHolder,
-        genre: "FPS Tactique",
         review: "Jeu de fou jusqu'à ce qu'ubisoft se dise hmmm ça manque de pièges...",
         rating: "multi",
+        genre: "FPS Tactique",
+        hours: "1200+ heures",
         tags: ["Tactique", "Compétitif", "PC", "Ela Diff"],
     },
     {
         title: "League of Legends",
         image: placeHolder,
-        genre: "Ex toxique",
         review: "Obligé de le mettre car j'y ai passé beaucoup trop de temps au lycée mais pitié quel jeu de con (bon je compte pas l'arena)",
         rating: 'lol',
+        genre: "Ex toxique",
+        hours: "2500+ heures (PTDS)",
         tags: ["MOBA", "Stratégie", "Travail d'équipe (non)"],
     },
     {
         title: "Valorant",
         image: placeHolder,
-        genre: "LOL en moins puant",
-        review: "Ben c'est sympa mais pas plus que nécéssaire faut doser pour pas devenir aigri de la vie",
+        review: "Ben c'est sympa mais pas plus que nécessaire faut doser pour pas devenir aigri de la vie",
         rating: "multi",
+        genre: "LOL en moins puant",
+        hours: "400+ heures",
         tags: ["FPS", "PAN PAN", "Travail d'équipe (non plus)"],
     },
     {
         title: "Cyberpunk 2077",
         image: placeHolder,
-        genre: "Action RPG / Monde ouvert",
         review: "Juste un jeu chevresque en fait ???? Ambiance, immersion, missions mémorables... Et gameplay agréable",
         rating: 5,
+        genre: "Action RPG / Monde ouvert",
+        hours: "250 heures",
         tags: ["Solo", "Monde Ouvert", "Futuriste"],
     },
 ];
@@ -93,7 +107,7 @@ const recentReadsContent = [
         source: "The Hacker News",
         title:"Des paquets npm malveillants utilisent des invites et des scripts cachés pour échapper aux outils de sécurité IA",
         date: "02 Dec. 2025",
-        url: "https://thehackernews.com/2025/12/malicious-npm-package-uses-hidden.html",
+        url: "https://thehackernews.com/latest",
     },
     {
         source: "Cert-FR (organisme gouvernemental français lié à l'ANSSI)",
@@ -114,46 +128,47 @@ const recentReadsContent = [
         url: "https://fr.euronews.com/next/2025/01/05/intelligence-artificielle-des-avancees-significatives-en-2025",
     },
 ];
-// ----------------------------------------
 
 const hobbiesSportsContent = [
     {
-        title: "Musculation / Street workout",
-        image: "https://placehold.co/600x400/3b82f6/FFFFFF?text=MUSCULATION", // Placeholder image
-        description: "Force et endurance, un équilibre entre le physique et le mental. Entraînement régulier et varié.",
-        tags: ["Fitness", "Force", "Discipline"],
-        icon: Dumbbell,
-    },
-    {
-        title: "Course trail",
-        image: "https://placehold.co/600x400/10b981/FFFFFF?text=RANDONNEE", // Placeholder image
+        title: "Randonnée / Trail",
+        image: "https://placehold.co/600x400/065f46/FFFFFF?text=TRAIL",
         description: "Recharge mentale en pleine nature, découverte de nouveaux paysages et challenges physiques.",
         tags: ["Outdoor", "Exploration", "Détente"],
         icon: Mountain,
+        visuals: ["@/assets/gallery/bloc.jpg", "https://placehold.co/400x400/facc15/333333?text=ALTITUDE", "https://placehold.co/400x400/facc15/333333?text=CARDIO"]
     },
     {
-        title: "Randonnée",
-        image: "https://placehold.co/600x400/ef4444/FFFFFF?text=Hehe", // Placeholder image
-        description: "Stimulation intellectuelle intense, stratégie et anticipation. Parties rapides ou analyses profondes.",
-        tags: ["Stratégie", "Mental", "Réflexion"],
-        icon: GitBranch,
+        title: "Musculation / Street workout",
+        image: "https://placehold.co/600x400/1e3a8a/FFFFFF?text=FORCE",
+        description: "Force et endurance, un équilibre entre le physique et le mental. Entraînement régulier et varié.",
+        tags: ["Fitness", "Force", "Discipline"],
+        icon: Dumbbell,
+        visuals: ["https://placehold.co/400x400/1e3a8a/FFFFFF?text=FORCE+MAX", "https://placehold.co/400x400/0284c7/f0f9ff?text=SQUAT+LOG", "https://placehold.co/400x400/4c4c4c/FFFFFF?text=DIPS+LOG"]
+    },
+    {
+        title: "Escalade",
+        image: bloc,
+        description: "Recharge mentale en pleine nature, découverte de nouveaux paysages et challenges physiques.",
+        tags: ["Outdoor", "Exploration", "Détente"],
+        icon: Mountain,
+        visuals: ["https://placehold.co/400x400/065f46/FFFFFF?text=SENTIER+1", "https://placehold.co/400x400/facc15/333333?text=ALTITUDE", "https://placehold.co/400x400/facc15/333333?text=CARDIO"]
     },
     {
         title: "Tir et Milsim",
-        image: "https://placehold.co/600x400/8b5cf6/FFFFFF?text=MILSIM", // Exemple d'ajout
+        image: "https://placehold.co/600x400/8b5cf6/FFFFFF?text=TACTIQUE",
         description: "Simulation militaire et tactique. Travail d'équipe, communication et réaction rapide.",
         tags: ["Tactic", "Teamwork", "Milsim"],
         icon: Zap,
-    }
+        visuals: ["https://placehold.co/400x400/8b5cf6/FFFFFF?text=GEAR+CHECK", "https://placehold.co/400x400/f43f5e/FFFFFF?text=TIR+PRECIS", "https://placehold.co/400x400/f43f5e/FFFFFF?text=COMM+LOG"]
+    },
 ];
 
-
 const personalSettings = [
-    { key: "ENVIRONMENT_THEME", value: "Dark Mode (Toujours)" },
+    { key: "ENVIRONMENT_THEME", value: "Dark Mode (aïe les yeux)" },
     { key: "PRIMARY_LANGUAGE", value: "Français" },
-    { key: "SECONDARY_LANGUAGE", value: "Anglais (B2/C1)" },
-    { key: "STATUS", value: "En ligne / Actif" },
-    { key: "COFFEE_INTAKE", value: "Critique (Niveau 3)" },
+    { key: "SECONDARY_LANGUAGE", value: "Anglais" },
+    { key: "COFFEE_INTAKE", value: "Pitié non faut arrêter avec cette vanne" },
 ];
 
 const Interests = () => {
@@ -191,28 +206,37 @@ const Interests = () => {
         );
     };
 
-    const GamingCard = ({ title, content, image, rating }) => {
+    const GamingReportCard = ({ title, content, rating, image }) => {
+        const getRatingDisplay = () => {
+            if (rating === 'lol') return <span className="text-destructive font-bold">CANCER / Toxique</span>;
+            if (rating === 'multi') return <span className="text-cyan-400 font-bold">MULTIJOUER / Compétitif</span>;
+            if (rating >= 4) return <span className="text-green-500 font-bold">{rating}/5 - Essentiel</span>;
+            return <span className="text-muted-foreground italic">Non Évalué</span>;
+        };
         return (
-            <div
-                className={`
-                    bg-gray-800 border border-primary/50 shadow-xl rounded-xl overflow-hidden group 
-                    transition-transform duration-300 relative h-96 md:h-80
-                `}
-            >
-                <img
-                    src={image}
-                    alt={title}
-                    className="w-full h-full object-cover"
-                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src="https://placehold.co/400x400/444444/FFFFFF?text=JEU_IMG"; }}
-                />
-                <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                    <div className="text-white">
-                        <h4 className="text-2xl font-bold mb-1 border-b border-white/30 pb-1">{title}</h4>
-                        <p className="text-sm text-primary mb-2">{content.genre}</p>
-                        <p className="text-muted-foreground text-sm mb-3 italic">
-                            "{content.review}"
-                        </p>
-                        <RatingStars rating={rating} />
+            <div className="bg-gray-800 border border-border p-5 shadow-xl rounded-lg space-y-3 hover:border-primary transition-colors">
+                <div className="relative h-24 rounded-md overflow-hidden mb-3">
+                    <img
+                        src={image}
+                        alt={`Bannière ${title}`}
+                        className="w-full h-full object-cover opacity-30"
+                        onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src="https://placehold.co/600x100/444444/FFFFFF?text=Bannière+Jeu"; }}
+                    />
+                    <div className="absolute inset-0 bg-black/40 flex items-center p-3">
+                        <span className="text-xl font-bold text-white tracking-wide">{title}</span>
+                    </div>
+                </div>
+                <p className="text-sm text-muted-foreground italic">
+                    "{content.review}"
+                </p>
+                <div className="pt-2 border-t border-border/70">
+                    <div className="flex justify-between text-sm font-mono mt-1">
+                        <span className="text-primary flex items-center gap-1"><Clock className="w-4 h-4"/> Temps Investi:</span>
+                        <span className="text-foreground">{content.hours}</span>
+                    </div>
+                    <div className="flex justify-between text-sm font-mono mt-1">
+                        <span className="text-primary flex items-center gap-1"><Loader className="w-4 h-4 animate-spin-slow"/> Statut Émotionnel:</span>
+                        {getRatingDisplay()}
                     </div>
                 </div>
             </div>
@@ -223,7 +247,7 @@ const Interests = () => {
         return (
             <div
                 className={`
-                    bg-gray-800 border shadow-xl rounded-xl overflow-hidden 
+                    bg-gray-800 border shadow-xl rounded-xl overflow-hidden
                     transition-transform duration-300 hover:scale-[1.02] hover:shadow-2xl h-full
                 `}
                 style={{ borderColor: colorClass.replace('text-', 'border-') }}
@@ -251,52 +275,58 @@ const Interests = () => {
         );
     };
 
-    const HobbySportCard = ({ title, image, description, tags, icon: Icon }) => {
+    const HobbySportMissionCard = ({ title, image, description, tags, icon: Icon, visuals }) => {
+        const [selectedImage, setSelectedImage] = useState(image);
         return (
             <div
-                className="bg-gray-800 shadow-xl rounded-xl overflow-hidden group
-                           relative h-80 md:h-64 cursor-pointer" // Hauteur ajustée pour une galerie
+                className="bg-gray-800 border border-primary/50 shadow-xl rounded-xl overflow-hidden
+                           flex flex-col md:flex-row h-full transition-shadow duration-300 hover:shadow-primary/30"
             >
-                <img
-                    src={image}
-                    alt={title}
-                    className="w-full h-full object-cover opacity-80 group-hover:opacity-40 transition-opacity duration-300"
-                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src="https://placehold.co/600x400/444444/FFFFFF?text=ACTIVITE_IMG"; }}
-                />
-                {/* Overlay d'information */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-4
-                                translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out">
-                    <Icon className="w-8 h-8 text-white mb-2" />
-                    <h4 className="text-2xl font-bold text-white mb-1">{title}</h4>
-                    <p className="text-muted-foreground text-sm mb-3">{description}</p>
-                    <div className="flex flex-wrap gap-2">
-                        {tags.map((tag, tagIndex) => (
-                            <span key={tagIndex} className="text-xs bg-white/20 text-white px-2 py-0.5 rounded-full border border-white/30">
-                                {tag}
-                            </span>
-                        ))}
+                <div className="md:w-2/3 h-64 md:h-72 max-h-72 relative shrink-0 overflow-hidden group order-first">
+                    <img
+                        src={selectedImage}
+                        alt={title}
+                        className="w-full h-full object-cover transition-transform duration-500"
+                        onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src="https://placehold.co/600x400/444444/FFFFFF?text=PHOTO+ACTIVITY"; }}
+                    />
+                </div>
+                <div className="p-4 md:w-1/3 space-y-2 order-last md:order-last">
+                    <div className="flex items-center justify-between mb-2">
+                        <h4 className="text-xl font-bold text-white">{title}</h4>
+                        <Icon className="w-5 h-5 text-primary shrink-0" />
+                    </div>
+                    <p className="text-muted-foreground text-sm">{description}</p>
+                    <div className="pt-2 border-t border-border/70">
+                        <p className="text-xs font-mono text-primary mb-1">Images (cliquer pour changer) :</p>
+                        <div className="flex space-x-2">
+                            {[image, ...(visuals || [])].map((src, imgIndex) => (
+                                <img
+                                    key={imgIndex}
+                                    src={src}
+                                    alt={`Vue ${title} ${imgIndex + 1}`}
+                                    className={`w-10 h-10 object-cover rounded-full border-2 cursor-pointer transition-all ${
+                                        selectedImage === src ? 'border-green-500 scale-110 shadow-md' : 'border-primary/50 hover:scale-105'
+                                    }`}
+                                    onClick={() => setSelectedImage(src)}
+                                />
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
         );
     };
 
-
     return (
         <section id="hobbies" className="py-24 bg-background">
             <div className="container mx-auto px-6">
                 <div className="max-w-6xl mx-auto">
-
-                    {/* Entête Terminal */}
                     <div className="font-mono text-primary text-sm mb-4">
                         <span className="terminal-cursor">$ DECODE P3RSONAL_CIPHER.DATA --output D3CODED.data</span>
                     </div>
-
-                    <h2 className="text-4xl md:text-5xl font-bold mb-8"> {/* Réajustement de mb-8 pour le bouton */}
+                    <h2 className="text-4xl md:text-5xl font-bold mb-8">
                         ~$ CAT <span className="text-red-500">./D3CODED.DATA | grep personal</span>
                     </h2>
-
-                    {/* Bouton de Retour à l'Accueil (Sorti du H2 pour la structure HTML) */}
                     <div className="text-center mb-16">
                         <a href="/" aria-label="Retour à la page d'accueil">
                             <Button
@@ -308,13 +338,8 @@ const Interests = () => {
                             </Button>
                         </a>
                     </div>
-
-
                     <div className="grid lg:grid-cols-4 gap-12">
-
                         <div className="lg:col-span-3 space-y-16">
-
-                            {/* Bloc Photo de Profil & Description (Intégré au flux principal) */}
                             <div className="flex flex-col md:flex-row items-center gap-8 p-6 border border-primary/20 bg-card shadow-lg rounded-xl">
                                 <img
                                     src={profilePic}
@@ -335,8 +360,6 @@ const Interests = () => {
                                     </p>
                                 </div>
                             </div>
-
-                            {/* Section VEILLE (Galerie de cartes textuelles) */}
                             <div className="space-y-6 pt-6">
                                 <h3 className="text-2xl font-bold flex items-center gap-3 border-b border-border pb-2">
                                     <BookOpen className="w-6 h-6 text-primary" />
@@ -354,12 +377,10 @@ const Interests = () => {
                                     ))}
                                 </div>
                             </div>
-
-                            {/* NOUVELLE SECTION : LECTURES RÉCENTES */}
                             <div className="space-y-6 pt-6">
                                 <h3 className="text-2xl font-bold flex items-center gap-3 border-b border-border pb-2">
                                     <List className="w-6 h-6 text-primary" />
-                                    // MODULE LECTURES RÉCENTES <span className="font-mono text-base text-muted-foreground">[DECRYPTING]</span>
+                                    // LECTURES RÉCENTES <span className="font-mono text-base text-muted-foreground">[DECRYPTING]</span>
                                 </h3>
                                 <div className="border border-border rounded-lg bg-card overflow-hidden">
                                     {recentReadsContent.map((read, index) => (
@@ -379,17 +400,31 @@ const Interests = () => {
                                     ))}
                                 </div>
                             </div>
-
-                            {/* Intégration Spotify (Module Audio) */}
+                            <div className="space-y-6 pt-6">
+                                <h3 className="text-2xl font-bold flex items-center gap-3 border-b border-border pb-2">
+                                    <Gamepad className="w-6 h-6 text-primary" />
+                                    // JEUX VIDEALS <span className="font-mono text-base text-muted-foreground">[ANALYZING]</span>
+                                </h3>
+                                <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6">
+                                    {gamingContent.map((game, index) => (
+                                        <GamingReportCard
+                                            key={index}
+                                            title={game.title}
+                                            image={game.image}
+                                            content={game}
+                                            rating={game.rating}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
                             <div className="space-y-6 pt-6">
                                 <h3 className="text-2xl font-bold flex items-center gap-3 border-b border-border pb-2">
                                     <Music className="w-6 h-6 text-red-500" />
                                     ./ AUDIO <span className="font-mono text-base text-muted-foreground">[NOW PLAYING]</span>
                                 </h3>
-
                                 <div className="p-4 border border-border bg-gray-800 shadow-xl rounded-xl">
                                     <h4 className="font-mono text-sm text-green-400 mb-3 flex items-center gap-2">
-                                        <Repeat className="w-3 h-3"/> STYLES FAVORIS : METAL <Heart className="w-3 h-3 text-red-500"/> / ROCK INDUSTRIEL / TECHNO & AMBIENT
+                                        <Repeat className="w-3 h-3"/> STYLES FAVORIS : METAL <Heart className="w-3 h-3 text-red-500"/> / HARD ROCK / TECH & HARDCORE
                                     </h4>
                                     <iframe
                                         data-testid="embed-iframe"
@@ -404,58 +439,42 @@ const Interests = () => {
                                     </iframe>
                                 </div>
                             </div>
-
-                            {/* Section Gaming (Galerie) */}
-                            <div className="space-y-6 pt-6">
-                                <h3 className="text-2xl font-bold flex items-center gap-3 border-b border-border pb-2">
-                                    <Gamepad className="w-6 h-6 text-primary" />
-                                    // MODULE JEUX VIDEALS <span className="font-mono text-base text-muted-foreground">[ANALYZING]</span>
-                                </h3>
-                                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                    {gamingContent.map((game, index) => (
-                                        <GamingCard
-                                            key={index}
-                                            title={game.title}
-                                            image={game.image}
-                                            content={game}
-                                            rating={game.rating}
-                                        />
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* Section HOBBIES & SPORTS (Galerie d'images avec overlay) */}
                             <div className="space-y-6 pt-6">
                                 <h3 className="text-2xl font-bold flex items-center gap-3 border-b border-border pb-2">
                                     <Zap className="w-6 h-6 text-primary" />
                                     // HOBBIES & SPORTS <span className="font-mono text-base text-muted-foreground">[ACTIVE]</span>
                                 </h3>
-                                <div className="grid sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6"> {/* Grille adaptative */}
+                                <div className="grid md:grid-cols-1 gap-6">
                                     {hobbiesSportsContent.map((activity, index) => (
-                                        <HobbySportCard
+                                        <HobbySportMissionCard
                                             key={index}
                                             title={activity.title}
                                             image={activity.image}
                                             description={activity.description}
                                             tags={activity.tags}
                                             icon={activity.icon}
+                                            visuals={activity.visuals}
                                         />
                                     ))}
                                 </div>
                             </div>
-
-
+                            <div className="text-center mb-16">
+                                <a href="/" aria-label="Retour à la page d'accueil">
+                                    <Button
+                                        variant="outline"
+                                        className="h-12 px-6 font-mono border-primary text-primary hover:bg-primary/10 transition-colors rounded-lg"
+                                    >
+                                        <Home className="w-5 h-5 mr-3" />
+                                        cd /home/
+                                    </Button>
+                                </a>
+                            </div>
                         </div>
-
-                        {/* Colonne 2 (1/4) : Paramètres/Stats Personnels (Sticky) */}
                         <div className="lg:col-span-1 space-y-8 sticky top-8 h-fit">
-
                             <h3 className="text-2xl font-bold flex items-center gap-3 font-mono">
                                 <Settings className="w-5 h-5 text-primary" />
                                 <span className="text-lg uppercase">User Settings</span>
                             </h3>
-
-                            {/* Section Liens Sociaux */}
                             <div className="border border-border p-4 bg-muted/30 font-mono text-sm rounded-xl">
                                 <p className="text-primary uppercase tracking-wider mb-3 flex items-center gap-2">
                                     <CheckCircle className='w-4 h-4 text-green-500'/> Mes réseaux
@@ -473,8 +492,6 @@ const Interests = () => {
                                     </a>
                                 ))}
                             </div>
-
-
                             <div className="border border-border p-6 bg-muted/30 space-y-4 font-mono text-sm rounded-xl">
                                 {personalSettings.map((setting, index) => (
                                     <div key={index} className="flex flex-col border-b border-border/50 pb-2 last:border-b-0 last:pb-0">
@@ -483,8 +500,6 @@ const Interests = () => {
                                     </div>
                                 ))}
                             </div>
-
-                            {/* Bloc de bas de colonne pour la conclusion */}
                             <div className="border border-primary/50 p-4 bg-primary/10 font-mono text-xs text-primary rounded-xl">
                                 <p>
                                     <span className="text-secondary-foreground">[CONCLUSION]</span>
