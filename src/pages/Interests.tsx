@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Gamepad, Music, BookOpen, User, Settings, Zap, Repeat, Star, Code, Shield, Brain, Mountain, Dumbbell, Home, GitBranch, Heart, Link, CheckCircle, Monitor, AlertTriangle, List, Clock, Loader } from 'lucide-react';
+import { Gamepad, Music, BookOpen, User, Settings, Zap, Repeat, Star, Code, Shield, Brain, Mountain, Dumbbell, Home, GitBranch, Heart, Link, CheckCircle, Monitor, AlertTriangle, List, Clock, Loader, X } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import profilePic from "@/assets/moi.jpg";
 import placeHolder from "@/assets/cyber.jpg";
@@ -15,6 +15,9 @@ import montfac from "@/assets/gallery/montfac.jpg";
 import op from "@/assets/gallery/op.jpg";
 import suchez from "@/assets/gallery/suchez.jpg";
 import suchez2 from "@/assets/gallery/suchez2.jpg";
+import kettle from "@/assets/gallery/kettle.jpg";
+import muns from "@/assets/gallery/muns.jpg";
+import salbert from "@/assets/gallery/salbert.jpg";
 
 const personalInfo = {
     name: "Jean-Baptiste",
@@ -107,7 +110,7 @@ const recentReadsContent = [
         source: "The Hacker News",
         title:"Des paquets npm malveillants utilisent des invites et des scripts cachés pour échapper aux outils de sécurité IA",
         date: "02 Dec. 2025",
-        url: "https://thehackernews.com/latest",
+        url: "https://thehackernews.com/2025/12/malicious-npm-package-uses-hidden.html",
     },
     {
         source: "Cert-FR (organisme gouvernemental français lié à l'ANSSI)",
@@ -132,35 +135,27 @@ const recentReadsContent = [
 const hobbiesSportsContent = [
     {
         title: "Randonnée / Trail",
-        image: suchez,
-        description: "Recharge mentale en pleine nature, découverte de nouveaux paysages et challenges physiques.",
+        image: lamaa,
+        description: '"Si tu ne trouves pas les réponses à tes problèmes après quatre heures de course, tu ne les trouveras jamais..." Chritopher McDougall',
         tags: ["Outdoor", "Exploration", "Détente"],
         icon: Mountain,
-        visuals: ["@/assets/gallery/bloc.jpg", "https://placehold.co/400x400/facc15/333333?text=ALTITUDE", "https://placehold.co/400x400/facc15/333333?text=CARDIO"]
+        visuals: [suchez, suchez2, leLion, salbert, miotte, montfac]
     },
     {
-        title: "Musculation / Street workout",
-        image: "https://placehold.co/600x400/1e3a8a/FFFFFF?text=FORCE",
-        description: "Force et endurance, un équilibre entre le physique et le mental. Entraînement régulier et varié.",
-        tags: ["Fitness", "Force", "Discipline"],
-        icon: Dumbbell,
-        visuals: ["https://placehold.co/400x400/1e3a8a/FFFFFF?text=FORCE+MAX", "https://placehold.co/400x400/0284c7/f0f9ff?text=SQUAT+LOG", "https://placehold.co/400x400/4c4c4c/FFFFFF?text=DIPS+LOG"]
-    },
-    {
-        title: "Escalade",
+        title: "Escalade / Renfo / Bagarre",
         image: bloc,
-        description: "Recharge mentale en pleine nature, découverte de nouveaux paysages et challenges physiques.",
-        tags: ["Outdoor", "Exploration", "Détente"],
-        icon: Mountain,
-        visuals: ["https://placehold.co/400x400/065f46/FFFFFF?text=SENTIER+1", "https://placehold.co/400x400/facc15/333333?text=ALTITUDE", "https://placehold.co/400x400/facc15/333333?text=CARDIO"]
+        description: '"Chaque sommet de montagne est à portée de main si vous continuez à grimper."',
+        tags: ["Force", "Discipline", "Kettlebell"],
+        icon: Dumbbell,
+        visuals: [kettle, lutte]
     },
     {
-        title: "Tir et Milsim",
-        image: "https://placehold.co/600x400/8b5cf6/FFFFFF?text=TACTIQUE",
-        description: "Simulation militaire et tactique. Travail d'équipe, communication et réaction rapide.",
+        title: "Tir et Airsoft MilSim",
+        image: camo,
+        description: "🔫",
         tags: ["Tactic", "Teamwork", "Milsim"],
         icon: Zap,
-        visuals: ["https://placehold.co/400x400/8b5cf6/FFFFFF?text=GEAR+CHECK", "https://placehold.co/400x400/f43f5e/FFFFFF?text=TIR+PRECIS", "https://placehold.co/400x400/f43f5e/FFFFFF?text=COMM+LOG"]
+        visuals: [mk18, op, muns]
     },
 ];
 
@@ -172,6 +167,16 @@ const personalSettings = [
 ];
 
 const Interests = () => {
+    const [previewImage, setPreviewImage] = useState(null);
+
+    const openPreview = (src) => {
+        setPreviewImage(src);
+    };
+
+    const closePreview = () => {
+        setPreviewImage(null);
+    };
+
     const RatingStars = ({ rating }) => {
         if (rating === 'lol') {
             return (
@@ -277,35 +282,37 @@ const Interests = () => {
 
     const HobbySportMissionCard = ({ title, image, description, tags, icon: Icon, visuals }) => {
         const [selectedImage, setSelectedImage] = useState(image);
+
         return (
-            <div
-                className="bg-gray-800 border border-primary/50 shadow-xl rounded-xl overflow-hidden
-                           flex flex-col md:flex-row h-full transition-shadow duration-300 hover:shadow-primary/30"
-            >
-                <div className="md:w-2/3 h-64 md:h-72 max-h-72 relative shrink-0 overflow-hidden group order-first">
+            <div className="bg-gray-800 border border-primary/50 shadow-xl rounded-xl overflow-hidden flex flex-col md:flex-row h-[400px] md:h-[320px] transition-shadow duration-300 hover:shadow-primary/30">
+                {/* Image principale (carrée) */}
+                <div className="w-full md:w-1/2 h-64 md:h-full relative overflow-hidden group cursor-pointer" onClick={() => openPreview(selectedImage)}>
                     <img
                         src={selectedImage}
                         alt={title}
-                        className="w-full h-full object-cover transition-transform duration-500"
+                        className="w-full h-full object-cover"
                         onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src="https://placehold.co/600x400/444444/FFFFFF?text=PHOTO+ACTIVITY"; }}
                     />
                 </div>
-                <div className="p-4 md:w-1/3 space-y-2 order-last md:order-last">
-                    <div className="flex items-center justify-between mb-2">
-                        <h4 className="text-xl font-bold text-white">{title}</h4>
-                        <Icon className="w-5 h-5 text-primary shrink-0" />
+                {/* Contenu textuel + galerie */}
+                <div className="w-full md:w-1/2 p-4 flex flex-col justify-between">
+                    <div>
+                        <div className="flex items-center justify-between mb-2">
+                            <h4 className="text-xl font-bold text-white">{title}</h4>
+                            <Icon className="w-5 h-5 text-primary shrink-0" />
+                        </div>
+                        <p className="text-muted-foreground text-sm mb-3">{description}</p>
                     </div>
-                    <p className="text-muted-foreground text-sm">{description}</p>
                     <div className="pt-2 border-t border-border/70">
-                        <p className="text-xs font-mono text-primary mb-1">Images (cliquer pour changer) :</p>
-                        <div className="flex space-x-2">
+                        <p className="text-xs font-mono text-primary mb-2">Galerie (cliquer pour changer) :</p>
+                        <div className="flex space-x-2 overflow-x-auto pb-2">
                             {[image, ...(visuals || [])].map((src, imgIndex) => (
                                 <img
                                     key={imgIndex}
                                     src={src}
                                     alt={`Vue ${title} ${imgIndex + 1}`}
-                                    className={`w-10 h-10 object-cover rounded-full border-2 cursor-pointer transition-all ${
-                                        selectedImage === src ? 'border-green-500 scale-110 shadow-md' : 'border-primary/50 hover:scale-105'
+                                    className={`w-16 h-16 object-cover rounded-md border-2 cursor-pointer transition-all flex-shrink-0 ${
+                                        selectedImage === src ? 'border-green-500 scale-105' : 'border-primary/50 hover:scale-105'
                                     }`}
                                     onClick={() => setSelectedImage(src)}
                                 />
@@ -510,6 +517,26 @@ const Interests = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Popup d'aperçu d'image */}
+            {previewImage && (
+                <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4" onClick={closePreview}>
+                    <div className="relative max-w-4xl max-h-[90vh] bg-background rounded-lg overflow-hidden shadow-2xl">
+                        <button
+                            className="absolute top-4 right-4 text-white hover:text-red-500 transition-colors z-10"
+                            onClick={closePreview}
+                        >
+                            <X className="w-8 h-8" />
+                        </button>
+                        <img
+                            src={previewImage}
+                            alt="Aperçu"
+                            className="w-full h-full object-contain max-h-[80vh]"
+                            onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src="https://placehold.co/800x600/444444/FFFFFF?text=IMAGE+INDISPONIBLE"; }}
+                        />
+                    </div>
+                </div>
+            )}
         </section>
     );
 };
