@@ -37,7 +37,7 @@ const gamingContent = [
         review: "Jeu de fou jusqu'à ce qu'ubisoft se dise hmmm ça manque de pièges...",
         rating: "multi",
         genre: "FPS Tactique",
-        hours: "1200+ heures",
+        hours: "500 heures",
         tags: ["Tactique", "Compétitif", "PC", "Ela Diff"],
     },
     {
@@ -46,26 +46,35 @@ const gamingContent = [
         review: "Obligé de le mettre car j'y ai passé beaucoup trop de temps au lycée mais pitié quel jeu de con (bon je compte pas l'arena)",
         rating: 'lol',
         genre: "Ex toxique",
-        hours: "2500+ heures (PTDS)",
+        hours: "Je sais pas mais encore sous PTSD",
         tags: ["MOBA", "Stratégie", "Travail d'équipe (non)"],
     },
     {
         title: "Valorant",
         image: placeHolder,
-        review: "Ben c'est sympa mais pas plus que nécessaire faut doser pour pas devenir aigri de la vie",
+        review: "Ben c'est sympa mais pas en trop grosse quantité : faut doser pour pas devenir aigri de la vie",
         rating: "multi",
         genre: "LOL en moins puant",
-        hours: "400+ heures",
+        hours: "un ptit 100 heures",
         tags: ["FPS", "PAN PAN", "Travail d'équipe (non plus)"],
     },
     {
         title: "Cyberpunk 2077",
         image: placeHolder,
-        review: "Juste un jeu chevresque en fait ???? Ambiance, immersion, missions mémorables... Et gameplay agréable",
+        review: "Juste un jeu chevresque en fait ???? Ambiance, immersion, missions mémorables... Et gameplay 💖",
         rating: 5,
         genre: "Action RPG / Monde ouvert",
-        hours: "250 heures",
+        hours: "150 heures",
         tags: ["Solo", "Monde Ouvert", "Futuriste"],
+    },
+    {
+        title: "Apex Legends",
+        image: placeHolder,
+        review: "J'ai vraiment commencé à y jouer récemment et quel plaisir le dynamisme et les mouvements... Bon j'arrive quand même un peu après la bataille",
+        rating: "multi",
+        genre: "FPS",
+        hours: "~150 heures",
+        tags: ["Battle Royale", "Compétitif", "Mouvements", "Dynamique"],
     },
 ];
 
@@ -214,7 +223,7 @@ const Interests = () => {
     const GamingReportCard = ({ title, content, rating, image }) => {
         const getRatingDisplay = () => {
             if (rating === 'lol') return <span className="text-destructive font-bold">CANCER / Toxique</span>;
-            if (rating === 'multi') return <span className="text-cyan-400 font-bold">MULTIJOUER / Compétitif</span>;
+            if (rating === 'multi') return <span className="text-cyan-400 font-bold">MULTIJOUEUR (pas notable)</span>;
             if (rating >= 4) return <span className="text-green-500 font-bold">{rating}/5 - Essentiel</span>;
             return <span className="text-muted-foreground italic">Non Évalué</span>;
         };
@@ -240,7 +249,7 @@ const Interests = () => {
                         <span className="text-foreground">{content.hours}</span>
                     </div>
                     <div className="flex justify-between text-sm font-mono mt-1">
-                        <span className="text-primary flex items-center gap-1"><Loader className="w-4 h-4 animate-spin-slow"/> Statut Émotionnel:</span>
+                        <span className="text-primary flex items-center gap-1"><Loader className="w-4 h-4 animate-spin-slow"/> Avis</span>
                         {getRatingDisplay()}
                     </div>
                 </div>
