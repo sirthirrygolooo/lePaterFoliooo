@@ -21,7 +21,7 @@ import salbert from "@/assets/gallery/salbert.jpg";
 
 const personalInfo = {
     name: "Jean-Baptiste",
-    description: "Bon ben du coup moi c'est JB ! J'aime particulièrement le métal et le vieux rock des années 80 (mon spotify wrapper me donne 62 ans 💀)... Ah et aussi le code, la cybersécurité et les jeux vidéo bien sûr !",
+    description: "Bon ben du coup moi c'est JB ! Je suis un bon fan de métal et de vieux rock des années 80 (mon spotify wrapper me donne 62 ans 💀)... Ah et aussi j'aime bien le code, la cybersécurité et les jeux vidéo bien sûr ! 😎",
 };
 
 const socialLinks = [
