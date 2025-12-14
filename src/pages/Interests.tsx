@@ -416,23 +416,23 @@ const Interests = () => {
                                     ))}
                                 </div>
                             </div>
-                            <div className="space-y-6 pt-6">
-                                <h3 className="text-2xl font-bold flex items-center gap-3 border-b border-border pb-2">
-                                    <Gamepad className="w-6 h-6 text-primary" />
-                                    // JEUX VIDEALS <span className="font-mono text-base text-muted-foreground">[ANALYZING]</span>
-                                </h3>
-                                <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6">
-                                    {gamingContent.map((game, index) => (
-                                        <GamingReportCard
-                                            key={index}
-                                            title={game.title}
-                                            image={game.image}
-                                            content={game}
-                                            rating={game.rating}
-                                        />
-                                    ))}
-                                </div>
-                            </div>
+                            {/*<div className="space-y-6 pt-6">*/}
+                            {/*    <h3 className="text-2xl font-bold flex items-center gap-3 border-b border-border pb-2">*/}
+                            {/*        <Gamepad className="w-6 h-6 text-primary" />*/}
+                            {/*        // JEUX VIDEALS <span className="font-mono text-base text-muted-foreground">[ANALYZING]</span>*/}
+                            {/*    </h3>*/}
+                            {/*    <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6">*/}
+                            {/*        {gamingContent.map((game, index) => (*/}
+                            {/*            <GamingReportCard*/}
+                            {/*                key={index}*/}
+                            {/*                title={game.title}*/}
+                            {/*                image={game.image}*/}
+                            {/*                content={game}*/}
+                            {/*                rating={game.rating}*/}
+                            {/*            />*/}
+                            {/*        ))}*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
                             <div className="space-y-6 pt-6">
                                 <h3 className="text-2xl font-bold flex items-center gap-3 border-b border-border pb-2">
                                     <Music className="w-6 h-6 text-red-500" />
@@ -455,25 +455,25 @@ const Interests = () => {
                                     </iframe>
                                 </div>
                             </div>
-                            <div className="space-y-6 pt-6">
-                                <h3 className="text-2xl font-bold flex items-center gap-3 border-b border-border pb-2">
-                                    <Zap className="w-6 h-6 text-primary" />
-                                    // HOBBIES & SPORTS <span className="font-mono text-base text-muted-foreground">[ACTIVE]</span>
-                                </h3>
-                                <div className="grid md:grid-cols-1 gap-6">
-                                    {hobbiesSportsContent.map((activity, index) => (
-                                        <HobbySportMissionCard
-                                            key={index}
-                                            title={activity.title}
-                                            image={activity.image}
-                                            description={activity.description}
-                                            tags={activity.tags}
-                                            icon={activity.icon}
-                                            visuals={activity.visuals}
-                                        />
-                                    ))}
-                                </div>
-                            </div>
+                            {/*<div className="space-y-6 pt-6">*/}
+                            {/*    <h3 className="text-2xl font-bold flex items-center gap-3 border-b border-border pb-2">*/}
+                            {/*        <Zap className="w-6 h-6 text-primary" />*/}
+                            {/*        // HOBBIES & SPORTS <span className="font-mono text-base text-muted-foreground">[ACTIVE]</span>*/}
+                            {/*    </h3>*/}
+                            {/*    <div className="grid md:grid-cols-1 gap-6">*/}
+                            {/*        {hobbiesSportsContent.map((activity, index) => (*/}
+                            {/*            <HobbySportMissionCard*/}
+                            {/*                key={index}*/}
+                            {/*                title={activity.title}*/}
+                            {/*                image={activity.image}*/}
+                            {/*                description={activity.description}*/}
+                            {/*                tags={activity.tags}*/}
+                            {/*                icon={activity.icon}*/}
+                            {/*                visuals={activity.visuals}*/}
+                            {/*            />*/}
+                            {/*        ))}*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
                             <div className="text-center mb-16">
                                 <a href="/" aria-label="Retour à la page d'accueil">
                                     <Button
@@ -519,7 +519,7 @@ const Interests = () => {
                             <div className="border border-primary/50 p-4 bg-primary/10 font-mono text-xs text-primary rounded-xl">
                                 <p>
                                     <span className="text-secondary-foreground">[CONCLUSION]</span>
-                                    &gt; Data gathered. Personality profile 98% complete.
+                                    &gt; Tu en sais maintenant un peu plus encore sur moi...
                                 </p>
                             </div>
                         </div>
