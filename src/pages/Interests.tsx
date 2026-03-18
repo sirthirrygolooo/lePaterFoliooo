@@ -27,7 +27,7 @@ const personalInfo = {
 const socialLinks = [
     { key: "RootMe", url: "https://www.root-me.org/Sir_thirrygolooo?lang=fr#6bd5f588460a47903a3a0835147fe9ed", icon: Shield },
     { key: "Discord (sir_thirrygolooo)", url: null, icon: Heart },
-    { key: "Instagram", url: "https://www.instagram.com/j_b.frhl/", icon: Zap },
+    { key: "Instagram", url: "https://www.instagram.com/urssafofficiel/", icon: Zap },
 ];
 
 const gamingContent = [
