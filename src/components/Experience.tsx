@@ -4,6 +4,13 @@ import { Briefcase, Calendar, MapPin, Building, Code } from 'lucide-react';
 const Experience = () => {
   const experiences = [
     {
+      title: "Développement d'un outil IA au profit de l'animation d'exercices d'entrainement de Postes de Commandement",
+      company: "Ministère des Armées",
+      location: "Besançon",
+      date: "S5/S6",
+      skills: ["Python", "Javascript", "React", "LLM", "RAG"]
+    },
+    {
       title: "Stage en Sécurité et Apprentissage Machine",
       company: "IUT Nord Franche-Comté / Femto-ST",
       location: "Belfort",
@@ -11,13 +18,6 @@ const Experience = () => {
       description: "Travail sur la sécurité des modèles d'Apprentissage Machine (Machine Learning). Travail sur des réseaux neuronaux, principalement convolutifs, et recherches de techniques pour renforcer la robustesse des algorithmes face à différents types d'attaques.",
       skills: ["Python", "Machine Learning", "PyTorch", "CyberSécurité"]
     },
-    {
-      title: "Développement d'un outil IA au profit de l'animation d'exercices d'entrainement de Postes de Commandement",
-      company: "Ministère des Armées",
-      location: "Besançon",
-      date: "S5/S6",
-      skills: ["Python", "Javascript", "React", "LLM", "RAG"]
-    }
   ];
 
   return (
