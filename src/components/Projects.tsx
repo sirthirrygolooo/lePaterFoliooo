@@ -38,8 +38,7 @@ const ALL_PROJECTS = [
     description: "Projet de cours d'IA mélant Chatbot (LLM) et classification d'images sur la base d'un dataset RGB.",
     tags: ["PyTorch", "CNN", "RGB Images", "Image Classification", "Deep Learning"],
     category: "AI",
-    githubUrl: "#",
-    liveUrl: "https://github.com/rCaruhel/S5IA_ProCreate",
+    githubUrl: "https://github.com/rCaruhel/S5IA_ProCreate",
     icon: Code,
   },
   {

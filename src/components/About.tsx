@@ -21,7 +21,7 @@ const About = () => {
     {
       icon: Database,
       title: "Module: Développement Web",
-      description: "J'aime également beaucoup développer mon côté créatif au travers de développement Front, comme par exemple ce portfolio. J'avais réalisé une première version que je trouvais trop 'lisse' et 'classique' et qui ne reflétait pas assez mes centres d'intérets. Je pense que à l'inverse, celui la représente assez bien ce qui m'anime en informatique. ",
+      description: "J'aime également beaucoup développer mon côté créatif au travers de développement Front, comme par exemple ce portfolio. J'avais commencé à réaliser une première version que je trouvais trop 'lisse' et 'classique' et qui ne reflétait pas assez mes centres d'intérets. Je pense qu'à l'inverse, celui-ci représente assez bien ce qui m'anime en informatique. ",
       color: "text-blue-500",
     },
     {
@@ -115,7 +115,7 @@ const About = () => {
                   </p>
 
                   <p className="text-lg text-muted-foreground leading-relaxed mt-4">
-                    Mon stage de S4 sur la sécurité en Apprentissage Machine 'Machine Learning' m'a également ouvert de nouvelles perspectives passionnantes car m'a montré également l'importance de la sécurité dans le domaine de l'IA, d'autant plus que c'est un secteur en pleine expansion avec des enjeux cruciaux pour l'avenir.
+                    Mon stage de S4 sur la sécurité en Apprentissage Machine 'Machine Learning' m'a également ouvert de nouvelles perspectives passionnantes car il m'a montré également l'importance de la sécurité dans le domaine de l'IA, d'autant plus que c'est un secteur en pleine expansion avec des enjeux cruciaux pour l'avenir.
                   </p>
 
                   <br></br>
@@ -149,7 +149,7 @@ const About = () => {
                 <div>
                   <h3 className="text-2xl font-bold mb-6 flex items-center gap-2">
                     <span className="text-primary">▸</span>
-                    CENTRES <span className="text-foreground">D'INTERETS</span>
+                    CENTRES <span className="text-foreground">D'INTERET</span>
                   </h3>
                   <div className="grid md:grid-cols-2 gap-6">
                     {interests.map((interest, index) => (
