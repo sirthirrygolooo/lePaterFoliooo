@@ -4,7 +4,7 @@ import { Briefcase, Calendar, MapPin, Building, Code } from 'lucide-react';
 const Experience = () => {
   const experiences = [
     {
-      title: "Développement d'un outil IA au profit de l'animation d'exercices d'entrainement de Postes de Commandement",
+      title: "Développement d'un outil IA au profit de l'animation d'exercices pour l'entrainement de Postes de Commandement (PC)",
       company: "Ministère des Armées",
       location: "Besançon",
       date: "S5/S6",
