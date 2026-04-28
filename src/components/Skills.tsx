@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layers, Zap, Tool, Code, CheckCircle, Clock, Server, Star, Globe, Cpu } from 'lucide-react';
+import { Layers, Zap, Code, CheckCircle, Clock, Server, Star, Globe, Cpu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const SkillStatus = ({ name, level, description }) => {

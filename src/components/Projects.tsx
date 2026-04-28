@@ -26,7 +26,7 @@ const ALL_PROJECTS = [
   },
   {
     title: "Version Alpha de mon portfolio (HTML/CSS)",
-    description: "Première version de portfolio, non adoptée in fine car certes , mais ne me représentait pas vraiment.",
+    description: "Première version de portfolio, non adoptée in fine car il ne me représentait pas vraiment.",
     tags: ["Astro", "TailWind", "Frontend", "Portfolio"],
     category: "WebDev",
     githubUrl: "https://github.com/sirthirrygolooo/PortfolioS5V2",

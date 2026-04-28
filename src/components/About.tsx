@@ -27,7 +27,7 @@ const About = () => {
     {
       icon: Rocket,
       title: "En conclusion ?",
-      description: "J'aime chercher, découvrir de nouvelles choses et exprimer mes découvertes et ce qui se passe dans ma tête au travers de projets visuels et davantage axés créatifs. Ceux-ci se font plus rare, mais correspondent strictement à ce que j'aime et à ce que j'imagine.",
+      description: "J'aime chercher, découvrir de nouvelles choses et exprimer mes découvertes et ce qui se passe dans ma tête au travers de projets visuels et davantage axés vers la créativité. Ceux-ci sont plus rare, mais correspondent strictement à ce que j'aime et à ce que j'imagine.",
       color: "text-yellow-500",
     },
   ];
@@ -35,15 +35,13 @@ const About = () => {
   const stats = [
     { label: "Année d'étude", value: "3ème année" },
     { label: "Languages principaux", value: "Java, Python" },
-    { label: "Points Root-Me 💀", value: "845" },
+    { label: "Points Root-Me 💀", value: "1075" },
     { label: "Domaines favoris", value: "Cybersécurité & IA" }
   ];
 
-  // NOUVELLE FONCTION DE COPIE (CORRIGÉE)
   const handleCopyCommand = async () => {
     const commandToCopy = "cat about.txt";
 
-    // 1. Utilisation de la méthode moderne navigator.clipboard (la plus fiable et sans défilement)
     if (navigator.clipboard && window.isSecureContext) {
       try {
         await navigator.clipboard.writeText(commandToCopy);
@@ -53,11 +51,9 @@ const About = () => {
         console.error('Erreur lors de la copie moderne:', err);
       }
     } else {
-      // 2. Fallback pour les environnements plus anciens ou non sécurisés (CORRIGÉ SANS DÉFILEMENT)
       const textArea = document.createElement("textarea");
       textArea.value = commandToCopy;
 
-      // Positionner l'élément hors écran pour éviter le défilement et le rendu visuel
       textArea.style.position = "fixed";
       textArea.style.left = "-9999px";
       textArea.style.top = "0";
@@ -120,9 +116,13 @@ const About = () => {
 
                   <br></br>
                   <hr></hr>
+                  <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-primary font-mono">
+                    <Code className="w-5 h-5" />
+                    <span className="text-foreground">Portfolio.about.formations(jean_baptiste)</span>
+                  </h3>
                   <div className="mt-6 font-mono text-sm">
                     <span className="text-primary">[↺ IN_PROGRESS]</span>
-                    <a href="https://www.onisep.fr/formation/apres-le-bac-les-etudes-superieures/les-principales-filieres-d-etudes-superieures/les-but-bachelors-universitaires-de-technologie" target="_blank" className="text-foreground underline ml-2 hover:text-primary transition-colors">
+                    <a href="https://www.univ-orleans.fr/fr/univ/international/athena-universite-europeenne/mobilites-virtuelles-et-hybrides/bip-blended-2" target="_blank" className="text-foreground underline ml-2 hover:text-primary transition-colors">
                       Blended Intensive Program IA & robotic @ [Erasmus +] @ Oct 2025/Jan 2026
                     </a>
                   </div>
