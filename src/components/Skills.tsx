@@ -129,20 +129,20 @@ const Skills = () => {
         {/* Parallax Grid Background */}
         <div className="absolute inset-0 z-0 grid-background opacity-10 pointer-events-none" />
         
-        <div className="container mx-auto px-6 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-6xl mx-auto">
             {/* Entête Terminal */}
-            <div className="font-mono text-primary text-sm mb-4">
+            <div className="font-mono text-primary text-xs sm:text-sm mb-4">
               <span className="terminal-cursor">$ cat /profile/tech_skills.list</span>
             </div>
 
-            <h2 className="text-4xl md:text-5xl font-bold mb-16">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-10 sm:mb-16">
               RÉSUMÉ <span className="text-primary">TECHNIQUE</span>
             </h2>
 
-            <div className="grid lg:grid-cols-4 gap-12">
+            <div className="grid lg:grid-cols-4 gap-6 lg:gap-12">
 
-              <div className="lg:col-span-3 grid md:grid-cols-3 gap-8">
+              <div className="lg:col-span-3 grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8">
                 {skillCategories.filter(c => c.type === 'status').map((category, catIndex) => (
                     <div key={catIndex} className="space-y-6 bg-card p-4 border border-border rounded-lg shadow-md hover:border-primary/50 hover:shadow-[0_0_15px_rgba(var(--primary-rgb),0.15)] transition-all duration-300 relative overflow-hidden group">
                       

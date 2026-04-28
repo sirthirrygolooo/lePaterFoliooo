@@ -28,19 +28,19 @@ const Experience = () => {
       {/* Parallax Grid Background */}
       <div className="absolute inset-0 z-0 grid-background opacity-10 pointer-events-none" />
       
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <div className="max-w-6xl mx-auto">
-          <div className="font-mono text-primary text-sm mb-4">
+          <div className="font-mono text-primary text-xs sm:text-sm mb-4 truncate">
             <span className="terminal-cursor">$ cat /profile/experiences.log | grep --color=auto "work"</span>
           </div>
 
-          <h2 className="text-4xl md:text-5xl font-bold mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-10 sm:mb-16">
             MES <span className="text-primary">EXPÉRIENCES</span>
           </h2>
 
-          <div className="relative border-l-2 border-primary/30 ml-3 md:ml-6 space-y-12">
+          <div className="relative border-l-2 border-primary/30 ml-3 sm:ml-6 space-y-8 sm:space-y-12">
             {experiences.map((exp, index) => (
-              <div key={index} className="relative pl-8 md:pl-12 group">
+              <div key={index} className="relative pl-6 sm:pl-12 group">
                 {/* Timeline dot avec animation si IN_PROGRESS */}
                 <div className={`absolute -left-[9px] top-1.5 w-4 h-4 rounded-full border-2 border-primary ${exp.status === 'IN_PROGRESS' ? 'bg-primary shadow-[0_0_10px_var(--primary)] animate-pulse' : 'bg-background'}`}></div>
                 

@@ -82,17 +82,17 @@ const About = () => {
         {/* Parallax Grid Background */}
         <div className="absolute inset-0 z-0 grid-background opacity-20 pointer-events-none" />
         
-        <div className="container mx-auto px-6 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-6xl mx-auto">
-            <div className="font-mono text-primary text-sm mb-4">
+            <div className="font-mono text-primary text-xs sm:text-sm mb-4">
               <span className="terminal-cursor">$ cat about.txt | grep jean_baptiste</span>
             </div>
 
-            <h2 className="text-4xl md:text-5xl font-bold mb-8">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8">
               QUI <span className="text-primary">SUIS-JE ?</span>
             </h2>
 
-            <div className="grid lg:grid-cols-3 gap-12">
+            <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
 
               <div className="lg:col-span-2 space-y-8">
 
@@ -154,7 +154,7 @@ const About = () => {
                     <span className="text-primary">▸</span>
                     CENTRES <span className="text-foreground">D'INTERET</span>
                   </h3>
-                  <div className="grid md:grid-cols-2 gap-6">
+                  <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
                     {interests.map((interest, index) => (
                         <div
                             key={index}
@@ -176,7 +176,7 @@ const About = () => {
               </div>
 
               <div className="lg:col-span-1">
-                <div className="sticky top-8 space-y-6"> {/* Ajout de sticky pour un meilleur effet */}
+                <div className="space-y-6">
                   <h3 className="text-2xl font-bold mb-6 flex items-center gap-2 font-mono">
                     <span className="text-primary">//</span>
                     <span className="text-lg uppercase">...Statistiques de profil</span>

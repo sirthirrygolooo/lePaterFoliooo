@@ -137,14 +137,14 @@ const Projects = () => {
         {/* Parallax Grid Background */}
         <div className="absolute inset-0 z-0 grid-background opacity-20 pointer-events-none" />
         
-        <div className="container mx-auto px-6 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-6xl mx-auto">
             {/* Entête Terminal */}
-            <div className="font-mono text-primary text-sm mb-4">
+            <div className="font-mono text-primary text-xs sm:text-sm mb-4">
               <span className="terminal-cursor">$ cat projects.log | grep "{activeCategory}"</span>
             </div>
 
-            <h2 className="text-4xl md:text-5xl font-bold mb-8">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 sm:mb-8">
               ARCHIVES <span className="text-primary">PROJETS</span>
             </h2>
 

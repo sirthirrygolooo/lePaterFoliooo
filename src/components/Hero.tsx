@@ -76,7 +76,6 @@ const Hero = () => {
                     backgroundImage: `url(${hehe})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
-                    backgroundAttachment: "fixed",
                     opacity: hoveredButton ? 0 : 0.15,
                 }}
             />
@@ -103,20 +102,20 @@ const Hero = () => {
 
             <div className="absolute inset-0 z-0 grid-background opacity-50" />
 
-            <div className="relative z-10 container mx-auto px-6 text-center py-24">
-                <div className="space-y-6 animate-fade-in">
+            <div className="relative z-10 container mx-auto px-4 sm:px-6 text-center py-20 sm:py-24">
+                <div className="space-y-4 sm:space-y-6 animate-fade-in">
 
-                    <div className="font-mono text-primary text-sm mb-4">
+                    <div className="font-mono text-primary text-xs sm:text-sm mb-4">
                         <span className="terminal-cursor">$ whoami</span>
                     </div>
 
-                    <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight">
+                    <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight">
                         <span className="text-glow">Salut !</span>
                         <br />
                         <span className="text-foreground">Moi, c'est JB</span>
                     </h1>
 
-                    <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
+                    <p className="text-base sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto px-2">
                         Jeune étudiant en informatique, je m'intéresse particulièrement au domaine de la <strong>cybersécurité</strong> et de <strong>l'intelligence artificielle</strong>.
                     </p>
 
@@ -167,8 +166,8 @@ const Hero = () => {
                         </div>
                     </div>
 
-                    <div className="flex items-center justify-center gap-4 pt-8">
-                        <div className="font-mono text-sm text-muted-foreground">
+                    <div className="flex flex-wrap items-center justify-center gap-3 pt-6 sm:pt-8">
+                        <div className="font-mono text-xs sm:text-sm text-muted-foreground text-center">
                             <span className="text-primary">[STATUS]</span> En recherche de nouvelles opportunités...
                         </div>
                         <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />

@@ -14,8 +14,8 @@ const Footer = () => {
 
   return (
       <footer className="bg-card border-t border-border py-6 sm:py-8">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6">
 
             {/* Colonne 1 : Statut du système et Auteur */}
             <div className="flex flex-col items-center md:items-start gap-1">
@@ -53,7 +53,7 @@ const Footer = () => {
               </p>
 
               {/* Technologies Utilisées */}
-              <div className="font-mono text-xs text-muted-foreground flex items-center gap-1 order-1 md:order-2">
+              <div className="font-mono text-xs text-muted-foreground flex flex-wrap items-center justify-center md:justify-end gap-1 order-1 md:order-2 text-center">
                 <Code className="w-3 h-3 text-primary shrink-0" />
                 <span className="text-primary">Tecnos :</span>
                 <span className="text-secondary-foreground/80">Vite / React / TailwindCSS / Zod</span>

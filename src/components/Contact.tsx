@@ -160,28 +160,28 @@ const Contact = () => {
   };
 
   return (
-      <section id="me contacter" className="py-24 bg-background relative overflow-hidden">
+      <section id="me contacter" className="py-16 sm:py-24 bg-background relative overflow-hidden">
         {/* Parallax Grid Background */}
         <div className="absolute inset-0 z-0 grid-background opacity-10 pointer-events-none" />
         
-        <div className="container mx-auto px-6 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <div className="font-mono text-primary text-sm mb-4">
+            <div className="text-center mb-10 sm:mb-16">
+              <div className="font-mono text-primary text-xs sm:text-sm mb-4">
                 <span className="terminal-cursor">$ initiate contact_protocol</span>
               </div>
 
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 break-words">
                 [<span className="text-primary">{getCurrentTime()}</span>]~$ CONNEXION <span className="text-primary">ÉTABLIE...</span>
               </h2>
 
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
                 Toujours volontaire pour de nouveaux projets, n'hésitez pas à me contacter via le formulaire ou par l'un des moyens listés ci-dessous.
                 Vous trouverez également de quoi en découvrir un peu plus sur mon travail et mes intérêts.
               </p>
             </div>
 
-            <div className="grid md:grid-cols-5 gap-8 items-start">
+            <div className="grid md:grid-cols-5 gap-6 sm:gap-8 items-start">
 
               <div className="md:col-span-2 space-y-8">
 
