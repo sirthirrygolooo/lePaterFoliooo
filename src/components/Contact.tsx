@@ -139,8 +139,11 @@ const Contact = () => {
   };
 
   return (
-      <section id="me contacter" className="py-24 bg-background">
-        <div className="container mx-auto px-6">
+      <section id="me contacter" className="py-24 bg-background relative overflow-hidden">
+        {/* Parallax Grid Background */}
+        <div className="absolute inset-0 z-0 grid-background opacity-10 pointer-events-none" />
+        
+        <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
               <div className="font-mono text-primary text-sm mb-4">

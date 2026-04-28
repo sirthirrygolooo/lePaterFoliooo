@@ -26,7 +26,8 @@ const Hero = () => {
                     backgroundImage: `url(${hehe})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
-                    opacity: 0.2,
+                    backgroundAttachment: "fixed",
+                    opacity: 0.15,
                 }}
             />
 

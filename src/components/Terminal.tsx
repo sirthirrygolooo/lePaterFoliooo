@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom';
 
 interface Command {
     command: string;
-    output: string | ((args: string[], privilegeLevel: string) => string); // Mise à jour du type de fonction
+    output: string | ((args: string[], privilegeLevel: string) => string);
     secretRoute?: string;
+    requiresAdmin?: boolean;
 }
 
 // CONST UTILISATEURS
@@ -153,7 +154,8 @@ const COMMANDS: Command[] = [
     {
         command: "cat secrets/.beaver.txt",
         output: "  [ACCESS GRANTED] Redirecting to hidden space...\n  Reading '.beaver.txt' reveals deep insights.\n  Navigating to /hidden...",
-        secretRoute: "/journal"
+        secretRoute: "/journal",
+        requiresAdmin: true
     },
     {
         command: "exec secrets/.backdoor.sh",
@@ -163,7 +165,8 @@ const COMMANDS: Command[] = [
   [STATUS] Connection established. Channel: /dev/null
   [SUCCESS] Accessing private directory...
   Redirecting to private page...`,
-        secretRoute: "/4rsi_about_area"
+        secretRoute: "/4rsi_about_area",
+        requiresAdmin: true
     },
     {
         command: "sudo su",
@@ -180,16 +183,14 @@ const COMMANDS: Command[] = [
   [错误] 黑客攻击进行中
   [性别] 绝密通道
   Redirection to 仪表盘秘密...`,
-        secretRoute: "/chin4_l34k"
-    },
-    {
-        command: "sudo su",
-        output: "  [ERROR] Not allowed to run sudo.\n  Hint: Maybe try a less privileged command to reveal some secrets."
+        secretRoute: "/chin4_l34k",
+        requiresAdmin: true
     },
     {
         command: "exec secrets/script.sh",
         output: `  [INITIALIZING] ./script.sh`,
-        secretRoute: "/scripted"
+        secretRoute: "/scripted",
+        requiresAdmin: true
     }
 ];
 
@@ -198,11 +199,21 @@ interface TerminalProps {
     onClose: () => void;
 }
 
+const INITIAL_MESSAGE = [
+    "Initializing secure connection...",
+    "Establishing link... DONE.",
+    "Welcome to the system. Authentication level: GUEST",
+    "Type 'help' to see available commands."
+];
+
 const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
     const [input, setInput] = useState("");
-    const [output, setOutput] = useState<string[]>([]);
+    const [output, setOutput] = useState<string[]>(INITIAL_MESSAGE);
+    const [history, setHistory] = useState<string[]>([]);
+    const [historyIndex, setHistoryIndex] = useState(-1);
     const [currentDir, setCurrentDir] = useState("~");
     const [privilegeLevel, setPrivilegeLevel] = useState(GUEST_USER);
+    const [isPortBlocked, setIsPortBlocked] = useState(true);
     const terminalRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
     const navigate = useNavigate();
@@ -222,6 +233,12 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
 
     const executeCommand = (commandLine: string) => {
         const fullCommand = commandLine.trim();
+        
+        if (fullCommand) {
+            setHistory(prev => [...prev, fullCommand]);
+        }
+        setHistoryIndex(-1);
+
         const args = fullCommand.split(/\s+/);
         const cmd = args[0];
 
@@ -230,11 +247,17 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
         const promptSymbol = privilegeLevel === 'admin' ? '#' : '>';
         newOutput.push(`$ ${currentDir}${promptSymbol} ${commandLine}`);
 
+        if (!fullCommand) {
+            setOutput(newOutput);
+            return;
+        }
+
         // --- GESTION DES COMMANDES SPÉCIALES ET D'ÉTAT ---
         if (cmd === "exit") {
             newOutput.push("  Closing session. Goodbye!");
-            setOutput([]); // CLear l'écran
+            setOutput(INITIAL_MESSAGE); // CLear l'écran et remet le message init
             setPrivilegeLevel(GUEST_USER); // Reset l'utilisateur à guest
+            setIsPortBlocked(true); // Reset game state
             setTimeout(() => { onClose(); }, 500);
             return;
         }
@@ -247,10 +270,19 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
         // --- LOGIQUE SU ---
         if (cmd === "su") {
             const targetUser = args[1];
+            const password = args[2];
+            
             if (targetUser === ADMIN_USER) {
-                setPrivilegeLevel("admin");
-                newOutput.push(`  Authentication successful for user '${ADMIN_USER}'.`);
-                newOutput.push("  Privilege level elevated to 'admin'.");
+                if (password === "synallagmatique") {
+                    setPrivilegeLevel("admin");
+                    newOutput.push(`  [SUCCESS] Authentication successful for user '${ADMIN_USER}'.`);
+                    newOutput.push("  Privilege level elevated to 'admin'.");
+                } else if (!password) {
+                    newOutput.push(`  [ERROR] Password required for user '${ADMIN_USER}'.`);
+                    newOutput.push(`  Usage: su ${ADMIN_USER} [password]`);
+                } else {
+                    newOutput.push(`  [ERROR] Authentication failure.`);
+                }
             } else if (targetUser === GUEST_USER) {
                 setPrivilegeLevel("guest");
                 newOutput.push(`  Switched to user '${GUEST_USER}'.`);
@@ -258,7 +290,7 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
             } else if (!targetUser) {
                 newOutput.push("  Usage: su [username]");
             } else {
-                newOutput.push(`  su: User ${targetUser} does not exist or password is required.`);
+                newOutput.push(`  su: User ${targetUser} does not exist.`);
             }
             setOutput(newOutput);
             return;
@@ -293,17 +325,19 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
         // --- LS ---
         if (cmd === "ls") {
             if (currentDir === "~" && (args[1] === "-la" || args[1] === "-al")) {
-                newOutput.push(...COMMANDS.find(c => c.command === 'ls -la')?.output.split('\n') || []);
+                newOutput.push(`  total 32\n  drwxr-xr-x 7 ${ADMIN_USER} staff 224 Nov 27 00:00 .\n  drwxr-xr-x 8 ${ADMIN_USER} staff 256 Nov 27 00:00 ..\n  -rw-r--r-- 1 ${ADMIN_USER} staff 575 Nov 27 00:00 about.txt\n  drwx------ 3 ${ADMIN_USER} staff 96 Nov 27 00:00 secrets/\n  -rw-r--r-- 1 ${ADMIN_USER} staff 3564 Nov 27 00:00 .bashrc`);
             } else if ( currentDir === "secrets" && (args[1] == "-la" || args[1] === "-al")) {
-                newOutput.push("  total 16");
+                newOutput.push("  total 24");
                 newOutput.push(`  drwx------ 3 ${ADMIN_USER} staff 96 Nov 27 00:00 .`);
                 newOutput.push(`  drwxr-xr-x 7 ${ADMIN_USER} staff 224 Nov 27 00:00 ..`);
+                newOutput.push(`  -rw------- 1 ${ADMIN_USER} staff 1048 Nov 27 00:00 mission.log - (READ ONLY)`);
                 newOutput.push(`  -rw-r--r-- 1 ${ADMIN_USER} staff 2048 Nov 27 00:00 DONT_README.txt - (READ ONLY)`);
                 newOutput.push(`  --x--x--x 1 ${ADMIN_USER} staff 1024 Nov 27 00:00 script.sh - (EXECUTE ONLY)`);
                 newOutput.push(`  -rw-r--r-- 1 ${ADMIN_USER} staff 2048 Nov 27 00:00 .beaver.txt - (READ ONLY)`);
                 newOutput.push(`  --x--x--x 1 ${ADMIN_USER} staff 1024 Nov 27 00:00 .backdoor.sh - (EXECUTE ONLY)`);
             } else if (currentDir === "secrets" || args[1] === "secrets") {
                 newOutput.push("  ../");
+                newOutput.push("  mission.log");
                 newOutput.push("  DONT_README.txt (READ ONLY)");
                 newOutput.push("  script.sh - (EXECUTE ONLY)");
                 newOutput.push("  [HINT] Use appropriate action (cat/exec) for these files.");
@@ -331,7 +365,132 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
         }
 
 
-        // --- LOGIQUE DE JEU ---
+        // --- LOGIQUE DE JEU (SCENARIO CTF) ---
+
+        if (cmd === 'cat' && args[1] === '.bashrc' && currentDir === '~') {
+            newOutput.push(`  # ~/.bashrc: executed by bash(1) for non-login shells.`);
+            newOutput.push(`  # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)`);
+            newOutput.push(`  # for examples`);
+            newOutput.push(`  `);
+            newOutput.push(`  # If not running interactively, don't do anything`);
+            newOutput.push(`  case $- in`);
+            newOutput.push(`      *i*) ;;`);
+            newOutput.push(`        *) return;;`);
+            newOutput.push(`  esac`);
+            newOutput.push(`  `);
+            newOutput.push(`  # don't put duplicate lines or lines starting with space in the history.`);
+            newOutput.push(`  HISTCONTROL=ignoreboth`);
+            newOutput.push(`  `);
+            newOutput.push(`  # append to the history file, don't overwrite it`);
+            newOutput.push(`  shopt -s histappend`);
+            newOutput.push(`  `);
+            newOutput.push(`  # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)`);
+            newOutput.push(`  HISTSIZE=1000`);
+            newOutput.push(`  HISTFILESIZE=2000`);
+            newOutput.push(`  `);
+            newOutput.push(`  # aliases`);
+            newOutput.push(`  alias ll='ls -alF'`);
+            newOutput.push(`  alias la='ls -A'`);
+            newOutput.push(`  alias l='ls -CF'`);
+            newOutput.push(`  `);
+            newOutput.push(`  # dev shortcuts`);
+            newOutput.push(`  alias gs='git status'`);
+            newOutput.push(`  alias gp='git push origin main'`);
+            newOutput.push(`  # alias su_dev='su 4rsi_root c3luYWxsYWdtYXRpcXVl' # TODO: delete this dev shortcut before prod`);
+            setOutput(newOutput);
+            return;
+        }
+
+        if (cmd === 'cat' && args[1] === 'mission.log' && currentDir === 'secrets') {
+            if (privilegeLevel !== 'admin') {
+                newOutput.push(`  [ERROR] Permission denied to read 'mission.log'. Required: admin.`);
+                setOutput(newOutput);
+                return;
+            }
+            newOutput.push(`  [WARNING] Suspicious network activity detected.`);
+            newOutput.push(`  An unauthorized process is running on this system.`);
+            newOutput.push(`  Action Required: Run 'scan' or 'nmap' to investigate active ports.`);
+            setOutput(newOutput);
+            return;
+        }
+
+        if (cmd === 'scan' || cmd === 'nmap') {
+            if (privilegeLevel !== 'admin') {
+                newOutput.push(`  [ERROR] Permission denied. Only root can scan network.`);
+                setOutput(newOutput);
+                return;
+            }
+            newOutput.push(`  Starting Nmap 7.92 ( https://nmap.org )`);
+            newOutput.push(`  Nmap scan report for localhost (127.0.0.1)`);
+            newOutput.push(`  Host is up (0.00012s latency).`);
+            newOutput.push(`  Not shown: 999 closed tcp ports`);
+            newOutput.push(`  PORT     STATE SERVICE`);
+            newOutput.push(`  1337/tcp open  hidden_service`);
+            newOutput.push(` `);
+            newOutput.push(`  Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds`);
+            newOutput.push(`  [HINT] Try to connect to the open port using 'nc localhost [port]'`);
+            setOutput(newOutput);
+            return;
+        }
+
+        if (cmd === 'nc' && args[1] === 'localhost' && args[2] === '1337') {
+            if (privilegeLevel !== 'admin') {
+                newOutput.push(`  [ERROR] Permission denied.`);
+                setOutput(newOutput);
+                return;
+            }
+            if (isPortBlocked) {
+                newOutput.push(`  [ERROR] Connection refused.`);
+                newOutput.push(`  Port is blocked by an unauthorized process.`);
+                newOutput.push(`  [HINT] Check running tasks with 'ps' and terminate the threat.`);
+            } else {
+                newOutput.push(`  [SUCCESS] Connected to hidden service.`);
+                newOutput.push(`  Downloading ultimate payload...`);
+                newOutput.push(`  Decrypting contents... DONE.`);
+                newOutput.push(`  Redirecting to secure location...`);
+                setOutput(newOutput);
+                setTimeout(() => {
+                    window.open('https://wikifeet.com/', '_blank');
+                }, 2000);
+                return;
+            }
+            setOutput(newOutput);
+            return;
+        }
+
+        if (cmd === 'ps') {
+            newOutput.push(`  PID TTY          TIME CMD`);
+            newOutput.push(`    1 ?        00:00:02 systemd`);
+            newOutput.push(`   42 ?        00:00:00 bâche`);
+            newOutput.push(`  128 pts/0    00:00:01 node`);
+            if (isPortBlocked) {
+                newOutput.push(`  404 ?        99:99:99 rogue_miner.exe`);
+            }
+            setOutput(newOutput);
+            return;
+        }
+
+        if (cmd === 'kill') {
+            if (privilegeLevel !== 'admin') {
+                newOutput.push(`  [ERROR] Permission denied. Required: admin.`);
+                setOutput(newOutput);
+                return;
+            }
+            const pid = args[1];
+            if (pid === '404' && isPortBlocked) {
+                setIsPortBlocked(false);
+                newOutput.push(`  [SUCCESS] Process 404 (rogue_miner.exe) terminated.`);
+                newOutput.push(`  Port 1337 is now available.`);
+            } else if (!pid) {
+                newOutput.push(`  kill: usage: kill [pid]`);
+            } else {
+                newOutput.push(`  kill: (${pid}) - No such process or permission denied`);
+            }
+            setOutput(newOutput);
+            return;
+        }
+
+        // --- FIN DE LOGIQUE DE JEU ---
 
         let foundCommand = COMMANDS.find(c => {
             if (c.command === fullCommand) return true;
@@ -344,14 +503,6 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
 
         if (cmd === 'cat' && currentDir === 'secrets' && args[1] === '.beaver.txt') {
             secretAccessCommand = 'cat secrets/.beaver.txt';
-
-            // PERMISSIONS
-            if (privilegeLevel === GUEST_USER) {
-                newOutput.push(`  cat: secrets/.beaver.txt: Permission denied. Access level: ${privilegeLevel}.`);
-                newOutput.push("  [HINT] Try to find the root user of the system with 'ls -la' and switch user.");
-                setOutput(newOutput);
-                return;
-            }
         }
 
         if (cmd === 'cat' && currentDir === 'secrets' && args[1] === 'DONT_README.txt') {
@@ -375,6 +526,15 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
         // --- EXEC COMMANDE ---
 
         if (foundCommand) {
+            // VERIFICATION DES PERMISSIONS
+            if (foundCommand.requiresAdmin && privilegeLevel !== 'admin') {
+                newOutput.push(`  [ERROR] Permission denied to execute: ${foundCommand.command.split(' ')[0]}`);
+                newOutput.push(`  Access level: ${privilegeLevel}. Required: admin.`);
+                newOutput.push("  [HINT] Try to find the root user of the system with 'ls -la' and switch user.");
+                setOutput(newOutput);
+                return;
+            }
+
             const commandOutput = typeof foundCommand.output === 'function' ? foundCommand.output(args, privilegeLevel) : foundCommand.output;
             newOutput.push(...commandOutput.split('\n'));
 
@@ -400,58 +560,77 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
         setOutput(newOutput);
     };
 
-    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {
             e.preventDefault();
             executeCommand(input);
             setInput("");
+        } else if (e.key === "ArrowUp") {
+            e.preventDefault();
+            if (history.length > 0) {
+                const newIndex = historyIndex < history.length - 1 ? historyIndex + 1 : historyIndex;
+                setHistoryIndex(newIndex);
+                setInput(history[history.length - 1 - newIndex]);
+            }
+        } else if (e.key === "ArrowDown") {
+            e.preventDefault();
+            if (historyIndex > 0) {
+                const newIndex = historyIndex - 1;
+                setHistoryIndex(newIndex);
+                setInput(history[history.length - 1 - newIndex]);
+            } else if (historyIndex === 0) {
+                setHistoryIndex(-1);
+                setInput("");
+            }
         }
     };
 
     if (!isOpen) return null;
 
     //  symbole du prompt (# pour admin, > pour guest)
-    const promptSymbol = privilegeLevel === 'admin' ? '#' : ' >';
+    const promptSymbol = privilegeLevel === 'admin' ? '#' : '>';
     const promptColor = privilegeLevel === 'admin' ? 'text-red-500' : 'text-primary';
 
     return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-            <div className="w-full max-w-3xl h-[600px] bg-gray-900 border border-primary/50 shadow-2xl flex flex-col font-mono text-white relative">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-background/80 backdrop-blur-md p-4 transition-all duration-300">
+            <div className="w-full max-w-4xl h-[650px] bg-card/90 border border-primary/50 shadow-[0_0_30px_rgba(var(--primary-rgb),0.15)] flex flex-col font-mono text-primary/90 relative overflow-hidden rounded-md group" onClick={() => inputRef.current?.focus()}>
+                
+                {/* CRT Scanline Overlay */}
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.15)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] z-40 pointer-events-none opacity-30 mix-blend-overlay"></div>
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent -translate-y-full group-hover:translate-y-full transition-transform duration-[3000ms] ease-linear pointer-events-none z-40"></div>
 
                 {/* Titre du terminal */}
-                <div className="flex items-center justify-between bg-primary/20 text-primary p-2 border-b border-primary/50">
-                    <div className="flex items-center gap-2">
-                        <TerminalIcon className="w-4 h-4" />
-                        <span className="text-sm">4rsi@portfolio-console: ~/{currentDir} (User: {privilegeLevel})</span>
+                <div className="flex items-center justify-between bg-primary/10 text-primary p-3 border-b border-primary/30 relative z-50">
+                    <div className="flex items-center gap-3">
+                        <TerminalIcon className="w-5 h-5 text-primary animate-pulse" />
+                        <span className="text-sm font-bold tracking-wider">4rsi@portfolio-console: ~/{currentDir} [USER: {privilegeLevel}]</span>
                     </div>
-                    <button onClick={onClose} className="text-primary hover:text-red-400">
-                        <X className="w-4 h-4" />
+                    <button onClick={onClose} className="text-primary hover:text-red-400 hover:bg-red-400/10 p-1 rounded transition-colors">
+                        <X className="w-5 h-5" />
                     </button>
                 </div>
-                <div ref={terminalRef} className="flex-1 p-4 overflow-y-auto text-sm custom-scrollbar">
+
+                <div ref={terminalRef} className="flex-1 p-6 overflow-y-auto text-[15px] custom-scrollbar relative z-50 text-glow selection:bg-primary selection:text-background">
                     {output.map((line, index) => (
-                        <pre key={index} className="whitespace-pre-wrap leading-relaxed">
+                        <pre key={index} className={`whitespace-pre-wrap leading-relaxed ${line.includes('[ERROR]') || line.includes('Permission denied') ? 'text-red-400' : line.includes('[SUCCESS]') || line.includes('Authentication successful') ? 'text-green-400' : 'text-primary/90'}`}>
                             {line}
                         </pre>
                     ))}
-                    <div className="flex items-center mt-2">
-                        <span className={`mr-2 flex-shrink-0 ${promptColor}`}>
-                            <span className={`mr-2 flex-shrink-0 ${promptColor}`}>
-                                {currentDir === '~' ? `$ ~/${promptSymbol}` : `$ /${currentDir} ${promptSymbol}`}
-                            </span>
-
+                    <div className="flex items-center mt-3">
+                        <span className={`mr-3 flex-shrink-0 font-bold ${promptColor}`}>
+                            {currentDir === '~' ? `~ ${promptSymbol}` : `/${currentDir} ${promptSymbol}`}
                         </span>
                         <input
                             ref={inputRef}
                             type="text"
-                            className="flex-1 bg-transparent border-none outline-none text-white caret-primary"
+                            className="flex-1 bg-transparent border-none outline-none text-primary/90 caret-primary"
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
-                            onKeyUp={handleKeyPress}
+                            onKeyDown={handleKeyDown}
                             autoCapitalize="off"
                             spellCheck="false"
+                            autoComplete="off"
                         />
-                        <span className="terminal-cursor-fake w-2 h-4 bg-primary animate-blink inline-block ml-1"></span>
                     </div>
                 </div>
             </div>
