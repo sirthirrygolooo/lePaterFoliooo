@@ -14,7 +14,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import emailjs from '@emailjs/browser';
 
 // --- CONFIGURATION EMAILJS (REMPLACEZ CES VALEURS !) ---
@@ -93,6 +93,16 @@ const Contact = () => {
     },
   });
 
+  const [submitProgress, setSubmitProgress] = useState(0);
+
+  const getSubmitProgressBar = (progress: number) => {
+      const totalBlocks = 10;
+      const validProgress = isNaN(progress) ? 0 : progress;
+      const filledBlocks = Math.max(0, Math.min(10, Math.floor(validProgress / 10)));
+      const emptyBlocks = Math.max(0, totalBlocks - filledBlocks);
+      return `[${'█'.repeat(filledBlocks)}${'-'.repeat(emptyBlocks)}] ${validProgress}%`;
+  };
+
   const onSubmit = async (data: ContactFormValues) => {
 
     // Vérification de la configuration
@@ -112,11 +122,20 @@ const Contact = () => {
       message: data.message,
     };
 
+    setSubmitProgress(0);
+    const interval = setInterval(() => {
+      setSubmitProgress(prev => {
+         const next = prev + Math.floor(Math.random() * 20) + 5;
+         return next > 90 ? 90 : next;
+      });
+    }, 150);
+
     try {
       // Envoi via emailjs.send
       const response = await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY);
 
-      // Simuler le délai de soumission pour l'effet UX
+      clearInterval(interval);
+      setSubmitProgress(100);
       await new Promise(resolve => setTimeout(resolve, 500));
 
       if (response.status === 200) {
@@ -128,6 +147,8 @@ const Contact = () => {
       }
 
     } catch (error) {
+      clearInterval(interval);
+      setSubmitProgress(0);
       console.error("Erreur réseau/connexion:", error);
       toast.error("Erreur de connexion. Veuillez vérifier votre réseau.");
     }
@@ -306,8 +327,14 @@ const Contact = () => {
                           className="w-full h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-mono text-base tracking-widest transition-all duration-300"
                           disabled={form.formState.isSubmitting}
                       >
-                        <Send className="w-5 h-5 mr-3" />
-                        {form.formState.isSubmitting ? "ENVOI EN COURS..." : "ENVOYER LE MESSAGE"}
+                        {form.formState.isSubmitting ? (
+                            getSubmitProgressBar(submitProgress)
+                        ) : (
+                            <>
+                                <Send className="w-5 h-5 mr-3" />
+                                ENVOYER LE MESSAGE
+                            </>
+                        )}
                       </Button>
                     </form>
                   </Form>

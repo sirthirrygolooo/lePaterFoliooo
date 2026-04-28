@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
 import { ChevronDown, Download, Github, Linkedin } from "lucide-react";
-import hehe from "@/assets/hehe.gif"
+import hehe from "@/assets/hehe.gif";
+import catGif from "@/assets/cat.gif";
+import businessGif from "@/assets/business.gif";
 import { Button } from "@/components/ui/button";
 
 const Hero = () => {
     const [isHovering, setIsHovering] = useState(false);
+    const [isDownloading, setIsDownloading] = useState(false);
+    const [downloadProgress, setDownloadProgress] = useState(0);
+    const [hoveredButton, setHoveredButton] = useState<'github' | 'linkedin' | null>(null);
+
+    const GITHUB_GIF = catGif;
+    const LINKEDIN_GIF = businessGif;
 
     const scrollToAbout = () => {
         const element = document.getElementById("a propos");
@@ -13,21 +21,83 @@ const Hero = () => {
 
     const CV_PATH = "/CV.pdf";
 
-    const buttonText = isHovering
+    const handleDownload = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        if (isDownloading) {
+            e.preventDefault();
+            return;
+        }
+        
+        e.preventDefault();
+        setIsDownloading(true);
+        setDownloadProgress(0);
+
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += Math.floor(Math.random() * 25) + 10;
+            if (progress >= 100) {
+                progress = 100;
+                clearInterval(interval);
+                
+                setTimeout(() => {
+                    const link = document.createElement('a');
+                    link.href = CV_PATH;
+                    link.download = "FROEHLY_Jean-Baptiste_CV.pdf";
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    
+                    setTimeout(() => setIsDownloading(false), 800);
+                }, 400);
+            }
+            setDownloadProgress(progress);
+        }, 150);
+    };
+
+    const getProgressBar = (progress: number) => {
+        const totalBlocks = 10;
+        const validProgress = isNaN(progress) ? 0 : progress;
+        const filledBlocks = Math.max(0, Math.min(10, Math.floor(validProgress / 10)));
+        const emptyBlocks = Math.max(0, totalBlocks - filledBlocks);
+        return `[${'█'.repeat(filledBlocks)}${'-'.repeat(emptyBlocks)}] ${validProgress}%`;
+    };
+
+    const buttonText = isDownloading 
+        ? getProgressBar(downloadProgress)
+        : isHovering
         ? "wget public/CV.pdf"
         : "Télécharger mon CV";
 
     return (
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-            {/* Background Image */}
+            {/* Background Image - default */}
             <div
-                className="absolute inset-0 z-0"
+                className="absolute inset-0 z-0 transition-opacity duration-500"
                 style={{
                     backgroundImage: `url(${hehe})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                     backgroundAttachment: "fixed",
-                    opacity: 0.15,
+                    opacity: hoveredButton ? 0 : 0.15,
+                }}
+            />
+            {/* Background Image - GitHub hover */}
+            <div
+                className="absolute inset-0 z-0 transition-opacity duration-500"
+                style={{
+                    backgroundImage: `url(${GITHUB_GIF})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    opacity: hoveredButton === 'github' ? 0.25 : 0,
+                }}
+            />
+            {/* Background Image - LinkedIn hover */}
+            <div
+                className="absolute inset-0 z-0 transition-opacity duration-500"
+                style={{
+                    backgroundImage: `url(${LINKEDIN_GIF})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    opacity: hoveredButton === 'linkedin' ? 0.25 : 0,
                 }}
             />
 
@@ -59,6 +129,7 @@ const Hero = () => {
                             rel="noopener noreferrer"
                             onMouseEnter={() => setIsHovering(true)}
                             onMouseLeave={() => setIsHovering(false)}
+                            onClick={handleDownload}
                             className="transition-transform duration-300 hover:scale-[1.03]"
                         >
                             <Button
@@ -72,12 +143,24 @@ const Hero = () => {
 
                         <div className="flex gap-4 pt-4 sm:pt-0">
                             <Button variant="outline" size="icon" className="w-12 h-12 hover:bg-muted/30 border-border text-primary" asChild>
-                                <a href="https://www.linkedin.com/in/jean-baptiste-froehly/" target="_blank" aria-label="Lien LinkedIn">
+                                <a
+                                    href="https://www.linkedin.com/in/jean-baptiste-froehly/"
+                                    target="_blank"
+                                    aria-label="Lien LinkedIn"
+                                    onMouseEnter={() => setHoveredButton('linkedin')}
+                                    onMouseLeave={() => setHoveredButton(null)}
+                                >
                                     <Linkedin className="w-5 h-5" />
                                 </a>
                             </Button>
                             <Button variant="outline" size="icon" className="w-12 h-12 hover:bg-muted/30 border-border text-primary" asChild>
-                                <a href="https://github.com/sirthirrygolooo" target="_blank" aria-label="Lien GitHub">
+                                <a
+                                    href="https://github.com/sirthirrygolooo"
+                                    target="_blank"
+                                    aria-label="Lien GitHub"
+                                    onMouseEnter={() => setHoveredButton('github')}
+                                    onMouseLeave={() => setHoveredButton(null)}
+                                >
                                     <Github className="w-5 h-5" />
                                 </a>
                             </Button>
