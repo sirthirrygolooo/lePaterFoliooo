@@ -155,13 +155,16 @@ const About = () => {
                     {interests.map((interest, index) => (
                         <div
                             key={index}
-                            className="bg-card border border-border p-5 hover:border-primary/50 transition-all duration-300 group flex items-start space-x-4"
+                            className="bg-card border border-border p-5 hover:border-primary/50 hover:shadow-[0_0_15px_rgba(var(--primary-rgb),0.15)] transition-all duration-300 group flex items-start space-x-4 relative overflow-hidden"
                             style={{ animationDelay: `${index * 100}ms` }}
                         >
-                          <interest.icon className={`w-6 h-6 shrink-0 mt-1 ${interest.color} group-hover:scale-110 transition-transform`} />
-                          <div>
+                          {/* Scanline effect */}
+                          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent -translate-y-full group-hover:translate-y-full transition-transform duration-1000 ease-linear pointer-events-none"></div>
+
+                          <interest.icon className={`w-6 h-6 shrink-0 mt-1 ${interest.color} group-hover:scale-110 transition-transform relative z-10`} />
+                          <div className="relative z-10">
                             <h3 className="text-base font-mono font-bold mb-1 text-primary">{interest.title}</h3>
-                            <p className="text-sm text-muted-foreground">{interest.description}</p>
+                            <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">{interest.description}</p>
                           </div>
                         </div>
                     ))}

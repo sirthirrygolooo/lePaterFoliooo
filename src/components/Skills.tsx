@@ -141,21 +141,27 @@ const Skills = () => {
 
               <div className="lg:col-span-3 grid md:grid-cols-3 gap-8">
                 {skillCategories.filter(c => c.type === 'status').map((category, catIndex) => (
-                    <div key={catIndex} className="space-y-6 bg-card p-4 border border-border rounded-lg shadow-md">
-                      <h3 className="font-mono text-lg text-primary border-b border-border pb-2 flex items-center gap-2">
-                        <category.icon className='w-5 h-5'/>
-                        [{category.category.toUpperCase()}]
-                      </h3>
+                    <div key={catIndex} className="space-y-6 bg-card p-4 border border-border rounded-lg shadow-md hover:border-primary/50 hover:shadow-[0_0_15px_rgba(var(--primary-rgb),0.15)] transition-all duration-300 relative overflow-hidden group">
+                      
+                      {/* Scanline effect */}
+                      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent -translate-y-full group-hover:translate-y-full transition-transform duration-1000 ease-linear pointer-events-none"></div>
 
-                      <div className="space-y-4">
-                        {category.skills.map((skill, skillIndex) => (
-                            <SkillStatus
-                                key={skillIndex}
-                                name={skill.name}
-                                level={skill.level}
-                                description={skill.description}
-                            />
-                        ))}
+                      <div className="relative z-10">
+                        <h3 className="font-mono text-lg text-primary border-b border-border pb-2 flex items-center gap-2 group-hover:text-primary transition-colors">
+                          <category.icon className='w-5 h-5'/>
+                          [{category.category.toUpperCase()}]
+                        </h3>
+
+                        <div className="space-y-4 pt-2">
+                          {category.skills.map((skill, skillIndex) => (
+                              <SkillStatus
+                                  key={skillIndex}
+                                  name={skill.name}
+                                  level={skill.level}
+                                  description={skill.description}
+                              />
+                          ))}
+                        </div>
                       </div>
                     </div>
                 ))}
@@ -164,21 +170,27 @@ const Skills = () => {
               <div className="lg:col-span-1 space-y-8">
 
                 {skillCategories.filter(c => c.type === 'lang').map((category, catIndex) => (
-                    <div key={`lang-${catIndex}`} className="space-y-6 bg-card p-4 border border-border rounded-lg shadow-md">
-                      <h3 className="font-mono text-lg text-primary border-b border-border pb-2 flex items-center gap-2">
-                        <category.icon className='w-5 h-5'/>
-                        [{category.category.toUpperCase()}]
-                      </h3>
+                    <div key={`lang-${catIndex}`} className="space-y-6 bg-card p-4 border border-border rounded-lg shadow-md hover:border-primary/50 hover:shadow-[0_0_15px_rgba(var(--primary-rgb),0.15)] transition-all duration-300 relative overflow-hidden group">
+                      
+                      {/* Scanline effect */}
+                      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent -translate-y-full group-hover:translate-y-full transition-transform duration-1000 ease-linear pointer-events-none"></div>
 
-                      <div className="space-y-3">
-                        {category.skills.map((skill, skillIndex) => (
-                            <LanguageLevel
-                                key={skillIndex}
-                                name={skill.name}
-                                level={skill.level}
-                                description={skill.description}
-                            />
-                        ))}
+                      <div className="relative z-10">
+                        <h3 className="font-mono text-lg text-primary border-b border-border pb-2 flex items-center gap-2 group-hover:text-primary transition-colors">
+                          <category.icon className='w-5 h-5'/>
+                          [{category.category.toUpperCase()}]
+                        </h3>
+
+                        <div className="space-y-3 pt-2">
+                          {category.skills.map((skill, skillIndex) => (
+                              <LanguageLevel
+                                  key={skillIndex}
+                                  name={skill.name}
+                                  level={skill.level}
+                                  description={skill.description}
+                              />
+                          ))}
+                        </div>
                       </div>
                     </div>
                 ))}

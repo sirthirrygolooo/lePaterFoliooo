@@ -184,8 +184,11 @@ const Contact = () => {
                   </div>
                 </div>
 
-                <div className="p-6 bg-muted/30 border border-border mt-8">
-                  <div className="font-mono text-xs space-y-2">
+                <div className="p-6 bg-muted/30 border border-border mt-8 hover:border-primary/50 hover:shadow-[0_0_15px_rgba(var(--primary-rgb),0.15)] transition-all duration-300 relative overflow-hidden group">
+                  {/* Scanline effect */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent -translate-y-full group-hover:translate-y-full transition-transform duration-1000 ease-linear pointer-events-none"></div>
+                  
+                  <div className="font-mono text-xs space-y-2 relative z-10">
                     <h4 className="text-sm font-bold mb-3 text-primary uppercase">
                       Connection Manifest
                     </h4>
@@ -200,14 +203,18 @@ const Contact = () => {
               </div>
 
               <div className="md:col-span-3">
-                <div className="bg-card border border-border p-8 shadow-xl">
-                  <h3 className="text-2xl font-bold mb-8 flex items-center gap-2 font-mono">
+                <div className="bg-card border border-border p-8 shadow-xl hover:border-primary/50 hover:shadow-[0_0_15px_rgba(var(--primary-rgb),0.15)] transition-all duration-300 relative overflow-hidden group">
+                  {/* Scanline effect */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent -translate-y-full group-hover:translate-y-full transition-transform duration-1000 ease-linear pointer-events-none"></div>
+                  
+                  <h3 className="text-2xl font-bold mb-8 flex items-center gap-2 font-mono relative z-10">
                     <span className="text-primary">//</span>
                     <span className="text-lg uppercase">Envoyer un message</span>
                   </h3>
 
-                  <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                  <div className="relative z-10">
+                    <Form {...form}>
+                      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                       <div className="grid md:grid-cols-2 gap-4">
                         <FormField
                             control={form.control}
@@ -301,6 +308,7 @@ const Contact = () => {
                       </Button>
                     </form>
                   </Form>
+                  </div>
                 </div>
               </div>
             </div>

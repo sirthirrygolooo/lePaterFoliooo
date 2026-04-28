@@ -172,9 +172,12 @@ const Projects = () => {
                 return (
                     <div
                         key={index}
-                        className="bg-card border border-border p-6 shadow-lg hover:border-primary/50 hover:shadow-primary/10 transition-all duration-300 group flex flex-col justify-between"
+                        className="bg-card border border-border p-6 shadow-lg hover:border-primary/50 hover:shadow-[0_0_15px_rgba(var(--primary-rgb),0.15)] transition-all duration-300 group flex flex-col justify-between relative overflow-hidden"
                     >
-                      <div>
+                      {/* Scanline effect */}
+                      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent -translate-y-full group-hover:translate-y-full transition-transform duration-1000 ease-linear pointer-events-none"></div>
+
+                      <div className="relative z-10 flex flex-col h-full">
                         {/* En-tête de la Carte */}
                         <div className="flex items-start justify-between mb-4">
                           <div className="flex items-center gap-2">
@@ -187,16 +190,16 @@ const Projects = () => {
                           {/* Liens (GitHub & Live) */}
                           <div className="flex gap-2">
                             {project.githubUrl && (
-                                <Button size="icon" variant="ghost" className="w-8 h-8 hover:bg-primary/10" asChild>
+                                <Button size="icon" variant="ghost" className="w-8 h-8 hover:bg-primary/10 hover:text-primary transition-colors" asChild>
                                   <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" aria-label={`View ${project.title} on GitHub`}>
-                                    <Github className="w-4 h-4 text-primary" />
+                                    <Github className="w-4 h-4" />
                                   </a>
                                 </Button>
                             )}
                             {project.liveUrl && (
-                                <Button size="icon" variant="ghost" className="w-8 h-8 hover:bg-primary/10" asChild>
+                                <Button size="icon" variant="ghost" className="w-8 h-8 hover:bg-primary/10 hover:text-primary transition-colors" asChild>
                                   <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" aria-label={`View live demo of ${project.title}`}>
-                                    <ExternalLink className="w-4 h-4 text-primary" />
+                                    <ExternalLink className="w-4 h-4" />
                                   </a>
                                 </Button>
                             )}
@@ -204,26 +207,30 @@ const Projects = () => {
                         </div>
 
                         {/* Contenu */}
-                        <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">
-                          {project.title}
+                        <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors flex items-start gap-2">
+                          <span className="text-primary opacity-0 group-hover:opacity-100 transition-opacity mt-1">
+                             <Code className="w-4 h-4" />
+                          </span>
+                          <span className="leading-tight -ml-6 group-hover:ml-0 transition-all duration-300">{project.title}</span>
                         </h3>
 
                         <p className="text-sm text-muted-foreground mb-6 flex-grow">
                           {project.description}
                         </p>
-                      </div>
 
-                      {/* Tags */}
-                      <div className="mt-4 border-t border-border pt-4">
-                        <div className="flex flex-wrap gap-2">
-                          {project.tags.map((tag, tagIndex) => (
-                              <span
-                                  key={tagIndex}
-                                  className="px-2 py-0.5 text-xs font-mono bg-muted text-muted-foreground rounded"
-                              >
-                                                {tag}
-                                            </span>
-                          ))}
+                        {/* Tags */}
+                        <div className="mt-4 border-t border-border pt-4">
+                          <div className="flex flex-wrap gap-2">
+                            {project.tags.map((tag, tagIndex) => (
+                                <span
+                                    key={tagIndex}
+                                    className="px-2 py-0.5 text-xs font-mono bg-muted/50 text-foreground rounded border border-border flex items-center gap-1 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-colors cursor-default"
+                                >
+                                    <span className="text-primary font-bold opacity-70 group-hover:opacity-100">&gt;</span>
+                                    {tag}
+                                </span>
+                            ))}
+                          </div>
                         </div>
                       </div>
                     </div>
