@@ -122,14 +122,14 @@ const About = () => {
                   </h3>
                   <div className="mt-6 font-mono text-sm">
                     <span className="text-primary">[↺ IN_PROGRESS]</span>
-                    <a href="https://www.univ-orleans.fr/fr/univ/international/athena-universite-europeenne/mobilites-virtuelles-et-hybrides/bip-blended-2" target="_blank" className="text-foreground underline ml-2 hover:text-primary transition-colors">
-                      Blended Intensive Program IA & robotic @ [Erasmus +] @ Oct 2025/Jan 2026
+                    <a href="https://www.onisep.fr/formation/apres-le-bac-les-etudes-superieures/les-principales-filieres-d-etudes-superieures/les-but-bachelors-universitaires-de-technologie" target="_blank" className="text-foreground underline ml-2 hover:text-primary transition-colors">
+                      B.U.T Informatique @ [IUT NFC Belfort]
                     </a>
                   </div>
                   <div className="mt-6 font-mono text-sm">
-                    <span className="text-primary">[↺ IN_PROGRESS]</span>
-                    <a href="https://www.onisep.fr/formation/apres-le-bac-les-etudes-superieures/les-principales-filieres-d-etudes-superieures/les-but-bachelors-universitaires-de-technologie" target="_blank" className="text-foreground underline ml-2 hover:text-primary transition-colors">
-                      B.U.T Informatique @ [IUT NFC Belfort]
+                    <span className="text-primary">[✓ DONE]</span>
+                    <a href="https://www.univ-orleans.fr/fr/univ/international/athena-universite-europeenne/mobilites-virtuelles-et-hybrides/bip-blended-2" target="_blank" className="text-foreground underline ml-2 hover:text-primary transition-colors">
+                      Blended Intensive Program IA & robotic @ [Erasmus +] @ Oct 2025/Jan 2026
                     </a>
                   </div>
                   <div className="mt-6 font-mono text-sm">
