@@ -37,7 +37,7 @@ const Footer = () => {
                             <Terminal className="w-4 h-4 shrink-0"/>
                             <span className="font-mono text-xs sm:text-sm">
                                 <span
-                                    className="text-secondary-foreground">Author successfully updated ! (OLD: CLAUDE)</span>
+                                    className="text-secondary-foreground">Author successfully updated ! (OLD: CLAUDE) 🤡</span>
                   </span>
                         </div>
 
