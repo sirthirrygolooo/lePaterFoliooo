@@ -28,8 +28,13 @@ const Footer = () => {
                             </span>
               </div>
 
+              <div className="font-mono text-xs text-muted-foreground flex items-center gap-2">
+                <CheckCircle className="w-3 h-3 text-green-500 shrink-0" />
+                <span className="text-green-500">[BUILD STATUS]</span>
+                <span className="text-foreground"> (eh oui j'ai pas volé de template)</span>
+              </div>
+
               {/* 2. Statut de compilation/déploiement */}
-              <p> (eh oui j'ai pas volé de template)</p>
               <div className="font-mono text-xs text-muted-foreground flex items-center gap-2">
                 <CheckCircle className="w-3 h-3 text-green-500 shrink-0" />
                 <span className="text-green-500">[BUILD STATUS]</span>
