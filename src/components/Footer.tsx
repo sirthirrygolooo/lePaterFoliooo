@@ -24,7 +24,7 @@ const Footer = () => {
               <div className="flex items-center gap-2 text-primary">
                 <Terminal className="w-4 h-4 shrink-0" />
                 <span className="font-mono text-xs sm:text-sm">
-                                <span className="text-secondary-foreground">4RSI-portfolio</span>:<span className="text-foreground">/profile$ </span> <span className="text-primary">setAuthor --AUTHOR:</span>Jean-Baptiste (eh oui j'ai pas volé de template)
+                                <span className="text-secondary-foreground">4RSI-portfolio</span>:<span className="text-foreground">/profile$ </span> <span className="text-primary">setAuthor --AUTHOR=</span>"jean-baptiste" (eh oui j'ai pas volé de template)
                             </span>
               </div>
 
