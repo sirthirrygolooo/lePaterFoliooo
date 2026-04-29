@@ -24,11 +24,12 @@ const Footer = () => {
               <div className="flex items-center gap-2 text-primary">
                 <Terminal className="w-4 h-4 shrink-0" />
                 <span className="font-mono text-xs sm:text-sm">
-                                <span className="text-secondary-foreground">4RSI-portfolio</span>:<span className="text-foreground">/profile$ </span> <span className="text-primary">setAuthor --AUTHOR=</span>"jean-baptiste" (eh oui j'ai pas volé de template)
+                                <span className="text-secondary-foreground">4RSI-portfolio</span>:<span className="text-foreground">/profile$ </span> <span className="text-primary">setAuthor --AUTHOR=</span>"jean-baptiste"
                             </span>
               </div>
 
               {/* 2. Statut de compilation/déploiement */}
+              <p> (eh oui j'ai pas volé de template)</p>
               <div className="font-mono text-xs text-muted-foreground flex items-center gap-2">
                 <CheckCircle className="w-3 h-3 text-green-500 shrink-0" />
                 <span className="text-green-500">[BUILD STATUS]</span>
