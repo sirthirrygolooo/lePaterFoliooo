@@ -24,7 +24,7 @@ const Footer = () => {
               <div className="flex items-center gap-2 text-primary">
                 <Terminal className="w-4 h-4 shrink-0" />
                 <span className="font-mono text-xs sm:text-sm">
-                                <span className="text-secondary-foreground">4RSI-portfolio</span>:<span className="text-foreground">/profile$ </span> <span className="text-primary">AUTHOR:</span> FROEHLY Jean-Baptiste
+                                <span className="text-secondary-foreground">4RSI-portfolio</span>:<span className="text-foreground">/profile$ </span> <span className="text-primary">AUTHOR:</span> Jean-Baptiste (oui c'est pas claude oh)
                             </span>
               </div>
 

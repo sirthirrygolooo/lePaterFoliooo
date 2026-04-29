@@ -119,6 +119,7 @@ const About = () => {
 
                   <br></br>
                   <hr></hr>
+                  <br></br>
                   <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-primary font-mono">
                     <Code className="w-5 h-5" />
                     <span className="text-foreground">Portfolio.about.formations(jean_baptiste)</span>
